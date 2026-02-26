@@ -199,43 +199,143 @@
       background: var(--color-background-secondary);
       border: 1px solid var(--color-highlight-primary);
       border-radius: var(--radius-20);
-      padding: 24px;
+      padding: var(--space-60);
       margin-bottom: 48px;
     }
 
     .quick-start h2 {
       font-size: var(--font-size-heading-large);
       font-weight: var(--font-weight-bold);
-      margin-bottom: 16px;
+      margin-bottom: var(--space-40);
       color: var(--color-accent-teal);
     }
 
-    .quick-start h3 {
-      font-size: var(--font-size-heading-medium);
-      font-weight: var(--font-weight-semibold);
-      margin: 16px 0 8px;
-      color: var(--color-content-secondary);
+    .qs-accordion {
+      border: 1px solid var(--color-highlight-primary);
+      border-radius: var(--radius-15);
+      margin-bottom: var(--space-20);
+      background: var(--color-background-primary);
+      overflow: hidden;
     }
 
-    .quick-start p {
+    .qs-accordion:last-child { margin-bottom: 0; }
+
+    .qs-accordion[open] { border-color: var(--color-highlight-secondary); }
+
+    .qs-summary {
+      display: flex;
+      align-items: center;
+      gap: var(--space-20);
+      padding: var(--space-30) var(--space-40);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      transition: background var(--duration-fast) var(--easing-default);
+    }
+
+    .qs-summary::-webkit-details-marker { display: none; }
+    .qs-summary::marker { content: ''; }
+
+    .qs-summary:hover { background: var(--color-highlight-primary); }
+
+    .qs-summary-title {
+      font-size: var(--font-size-heading-small);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-primary);
+      white-space: nowrap;
+    }
+
+    .qs-summary-desc {
+      font-size: var(--font-size-body-small);
+      color: var(--color-content-tertiary);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .qs-chevron {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--color-content-tertiary);
+      transition: transform var(--duration-fast) var(--easing-default);
+    }
+
+    .qs-accordion[open] .qs-chevron { transform: rotate(180deg); }
+
+    .qs-content {
+      padding: 0 var(--space-40) var(--space-40);
+      border-top: 1px solid var(--color-highlight-primary);
+    }
+
+    .qs-content p {
       font-size: var(--font-size-body-medium);
       color: var(--color-content-secondary);
-      margin-bottom: 8px;
+      margin: var(--space-30) 0 var(--space-20);
     }
 
-    .quick-start pre {
+    .qs-content p:first-child { margin-top: var(--space-40); }
+
+    .qs-content pre {
       background: var(--color-background-tertiary);
       border-radius: var(--radius-10);
-      padding: 12px 16px;
+      padding: var(--space-30) var(--space-40);
       overflow-x: auto;
-      margin-bottom: 12px;
+      margin-bottom: var(--space-30);
     }
 
-    .quick-start code {
+    .qs-content pre:last-child { margin-bottom: 0; }
+
+    .qs-content code {
       font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
       font-size: 11px;
       color: var(--color-content-secondary);
       line-height: 1.6;
+    }
+
+    .qs-content p code {
+      background: var(--color-background-tertiary);
+      padding: 1px var(--space-10);
+      border-radius: var(--radius-05);
+    }
+
+    .qs-content strong {
+      color: var(--color-content-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .qs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-40);
+      font-size: var(--font-size-body-medium);
+    }
+
+    .qs-table th {
+      text-align: left;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-tertiary);
+      font-size: var(--font-size-body-small);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-10) var(--space-20);
+      border-bottom: 1px solid var(--color-highlight-primary);
+    }
+
+    .qs-table td {
+      padding: var(--space-20);
+      color: var(--color-content-secondary);
+      border-bottom: 1px solid var(--color-highlight-primary);
+    }
+
+    .qs-table tr:last-child td { border-bottom: none; }
+
+    .qs-table td code {
+      font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+      font-size: 11px;
+      color: var(--color-accent-teal);
     }
 
     .details-content {
@@ -763,20 +863,103 @@
   <main class="main">
 
     <!-- ════════ QUICK START ════════ -->
+    <!-- Content mirrors README.md "Quick Start" section. When updating, sync both files. -->
     <section class="quick-start" id="quick-start">
       <h2>Quick Start</h2>
 
-      <h3>Reference Mode (no setup)</h3>
-      <p>Paste this URL in your Claude Code prompt:</p>
-      <pre><code>Use the Airtime design system from https://github.com/dairien/airtime-design-system</code></pre>
+      <details class="qs-accordion">
+        <summary class="qs-summary">
+          <span class="qs-summary-title">Example Prompts</span>
+          <span class="qs-summary-desc">Paste these directly into Claude Code</span>
+          <svg class="qs-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="qs-content">
+          <p><strong>Apply to an existing interface:</strong></p>
+          <pre><code>Apply the Airtime design system from https://github.com/dairien/airtime-design-system</code></pre>
+          <p><strong>Redesign an existing interface:</strong></p>
+          <pre><code>Re-design this using Airtime design system from https://github.com/dairien/airtime-design-system</code></pre>
+          <p><strong>Create something new:</strong></p>
+          <pre><code>Create a new settings panel using Airtime design system from https://github.com/dairien/airtime-design-system</code></pre>
+          <p>Claude Code will read the <code>CLAUDE.md</code> file from the repository and apply the system's tokens, constraints, anti-patterns, and component patterns automatically.</p>
+        </div>
+      </details>
 
-      <h3>Local Mode</h3>
-      <p>Clone the repo and reference it from your project:</p>
-      <pre><code>git clone https://github.com/dairien/airtime-design-system.git</code></pre>
-      <p>Add this to your project's <code>CLAUDE.md</code>:</p>
-      <pre><code>## Design System
+      <details class="qs-accordion">
+        <summary class="qs-summary">
+          <span class="qs-summary-title">Setup: Reference Mode</span>
+          <span class="qs-summary-desc">No setup required — include the URL in your prompt</span>
+          <svg class="qs-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="qs-content">
+          <p>Just include the GitHub URL in your prompt. Claude Code will fetch the design system files directly from the repository each session. This is the simplest approach — no local files needed.</p>
+          <pre><code>Use the Airtime design system from https://github.com/dairien/airtime-design-system</code></pre>
+        </div>
+      </details>
+
+      <details class="qs-accordion">
+        <summary class="qs-summary">
+          <span class="qs-summary-title">Setup: Clone Locally</span>
+          <span class="qs-summary-desc">Recommended for repeated use</span>
+          <svg class="qs-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="qs-content">
+          <p>Clone the design system alongside your project:</p>
+          <pre><code>git clone https://github.com/dairien/airtime-design-system.git</code></pre>
+          <p>Then copy the design system files into your project:</p>
+          <pre><code>cp -r airtime-design-system/generated/ your-project/design-system/generated/
+cp -r airtime-design-system/components/ your-project/design-system/components/
+cp -r airtime-design-system/tokens/ your-project/design-system/tokens/
+cp airtime-design-system/CLAUDE.md your-project/design-system/CLAUDE.md</code></pre>
+          <p>Or reference it as a sibling directory by adding this to your project's <code>CLAUDE.md</code>:</p>
+          <pre><code>## Design System
 Apply the Airtime design system from `../airtime-design-system/`.
 Load `CLAUDE.md` from that repo for token values, anti-patterns, and component inventory.</code></pre>
+        </div>
+      </details>
+
+      <details class="qs-accordion">
+        <summary class="qs-summary">
+          <span class="qs-summary-title">Key Files</span>
+          <span class="qs-summary-desc">Which files to use and what they do</span>
+          <svg class="qs-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="qs-content">
+          <table class="qs-table">
+            <thead><tr><th>File</th><th>What It Does</th></tr></thead>
+            <tbody>
+              <tr><td><code>CLAUDE.md</code></td><td>AI instructions — token reference, anti-patterns, component inventory</td></tr>
+              <tr><td><code>generated/tokens.css</code></td><td>CSS custom properties — link this in your HTML</td></tr>
+              <tr><td><code>components/*.css</code></td><td>Component styles — import the ones you need</td></tr>
+              <tr><td><code>generated/icons.js</code></td><td>742 SVG icons via <code>AppIcons</code> object</td></tr>
+              <tr><td><code>generated/.design-rules.json</code></td><td>Machine-readable anti-pattern rules</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details class="qs-accordion">
+        <summary class="qs-summary">
+          <span class="qs-summary-title">Using the CSS & Skills</span>
+          <span class="qs-summary-desc">Link stylesheets and use slash commands</span>
+          <svg class="qs-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="qs-content">
+          <p>Link the token stylesheet and any component styles in your HTML:</p>
+          <pre><code>&lt;link rel="stylesheet" href="design-system/generated/tokens.css"&gt;
+&lt;link rel="stylesheet" href="design-system/components/button.css"&gt;
+&lt;link rel="stylesheet" href="design-system/components/input.css"&gt;
+&lt;!-- add other component files as needed --&gt;</code></pre>
+          <p>Then use any of the 7 skills:</p>
+          <pre><code>/apply-tokens          Restyle existing UI with tokens
+/frontend-design       Generate new interfaces
+/generate-tokens       Compile token JSON into CSS
+/figma-to-tokens       Extract tokens from Figma
+/audit-ux              Design critique
+/audit-accessibility   WCAG compliance check
+/audit-design-system   Token coverage report</code></pre>
+        </div>
+      </details>
+
     </section>
 
     <!-- ════════ COLORS ════════ -->
