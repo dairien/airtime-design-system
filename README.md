@@ -20,23 +20,57 @@ All tokens, components, and icons are documented in a single `index.html` contac
 
 ## Quick Start
 
-### Reference Mode (no setup required)
+### Example Prompts
 
-Paste this in your Claude Code prompt:
+Paste any of these directly into Claude Code:
 
+**Apply to an existing interface:**
 ```
-Use the Airtime design system from https://github.com/dairien/airtime-design-system
+Apply the Airtime design system from https://github.com/dairien/airtime-design-system
 ```
 
-Claude Code will read the `CLAUDE.md` file and apply the system's tokens, constraints, and component patterns to your project.
+**Redesign an existing interface:**
+```
+Re-design this using Airtime design system from https://github.com/dairien/airtime-design-system
+```
 
-### Local Mode
+**Create something new:**
+```
+Create a new settings panel using Airtime design system from https://github.com/dairien/airtime-design-system
+```
+
+Claude Code will read the `CLAUDE.md` file from the repository and apply the system's tokens, constraints, anti-patterns, and component patterns automatically.
+
+---
+
+### Setup
+
+Choose one of two approaches depending on your workflow:
+
+#### Option A: Reference the Repository (no setup required)
+
+Just include the GitHub URL in your prompt as shown above. Claude Code will fetch the design system files directly from the repository each session. This is the simplest approach — no local files needed.
+
+#### Option B: Clone Locally (recommended for repeated use)
+
+Clone the design system alongside your project:
 
 ```bash
+# From your workspaces directory
 git clone https://github.com/dairien/airtime-design-system.git
 ```
 
-Add this to your project's `CLAUDE.md`:
+Then copy the design system files into your project:
+
+```bash
+# Copy everything into your project
+cp -r airtime-design-system/generated/ your-project/design-system/generated/
+cp -r airtime-design-system/components/ your-project/design-system/components/
+cp -r airtime-design-system/tokens/ your-project/design-system/tokens/
+cp airtime-design-system/CLAUDE.md your-project/design-system/CLAUDE.md
+```
+
+Or reference it as a sibling directory by adding this to your project's `CLAUDE.md`:
 
 ```markdown
 ## Design System
@@ -44,10 +78,31 @@ Apply the Airtime design system from `../airtime-design-system/`.
 Load `CLAUDE.md` from that repo for token values, anti-patterns, and component inventory.
 ```
 
+#### Key Files
+
+| File | What It Does |
+|------|-------------|
+| `CLAUDE.md` | AI instructions — token reference, anti-patterns, component inventory |
+| `generated/tokens.css` | CSS custom properties — link this in your HTML |
+| `components/*.css` | Component styles — import the ones you need |
+| `generated/icons.js` | 742 SVG icons via `AppIcons` object |
+| `generated/.design-rules.json` | Machine-readable anti-pattern rules |
+
+#### Using the CSS
+
+Link the token stylesheet and any component styles in your HTML:
+
+```html
+<link rel="stylesheet" href="design-system/generated/tokens.css">
+<link rel="stylesheet" href="design-system/components/button.css">
+<link rel="stylesheet" href="design-system/components/input.css">
+<!-- add other component files as needed -->
+```
+
 Then use any of the 7 skills:
 
 ```
-/apply-tokens     # Restyle existing UI
+/apply-tokens     # Restyle existing UI with tokens
 /frontend-design  # Generate new interfaces
 /audit-ux         # Design critique
 ```
