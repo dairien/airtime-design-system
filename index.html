@@ -60,40 +60,6 @@
       color: var(--color-content-primary);
     }
 
-    .sidebar-meta {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      border-bottom: 1px solid var(--color-highlight-primary);
-    }
-
-    .sidebar-stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1px;
-      padding: var(--space-15) 0;
-    }
-
-    .sidebar-stat + .sidebar-stat {
-      border-left: 1px solid var(--color-highlight-primary);
-    }
-
-    .sidebar-stat-num {
-      font-size: var(--font-size-heading-medium);
-      font-weight: var(--font-weight-bold);
-      line-height: 1;
-      color: var(--color-accent-teal);
-    }
-
-    .sidebar-stat-label {
-      font-size: 9px;
-      line-height: 1;
-      color: var(--color-content-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-weight: var(--font-weight-medium);
-    }
-
     .nav-section-label {
       font-size: 10px;
       font-weight: var(--font-weight-semibold);
@@ -139,10 +105,13 @@
     .sidebar-footer {
       padding: 12px;
       border-top: 1px solid var(--color-highlight-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    /* ── Theme toggle ── */
-    .theme-toggle {
+    /* ── Sidebar footer buttons ── */
+    .sidebar-footer-btn {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -155,15 +124,16 @@
       font-family: var(--font-family-primary);
       font-size: var(--font-size-body-medium);
       cursor: pointer;
+      text-decoration: none;
       transition: background var(--duration-fast) var(--easing-default);
     }
 
-    .theme-toggle:hover {
+    .sidebar-footer-btn:hover {
       background: var(--color-highlight-primary);
       color: var(--color-content-primary);
     }
 
-    .theme-toggle-icon {
+    .sidebar-footer-btn svg {
       width: 14px;
       height: 14px;
       flex-shrink: 0;
@@ -224,15 +194,6 @@
       scroll-margin-top: 70px;
     }
 
-    .section-title {
-      font-size: 24px;
-      font-weight: var(--font-weight-bold);
-      color: var(--color-content-primary);
-      margin: 0 0 24px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--color-highlight-primary);
-    }
-
     /* ── Quick start ── */
     .quick-start {
       background: var(--color-background-secondary);
@@ -277,35 +238,24 @@
       line-height: 1.6;
     }
 
-    /* ── Details/summary (collapsible sections) ── */
-    details {
+    .details-content {
+      padding: 16px;
+    }
+
+    /* ── Section heading (non-collapsible token sections) ── */
+    .section-heading {
+      font-size: var(--font-size-heading-medium);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-primary);
+      padding: 12px 16px;
+      padding-bottom: 8px;
+    }
+
+    .section-block {
       margin-bottom: 24px;
       border: 1px solid var(--color-highlight-primary);
       border-radius: var(--radius-15);
       overflow: hidden;
-    }
-
-    summary {
-      padding: 12px 16px;
-      font-size: var(--font-size-heading-medium);
-      font-weight: var(--font-weight-semibold);
-      color: var(--color-content-primary);
-      cursor: pointer;
-      background: var(--color-background-secondary);
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      user-select: none;
-    }
-
-    summary::-webkit-details-marker { display: none; }
-    summary::before { content: '\25B6'; font-size: 10px; color: var(--color-content-tertiary); transition: transform var(--duration-fast) var(--easing-default); }
-    details[open] > summary::before { transform: rotate(90deg); }
-    summary:hover { background: var(--color-highlight-primary); }
-
-    .details-content {
-      padding: 16px;
     }
 
     /* ── Subsection label ── */
@@ -573,6 +523,33 @@
     .icon-img svg { display: block; width: 100%; height: 100%; }
 
     /* ── Icon browser ── */
+    .icon-toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-20);
+      margin-bottom: var(--space-20);
+      flex-wrap: wrap;
+    }
+
+    .icon-toolbar .icon-search {
+      flex: 1;
+      min-width: 180px;
+      margin-bottom: 0;
+    }
+
+    .icon-toolbar-controls {
+      display: flex;
+      gap: var(--space-10);
+      align-items: center;
+    }
+
+    .segmented-sm .segmented-item {
+      height: 20px;
+      padding: 1px var(--space-15);
+      font-size: var(--font-size-body-small);
+      line-height: var(--line-height-body-small);
+    }
+
     .icon-search {
       width: 100%;
       padding: 10px 16px;
@@ -609,17 +586,28 @@
     }
 
     .icon-cell:hover { background: var(--color-background-tertiary); }
+    .icon-cell.icon-fallback { opacity: 0.5; }
 
     .icon-preview {
-      width: 24px;
-      height: 24px;
       color: var(--color-content-primary);
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: width var(--duration-fast) var(--easing-default),
+                  height var(--duration-fast) var(--easing-default);
     }
 
-    .icon-preview svg { width: 24px; height: 24px; }
+    .icon-preview,
+    .icon-preview svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .icon-preview.icon-size-16,
+    .icon-preview.icon-size-16 svg {
+      width: 16px;
+      height: 16px;
+    }
 
     .icon-name {
       font-size: 10px;
@@ -627,6 +615,12 @@
       color: var(--color-content-primary);
       line-height: 1.2;
       word-break: break-word;
+    }
+
+    .icon-actions {
+      display: flex;
+      justify-content: center;
+      padding: var(--space-30) 0;
     }
 
     /* ── Scroll demo ── */
@@ -713,21 +707,6 @@
       </div>
     </div>
 
-    <div class="sidebar-meta">
-      <div class="sidebar-stat">
-        <span class="sidebar-stat-num">128</span>
-        <span class="sidebar-stat-label">tokens</span>
-      </div>
-      <div class="sidebar-stat">
-        <span class="sidebar-stat-num">94</span>
-        <span class="sidebar-stat-label">variants</span>
-      </div>
-      <div class="sidebar-stat">
-        <span class="sidebar-stat-num">742</span>
-        <span class="sidebar-stat-label">icons</span>
-      </div>
-    </div>
-
     <nav class="sidebar-nav" aria-label="Sections">
       <p class="nav-section-label">Getting Started</p>
       <a class="nav-link active" href="#quick-start">Quick Start</a>
@@ -754,13 +733,19 @@
     </nav>
 
     <div class="sidebar-footer">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-        <svg class="theme-toggle-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button class="sidebar-footer-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="8" cy="8" r="3" fill="currentColor"/>
           <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <span id="theme-label">Light mode</span>
       </button>
+      <a class="sidebar-footer-btn" href="https://github.com/dairien/airtime-design-system" target="_blank" rel="noopener" aria-label="GitHub repository">
+        <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
     </div>
   </aside>
 
@@ -796,8 +781,8 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
 
     <!-- ════════ COLORS ════════ -->
     <section class="section" id="colors">
-      <details open>
-        <summary>Colors</summary>
+      <div class="section-block">
+        <h3 class="section-heading">Colors</h3>
         <div class="details-content">
           <p class="subsection-label">Themed Colors</p>
           <div class="swatch-grid">
@@ -824,13 +809,13 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
             <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-modeless-destructive)"></div><div class="cs-swatch-label"><strong>destructive</strong>--color-modeless-destructive</div></div>
           </div>
         </div>
-      </details>
+      </div>
     </section>
 
     <!-- ════════ TYPOGRAPHY ════════ -->
     <section class="section" id="typography">
-      <details open>
-        <summary>Typography</summary>
+      <div class="section-block">
+        <h3 class="section-heading">Typography</h3>
         <div class="details-content">
           <div class="type-samples">
             <div class="type-row"><div class="sample" style="font-size:var(--font-size-heading-large);font-weight:var(--font-weight-heading-large);line-height:var(--line-height-heading-large)">Heading Large</div><div class="details">16px / 24px / 700</div></div>
@@ -842,13 +827,13 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
             <div class="type-row"><div class="sample" style="font-size:var(--font-size-button-default);font-weight:var(--font-weight-button-default);line-height:var(--line-height-button-default)">Button Default</div><div class="details">12px / 16px / 500</div></div>
           </div>
         </div>
-      </details>
+      </div>
     </section>
 
     <!-- ════════ SPACING & SIZING ════════ -->
     <section class="section" id="spacing">
-      <details>
-        <summary>Spacing & Sizing</summary>
+      <div class="section-block">
+        <h3 class="section-heading">Spacing & Sizing</h3>
         <div class="details-content">
           <p class="subsection-label">Spacing</p>
           <div class="bar-list" style="margin-bottom:24px">
@@ -885,13 +870,13 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
             <div class="bar-row"><span class="bar-label">--size-200</span><div class="bar" style="width:80px"></div><span class="bar-value">80px</span></div>
           </div>
         </div>
-      </details>
+      </div>
     </section>
 
     <!-- ════════ RADII ════════ -->
     <section class="section" id="radii">
-      <details>
-        <summary>Radii</summary>
+      <div class="section-block">
+        <h3 class="section-heading">Radii</h3>
         <div class="details-content">
           <div class="radii-grid">
             <div class="radius-box" style="border-radius:var(--radius-0)"><span class="radius-name">0</span>0</div>
@@ -913,13 +898,13 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
             <div class="radius-box" style="border-radius:var(--radius-9999)"><span class="radius-name">9999</span>pill</div>
           </div>
         </div>
-      </details>
+      </div>
     </section>
 
     <!-- ════════ SHADOWS ════════ -->
     <section class="section" id="shadows">
-      <details>
-        <summary>Shadows</summary>
+      <div class="section-block">
+        <h3 class="section-heading">Shadows</h3>
         <div class="details-content">
           <div class="shadow-grid">
             <div class="shadow-box" style="box-shadow:var(--shadow-small)"><div class="shadow-name">shadow-small</div><div class="shadow-value">0 1px 3px</div></div>
@@ -927,13 +912,13 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
             <div class="shadow-box" style="box-shadow:var(--shadow-large)"><div class="shadow-name">shadow-large</div><div class="shadow-value">0 8px 24px</div></div>
           </div>
         </div>
-      </details>
+      </div>
     </section>
 
     <!-- ════════ BORDERS, OPACITY, Z-INDEX, TRANSITIONS ════════ -->
     <section class="section" id="misc">
-      <details>
-        <summary>Borders, Opacity, Z-index, Transitions</summary>
+      <div class="section-block">
+        <h3 class="section-heading">Borders, Opacity, Z-index, Transitions</h3>
         <div class="details-content">
           <div class="table-grid">
             <div>
@@ -995,12 +980,14 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
             </div>
           </div>
         </div>
-      </details>
+      </div>
     </section>
 
     <!-- ════════ BUTTONS ════════ -->
     <section class="section" id="buttons">
-      <h2 class="section-title">Buttons</h2>
+      <div class="section-block">
+        <h3 class="section-heading">Buttons</h3>
+        <div class="details-content">
       <div class="group">
         <p class="group-title">Variants</p>
         <div class="variants">
@@ -1032,11 +1019,15 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
           <div class="variant"><span class="variant-label">Disabled</span><div class="variant-preview"><button class="btn btn-primary" disabled>Button</button><button class="btn btn-secondary" disabled>Button</button></div></div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- ════════ INPUTS ════════ -->
     <section class="section" id="inputs">
-      <h2 class="section-title">Inputs</h2>
+      <div class="section-block">
+        <h3 class="section-heading">Inputs</h3>
+        <div class="details-content">
       <div class="group">
         <p class="group-title">Direct input</p>
         <div class="variants">
@@ -1062,11 +1053,15 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
           <div class="variant"><span class="variant-label">Opacity</span><div class="input-split" style="width:80px"><input class="input-split-segment" type="text" value="75" aria-label="Opacity"><div class="input-split-label">%</div></div></div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- ════════ CONTROLS ════════ -->
     <section class="section" id="controls">
-      <h2 class="section-title">Controls</h2>
+      <div class="section-block">
+        <h3 class="section-heading">Controls</h3>
+        <div class="details-content">
       <div class="group">
         <p class="group-title">Segmented Control</p>
         <div class="variants">
@@ -1117,11 +1112,15 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
           <div class="variant"><span class="variant-label">Closed</span><div class="dropdown"><button class="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" onclick="toggleDropdown(this)"><span>Option A</span><div class="dropdown-chevron icon-img" data-icon="ChevronDownSmall_Stroke_16"></div></button><ul class="dropdown-menu" hidden><li class="dropdown-item" onclick="selectDropdownItem(this, 'Option A')">Option A</li><li class="dropdown-item" onclick="selectDropdownItem(this, 'Option B')">Option B</li><li class="dropdown-item" onclick="selectDropdownItem(this, 'Option C')">Option C</li></ul></div></div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- ════════ ROWS ════════ -->
     <section class="section" id="rows">
-      <h2 class="section-title">Rows</h2>
+      <div class="section-block">
+        <h3 class="section-heading">Rows</h3>
+        <div class="details-content">
       <div class="group">
         <p class="group-title">Default Row</p>
         <div style="width:260px;display:flex;flex-direction:column;gap:4px">
@@ -1148,20 +1147,28 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
           <div class="row-account"><img class="row-account-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23556677'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-size='14' font-family='sans-serif'%3ETR%3C/text%3E%3C/svg%3E" alt="Tyler Reynolds"><div class="row-account-info"><span class="row-account-name">Tyler Reynolds</span><span class="row-account-email">tyler@all-turtles.com</span></div><div class="row-icon-right icon-img" data-icon="ChevronForward_Stroke_16"></div></div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- ════════ MENUS ════════ -->
     <section class="section" id="menus">
-      <h2 class="section-title">Menus</h2>
+      <div class="section-block">
+        <h3 class="section-heading">Menus</h3>
+        <div class="details-content">
       <div class="variants" style="align-items:flex-start">
         <div class="variant"><span class="variant-label">Default menu</span><ul class="menu" role="menu"><li class="row" role="menuitem"><div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div><span>Option 1</span></li><li class="row" role="menuitem"><div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div><span>Option 2</span></li><li class="menu-divider" role="separator"></li><li class="row row-destructive" role="menuitem"><div class="row-icon-left icon-img" data-icon="Trash_Fill_16"></div><span>Delete</span></li></ul></div>
         <div class="variant"><span class="variant-label">Account menu</span><div class="menu menu-account" role="dialog" aria-label="Account menu"><div class="row-account"><img class="row-account-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23556677'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-size='14' font-family='sans-serif'%3ETR%3C/text%3E%3C/svg%3E" alt="Tyler Reynolds"><div class="row-account-info"><span class="row-account-name">Tyler Reynolds</span><span class="row-account-email">tyler@all-turtles.com</span></div></div><div class="menu-divider"></div><button class="row"><span>Manage Business</span><div class="row-icon-right icon-img" data-icon="ChevronForwardSmall_Stroke_16"></div></button><button class="row"><span>Account settings</span></button><div class="menu-divider"></div><button class="row row-destructive"><span>Sign out</span></button></div></div>
+      </div>
+        </div>
       </div>
     </section>
 
     <!-- ════════ EDUCATION ════════ -->
     <section class="section" id="education">
-      <h2 class="section-title">Education</h2>
+      <div class="section-block">
+        <h3 class="section-heading">Education</h3>
+        <div class="details-content">
       <div class="group">
         <p class="group-title">Coach Mark</p>
         <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
@@ -1179,11 +1186,15 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
           <div class="variant"><span class="variant-label">left</span><div style="padding-left:8px"><div class="tooltip" data-arrow="left">Helper text</div></div></div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- ════════ OTHERS ════════ -->
     <section class="section" id="others">
-      <h2 class="section-title">Others</h2>
+      <div class="section-block">
+        <h3 class="section-heading">Others</h3>
+        <div class="details-content">
       <div class="group">
         <p class="group-title">Badge</p>
         <div class="variants">
@@ -1205,20 +1216,38 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
           <div class="variant"><span class="variant-label">Strong (H)</span><div style="width:180px"><div class="scrollbar scrollbar-strong"><div class="scrollbar-thumb scrollbar-strong-thumb" style="width:40%"></div></div></div></div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- ════════ ICONS ════════ -->
     <section class="section" id="icons">
-      <h2 class="section-title">Icons</h2>
+      <div class="section-block">
+        <h3 class="section-heading">Icons</h3>
+        <div class="details-content">
       <p class="subsection-label" style="margin-bottom:16px">221 unique icons &middot; 742 variants &middot; Fill + Stroke styles &middot; 16px / 24px sizes</p>
 
-      <input class="icon-search" type="text" placeholder="Search icons by name..." id="icon-search-input" oninput="filterIcons(this.value)">
+      <div class="icon-toolbar">
+        <input class="icon-search" type="text" placeholder="Search icons..." id="icon-search-input" oninput="filterIcons(this.value)">
+        <div class="icon-toolbar-controls">
+          <div class="segmented segmented-sm" id="icon-style-toggle" role="group" aria-label="Icon style">
+            <button class="segmented-item active" onclick="setIconStyle(this, 'Stroke')">Stroke</button>
+            <button class="segmented-item" onclick="setIconStyle(this, 'Fill')">Fill</button>
+          </div>
+          <div class="segmented segmented-sm" id="icon-size-toggle" role="group" aria-label="Icon size">
+            <button class="segmented-item active" onclick="setIconSize(this, '16')">16</button>
+            <button class="segmented-item" onclick="setIconSize(this, '24')">24</button>
+          </div>
+        </div>
+      </div>
 
       <div class="icon-grid" id="icon-grid"></div>
 
-      <p style="margin-top:16px;font-size:var(--font-size-body-small);color:var(--color-content-tertiary)">
-        Showing most-used icons. Full set: 742 variants available in <code>generated/icons.js</code>
-      </p>
+      <div class="icon-actions">
+        <button class="btn btn-secondary" id="icon-toggle-all" onclick="toggleAllIcons()">See All Icons</button>
+      </div>
+        </div>
+      </div>
     </section>
 
     <!-- ── Footer ── -->
@@ -1326,80 +1355,129 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
 
     /* ── Icon browser ── */
     var FEATURED_ICONS = [
-      'Checkmark', 'Plus', 'Search', 'Close', 'Settings', 'Trash',
-      'ChevronForward', 'ChevronBack', 'ChevronDown', 'ChevronUp',
-      'ChevronForwardSmall', 'ChevronBackSmall', 'ChevronDownSmall', 'ChevronUpSmall',
-      'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
-      'Download', 'Upload', 'Share', 'Copy', 'Edit', 'More',
-      'Eye', 'EyeOff', 'Lock', 'Unlock', 'Bell', 'Star',
-      'Heart', 'Play', 'Pause', 'Stop', 'Record',
-      'Mic', 'MicOff', 'Camera', 'CameraOff', 'Screen',
-      'Folder', 'File', 'Image', 'Link', 'AddLink',
-      'Undo', 'Redo', 'Refresh', 'Filter', 'Sort',
-      'Home', 'User', 'Users', 'Calendar', 'Clock'
+      'Checkmark', 'Plus', 'Xmark', 'Search', 'Gear', 'Trash',
+      'ChevronForward', 'ChevronBackward', 'ChevronDown', 'ChevronUp',
+      'ChevronForwardSmall', 'ChevronBackwardSmall', 'ChevronDownSmall', 'ChevronUpSmall',
+      'ArrowUpRight', 'ArrowUpLine',
+      'Download', 'UploadClassic', 'Share', 'CopyToClipboard', 'Pencil', 'More',
+      'Eye', 'NoEye', 'Lock', 'Bell', 'Heart', 'ShapeStar',
+      'PlayerPlay', 'PlayerPause', 'PlayerStop', 'Record',
+      'Mic', 'NoMic', 'Cam', 'Video', 'ShareScreen',
+      'Folder', 'Doc', 'Link', 'AddLink', 'Globe',
+      'Undo', 'Redo', 'Sync', 'Sliders', 'Expand',
+      'Home', 'User', 'TwoPeople', 'Team', 'Watch',
+      'Crown', 'Briefcase', 'CreditCard', 'Telephone',
+      'Pin', 'Ticket'
     ];
 
-    var allIconEntries = [];
+    /* State */
+    var showingAllIcons = false;
+    var currentIconStyle = 'Stroke';
+    var currentIconSize = '16';
+    var featuredBaseNames = [];
+    var allBaseNames = [];
+
+    /* Deduplicate all icon keys into sorted unique base names */
+    function computeAllBaseNames() {
+      if (typeof AppIcons === 'undefined') return [];
+      var seen = {};
+      Object.keys(AppIcons).forEach(function(k) {
+        var base = k.replace(/_(Fill|Stroke)_\d+$/, '');
+        seen[base] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+
+    /* Resolve variant key for a base name using current style/size.
+       Returns { key, isFallback } */
+    function resolveVariant(baseName) {
+      if (typeof AppIcons === 'undefined') return { key: null, isFallback: false };
+
+      /* Preferred: exact match */
+      var preferred = baseName + '_' + currentIconStyle + '_' + currentIconSize;
+      if (AppIcons[preferred]) return { key: preferred, isFallback: false };
+
+      /* Fallback 1: same style, alternate size */
+      var altSize = currentIconSize === '16' ? '24' : '16';
+      var fb1 = baseName + '_' + currentIconStyle + '_' + altSize;
+      if (AppIcons[fb1]) return { key: fb1, isFallback: true };
+
+      /* Fallback 2: alternate style, preferred size */
+      var altStyle = currentIconStyle === 'Stroke' ? 'Fill' : 'Stroke';
+      var fb2 = baseName + '_' + altStyle + '_' + currentIconSize;
+      if (AppIcons[fb2]) return { key: fb2, isFallback: true };
+
+      /* Fallback 3: alternate style, alternate size */
+      var fb3 = baseName + '_' + altStyle + '_' + altSize;
+      if (AppIcons[fb3]) return { key: fb3, isFallback: true };
+
+      /* Fallback 4: try size 20 with both styles */
+      var fb4a = baseName + '_' + currentIconStyle + '_20';
+      if (AppIcons[fb4a]) return { key: fb4a, isFallback: true };
+      var fb4b = baseName + '_' + altStyle + '_20';
+      if (AppIcons[fb4b]) return { key: fb4b, isFallback: true };
+
+      /* Fallback 5: any key starting with the base name */
+      var allKeys = Object.keys(AppIcons);
+      for (var i = 0; i < allKeys.length; i++) {
+        if (allKeys[i].indexOf(baseName) === 0) return { key: allKeys[i], isFallback: true };
+      }
+
+      return { key: null, isFallback: false };
+    }
+
+    /* Get the active base name list depending on mode */
+    function getActiveBaseNames() {
+      return showingAllIcons ? allBaseNames : featuredBaseNames;
+    }
 
     function buildIconGrid() {
       if (typeof AppIcons === 'undefined') return;
 
-      var grid = document.getElementById('icon-grid');
-      var allNames = Object.keys(AppIcons);
-      var shown = {};
+      /* Compute all unique base names */
+      allBaseNames = computeAllBaseNames();
 
-      /* Show featured icons first (find best variant for each) */
-      FEATURED_ICONS.forEach(function(base) {
-        /* Try Stroke_16, then Fill_16, then any match */
-        var candidates = [
-          base + '_Stroke_16',
-          base + '_Fill_16',
-          base + '_Stroke_24',
-          base + '_Fill_24'
-        ];
+      /* Build featured list (preserving FEATURED_ICONS order) */
+      var allKeys = Object.keys(AppIcons);
+      var baseSet = {};
+      allBaseNames.forEach(function(b) { baseSet[b] = true; });
 
-        var found = null;
-        for (var i = 0; i < candidates.length; i++) {
-          if (AppIcons[candidates[i]]) { found = candidates[i]; break; }
-        }
-
-        if (!found) {
-          /* Fallback: find any key starting with the base name */
-          for (var j = 0; j < allNames.length; j++) {
-            if (allNames[j].indexOf(base) === 0) { found = allNames[j]; break; }
-          }
-        }
-
-        if (found && !shown[base]) {
-          shown[base] = true;
-          allIconEntries.push({ base: base, variant: found });
-        }
+      featuredBaseNames = [];
+      FEATURED_ICONS.forEach(function(name) {
+        if (baseSet[name]) featuredBaseNames.push(name);
       });
 
-      renderIconEntries(allIconEntries);
+      /* Update toggle button count */
+      var toggleBtn = document.getElementById('icon-toggle-all');
+      if (toggleBtn) toggleBtn.textContent = 'See All ' + allBaseNames.length + ' Icons';
+
+      renderIcons(getActiveBaseNames());
     }
 
-    function renderIconEntries(entries) {
+    function renderIcons(baseNames) {
       var grid = document.getElementById('icon-grid');
       grid.innerHTML = '';
+      var sizeClass = 'icon-size-' + currentIconSize;
+      var sizePx = currentIconSize + 'px';
 
-      entries.forEach(function(entry) {
+      baseNames.forEach(function(baseName) {
+        var resolved = resolveVariant(baseName);
+        if (!resolved.key) return;
+
         var cell = document.createElement('div');
-        cell.className = 'icon-cell';
-        cell.dataset.name = entry.base.toLowerCase();
+        cell.className = 'icon-cell' + (resolved.isFallback ? ' icon-fallback' : '');
+        cell.dataset.name = baseName.toLowerCase();
 
         var preview = document.createElement('div');
-        preview.className = 'icon-preview';
-        if (AppIcons[entry.variant]) {
-          var svg = AppIcons[entry.variant]();
-          svg.style.width = '24px';
-          svg.style.height = '24px';
-          preview.appendChild(svg);
-        }
+        preview.className = 'icon-preview ' + sizeClass;
+        var svg = AppIcons[resolved.key]();
+        svg.style.width = sizePx;
+        svg.style.height = sizePx;
+        preview.appendChild(svg);
 
         var name = document.createElement('div');
         name.className = 'icon-name';
-        name.textContent = entry.base;
+        name.textContent = baseName;
 
         cell.appendChild(preview);
         cell.appendChild(name);
@@ -1410,33 +1488,126 @@ Load `CLAUDE.md` from that repo for token values, anti-patterns, and component i
     function filterIcons(query) {
       var q = query.toLowerCase().trim();
       if (!q) {
-        renderIconEntries(allIconEntries);
+        renderIcons(getActiveBaseNames());
         return;
       }
 
-      /* Search all AppIcons keys */
       if (typeof AppIcons === 'undefined') return;
-      var allNames = Object.keys(AppIcons);
-      var results = [];
-      var seen = {};
 
-      allNames.forEach(function(fullName) {
-        if (fullName.toLowerCase().indexOf(q) === -1) return;
-        /* Extract base name */
-        var base = fullName.replace(/_(?:Fill|Stroke)_\d+$/, '');
-        if (seen[base]) return;
-        seen[base] = true;
-        results.push({ base: base, variant: fullName });
+      /* Filter the active list by query */
+      var source = getActiveBaseNames();
+      var results = source.filter(function(baseName) {
+        return baseName.toLowerCase().indexOf(q) !== -1;
       });
 
-      renderIconEntries(results.slice(0, 60));
+      renderIcons(results);
     }
 
-    /* Initialize icon grid after DOM + icons.js loaded */
+    function setIconStyle(btn, style) {
+      currentIconStyle = style;
+      /* Update active state in segmented control */
+      var group = btn.parentElement;
+      group.querySelectorAll('.segmented-item').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      /* Re-render with current search filter */
+      var q = document.getElementById('icon-search-input').value;
+      filterIcons(q);
+    }
+
+    function setIconSize(btn, size) {
+      currentIconSize = size;
+      /* Update active state in segmented control */
+      var group = btn.parentElement;
+      group.querySelectorAll('.segmented-item').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      /* Re-render with current search filter */
+      var q = document.getElementById('icon-search-input').value;
+      filterIcons(q);
+    }
+
+    function toggleAllIcons() {
+      showingAllIcons = !showingAllIcons;
+      var toggleBtn = document.getElementById('icon-toggle-all');
+      if (toggleBtn) {
+        toggleBtn.textContent = showingAllIcons
+          ? 'Show Featured'
+          : 'See All ' + allBaseNames.length + ' Icons';
+      }
+      /* Re-render respecting current search */
+      var q = document.getElementById('icon-search-input').value;
+      filterIcons(q);
+    }
+
+    /* ── Draggable scrollbar thumbs ── */
+    function initScrollbarDemos() {
+      document.querySelectorAll('.scrollbar-thumb').forEach(function(thumb) {
+        var track = thumb.parentElement;
+        var isVertical = track.classList.contains('scrollbar-vertical');
+        var dragging = false, startPos = 0, startOffset = 0;
+
+        function getOffset() {
+          return parseFloat(isVertical ? thumb.style.marginTop : thumb.style.marginLeft) || 0;
+        }
+
+        function setOffset(px) {
+          var trackSize = isVertical ? track.offsetHeight : track.offsetWidth;
+          var thumbSize = isVertical ? thumb.offsetHeight : thumb.offsetWidth;
+          var clamped = Math.max(0, Math.min(trackSize - thumbSize, px));
+          if (isVertical) {
+            thumb.style.marginTop = clamped + 'px';
+          } else {
+            thumb.style.marginLeft = clamped + 'px';
+          }
+        }
+
+        thumb.addEventListener('mousedown', function(e) {
+          dragging = true;
+          startPos = isVertical ? e.clientY : e.clientX;
+          startOffset = getOffset();
+          thumb.style.cursor = 'grabbing';
+          e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+          if (!dragging) return;
+          var delta = (isVertical ? e.clientY : e.clientX) - startPos;
+          setOffset(startOffset + delta);
+        });
+
+        document.addEventListener('mouseup', function() {
+          if (dragging) { dragging = false; thumb.style.cursor = 'grab'; }
+        });
+
+        thumb.addEventListener('touchstart', function(e) {
+          dragging = true;
+          var t = e.touches[0];
+          startPos = isVertical ? t.clientY : t.clientX;
+          startOffset = getOffset();
+          e.preventDefault();
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function(e) {
+          if (!dragging) return;
+          var t = e.touches[0];
+          var delta = (isVertical ? t.clientY : t.clientX) - startPos;
+          setOffset(startOffset + delta);
+        }, { passive: false });
+
+        document.addEventListener('touchend', function() { dragging = false; });
+
+        thumb.style.cursor = 'grab';
+      });
+    }
+
+    /* Initialize icon grid + scrollbar demos after DOM + icons.js loaded */
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', buildIconGrid);
+      document.addEventListener('DOMContentLoaded', function() {
+        buildIconGrid();
+        initScrollbarDemos();
+      });
     } else {
       buildIconGrid();
+      initScrollbarDemos();
     }
   </script>
 </body>
