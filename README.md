@@ -6,7 +6,6 @@
 ![Components](https://img.shields.io/badge/components-94-79DDE8)
 ![Icons](https://img.shields.io/badge/icons-742-79DDE8)
 ![Themes](https://img.shields.io/badge/themes-dark%20%2F%20light-79DDE8)
-![License](https://img.shields.io/badge/license-MIT-79DDE8)
 
 **[View the Live Contact Sheet](https://dairien.github.io/airtime-design-system/)** -- all tokens, components, and icons in one interactive page.
 
@@ -213,6 +212,3 @@ airtime-design-system/
     generate-tokens.js     # Token compiler
 ```
 
-## License
-
-MIT
