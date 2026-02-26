@@ -8,6 +8,8 @@
 ![Themes](https://img.shields.io/badge/themes-dark%20%2F%20light-79DDE8)
 ![License](https://img.shields.io/badge/license-MIT-79DDE8)
 
+**[View the Live Contact Sheet](https://dairien.github.io/airtime-design-system/)** -- all tokens, components, and icons in one interactive page.
+
 ## Overview
 
 The Airtime Design System is a complete token-based design system extracted from Airtime's production Figma file and packaged for Claude Code. It provides everything needed to build interfaces that match Airtime's technical, teal-accented visual language.
