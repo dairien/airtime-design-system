@@ -7,9 +7,9 @@
 ![Icons](https://img.shields.io/badge/icons-742-79DDE8)
 ![Themes](https://img.shields.io/badge/themes-dark%20%2F%20light-79DDE8)
 
-![Airtime Design System Contact Sheet](assets/contact-sheet-preview.png)
-
 **[View the Live Contact Sheet](https://dairien.github.io/airtime-design-system/)** -- all tokens, components, and icons in one interactive page.
+
+[![Airtime Design System Contact Sheet](assets/contact-sheet-preview.png)](https://dairien.github.io/airtime-design-system/)
 
 ## Overview
 
