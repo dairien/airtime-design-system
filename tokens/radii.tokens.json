@@ -1,0 +1,23 @@
+{
+  "$name": "Airtime — Radii",
+  "$description": "Airtime design system corner radius tokens. Theme-independent.",
+  "radius": {
+    "radius-0": { "$value": "0px", "$type": "dimension" },
+    "radius-05": { "$value": "2px", "$type": "dimension" },
+    "radius-10": { "$value": "4px", "$type": "dimension" },
+    "radius-15": { "$value": "6px", "$type": "dimension" },
+    "radius-20": { "$value": "8px", "$type": "dimension" },
+    "radius-25": { "$value": "10px", "$type": "dimension" },
+    "radius-30": { "$value": "12px", "$type": "dimension" },
+    "radius-35": { "$value": "14px", "$type": "dimension" },
+    "radius-40": { "$value": "16px", "$type": "dimension" },
+    "radius-45": { "$value": "18px", "$type": "dimension" },
+    "radius-50": { "$value": "20px", "$type": "dimension" },
+    "radius-60": { "$value": "24px", "$type": "dimension" },
+    "radius-70": { "$value": "28px", "$type": "dimension" },
+    "radius-80": { "$value": "32px", "$type": "dimension" },
+    "radius-90": { "$value": "36px", "$type": "dimension" },
+    "radius-100": { "$value": "40px", "$type": "dimension" },
+    "radius-9999": { "$value": "9999px", "$type": "dimension" }
+  }
+}

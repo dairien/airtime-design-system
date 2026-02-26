@@ -1,0 +1,14 @@
+{
+  "$name": "Airtime — Transitions",
+  "$description": "Airtime design system transition tokens.",
+  "duration": {
+    "duration-fast": { "$value": "150ms", "$type": "duration" },
+    "duration-normal": { "$value": "300ms", "$type": "duration" },
+    "duration-slow": { "$value": "500ms", "$type": "duration" }
+  },
+  "easing": {
+    "easing-default": { "$value": "ease-out", "$type": "string" },
+    "easing-in": { "$value": "ease-in", "$type": "string" },
+    "easing-in-out": { "$value": "ease-in-out", "$type": "string" }
+  }
+}

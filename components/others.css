@@ -1,0 +1,571 @@
+/**
+ * Airtime Design System v3 - Others
+ * Figma: https://www.figma.com/design/4ycNiPIJ2oXZVaCwaECbUa/Airtime-apps-design-system?node-id=1-2251
+ *
+ * Requires: generated/tokens.css
+ *
+ * ── Badge ─────────────────────────────────────────────
+ *   .badge            Teal pill label (number / short text)
+ *
+ * ── Divider ───────────────────────────────────────────
+ *   .divider          Horizontal 1px separator (4px margin top+bottom)
+ *   .divider-vertical Vertical 1px separator (4px margin left+right)
+ *
+ * ── Scroll Bar ────────────────────────────────────────
+ *   .scrollbar              Horizontal track wrapper
+ *   .scrollbar-thumb        Glass thumb (weak — on dark surfaces)
+ *   .scrollbar-strong       Track for strong variant (on overlay surfaces)
+ *   .scrollbar-strong-thumb Solid thumb for strong variant
+ *   .scrollbar-vertical     Vertical track wrapper (rotate approach)
+ *
+ * ── Color Picker ──────────────────────────────────────
+ *   .color-picker              Floating panel (280px)
+ *   .color-picker-canvas       Saturation/brightness gradient field
+ *   .color-picker-canvas-thumb Circle cursor on canvas
+ *   .color-picker-hue          Rainbow hue strip slider
+ *   .color-picker-alpha        Checkerboard + alpha gradient slider
+ *   .color-picker-slider-thumb Circle thumb on hue/alpha sliders
+ *   .color-picker-values       Bottom row (eyedropper, mode, inputs)
+ *   .color-picker-icon-btn     Eyedropper / action icon button (28×28)
+ *
+ * ── Swatches ──────────────────────────────────────────
+ *   .swatches              Panel container (280px)
+ *   .swatches-header       Label + action buttons row
+ *   .swatches-label        Section heading (body/medium, tertiary)
+ *   .swatches-grid         Flex-wrap color swatch row
+ *   .swatch                Outer wrapper (4px pad, radius-20)
+ *   .swatch-inner          24×24px colored square (radius-10 + border overlay)
+ *   .swatch.selected       Active selection (2px white outline)
+ *   .swatches-opacity      Opacity label + slider row
+ *
+ * ── HTML examples ─────────────────────────────────────
+ *
+ *   <!-- Badge -->
+ *   <span class="badge">3</span>
+ *   <span class="badge">99+</span>
+ *
+ *   <!-- Divider (horizontal) -->
+ *   <hr class="divider" />
+ *
+ *   <!-- Divider (vertical, inside a flex row) -->
+ *   <div class="divider-vertical"></div>
+ *
+ *   <!-- Scrollbar (weak, on dark bg) -->
+ *   <div class="scrollbar">
+ *     <div class="scrollbar-thumb" style="width: 40%; margin-left: 20%"></div>
+ *   </div>
+ *
+ *   <!-- Scrollbar (strong, on overlay surfaces) -->
+ *   <div class="scrollbar scrollbar-strong">
+ *     <div class="scrollbar-thumb scrollbar-strong-thumb" style="width: 40%"></div>
+ *   </div>
+ *
+ *   <!-- Vertical scrollbar -->
+ *   <div class="scrollbar scrollbar-vertical">
+ *     <div class="scrollbar-thumb" style="height: 40%; margin-top: 20%"></div>
+ *   </div>
+ *
+ *   <!-- Color picker (JS needed for interactivity) -->
+ *   <div class="color-picker" style="--color-picker-hue: #00E0FF;">
+ *     <div class="color-picker-canvas">
+ *       <div class="color-picker-canvas-thumb" style="left: 90%; top: 5%"></div>
+ *     </div>
+ *     <div class="color-picker-hue">
+ *       <div class="color-picker-slider-thumb" style="left: 50%"></div>
+ *     </div>
+ *     <div class="color-picker-alpha" style="--color-picker-color: #79DDE8;">
+ *       <div class="color-picker-slider-thumb" style="left: 100%"></div>
+ *     </div>
+ *     <div class="color-picker-values">
+ *       <button class="color-picker-icon-btn" aria-label="Pick color">
+ *         <img src="../icons/Eyedropper_Stroke_20.svg" alt="" />
+ *       </button>
+ *       <button class="dropdown-trigger color-picker-mode" aria-label="Color mode">
+ *         <span>HSB</span>
+ *         <img class="dropdown-chevron" src="../icons/ChevronDownSmall_Stroke_16.svg" alt="" />
+ *       </button>
+ *       <div class="input-split color-picker-inputs">
+ *         <input class="input-split-segment" type="text" value="184" aria-label="H" />
+ *         <span class="input-split-divider"></span>
+ *         <input class="input-split-segment" type="text" value="75" aria-label="S" />
+ *         <span class="input-split-divider"></span>
+ *         <input class="input-split-segment" type="text" value="86" aria-label="B" />
+ *         <span class="input-split-divider"></span>
+ *         <div class="input-split-label">100%</div>
+ *       </div>
+ *     </div>
+ *   </div>
+ *
+ *   <!-- Swatches panel -->
+ *   <div class="swatches">
+ *     <div class="swatches-header">
+ *       <span class="swatches-label">Custom Colors</span>
+ *       <div class="swatches-actions">
+ *         <button class="color-picker-icon-btn" aria-label="Eyedropper">
+ *           <img src="../icons/Eyedropper_Stroke_20.svg" alt="" />
+ *         </button>
+ *         <button class="color-picker-icon-btn" aria-label="Add color">
+ *           <img src="../icons/Plus_Stroke_20.svg" alt="" />
+ *         </button>
+ *       </div>
+ *     </div>
+ *     <div class="swatches-grid">
+ *       <div class="swatch selected">
+ *         <div class="swatch-inner" style="background: #05DEFD;"></div>
+ *       </div>
+ *       <div class="swatch">
+ *         <div class="swatch-inner" style="background: #00B09F;"></div>
+ *       </div>
+ *     </div>
+ *     <hr class="divider" />
+ *     <p class="swatches-label">Default</p>
+ *     <div class="swatches-grid">
+ *       <div class="swatch"><div class="swatch-inner" style="background: #fff;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #888C92;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #383B3F;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #26282C;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #000;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #DD0404;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #F8953B;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #FFCF25;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #65C33B;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #09BCE3;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #0834D2;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #7518BE;"></div></div>
+ *       <div class="swatch"><div class="swatch-inner" style="background: #F41DD2;"></div></div>
+ *     </div>
+ *     <hr class="divider" />
+ *     <div class="swatches-opacity">
+ *       <span class="swatches-label">Opacity</span>
+ *       <input class="slider" type="range" min="0" max="100" value="100" />
+ *     </div>
+ *   </div>
+ */
+
+/* ════════════════════════════════════════════════════
+   BADGE
+   ════════════════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-40);                         /* 16px */
+  padding: 0 var(--space-10);                        /* 0 4px */
+  background: var(--color-modeless-teal);
+  border-radius: var(--radius-9999);
+  overflow: hidden;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-small);            /* 11px */
+  line-height: var(--line-height-body-small);        /* 16px */
+  font-weight: var(--font-weight-bold);              /* 700 */
+  color: var(--color-modeless-black);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ════════════════════════════════════════════════════
+   DIVIDER
+   ════════════════════════════════════════════════════ */
+
+/* Horizontal — wraps a 1px line with 4px vertical margin */
+.divider {
+  display: block;
+  width: 100%;
+  height: var(--border-width-thin);                  /* 1px */
+  background: var(--color-highlight-primary);
+  border: none;
+  margin: var(--space-10) 0;                         /* 4px top + bottom */
+  flex-shrink: 0;
+}
+
+/* Vertical — 1px wide, full height of parent, 4px horizontal margin */
+.divider-vertical {
+  display: block;
+  width: var(--border-width-thin);                   /* 1px */
+  height: 100%;
+  background: var(--color-highlight-primary);
+  margin: 0 var(--space-10);                         /* 4px left + right */
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+/* ════════════════════════════════════════════════════
+   SCROLL BAR
+   ════════════════════════════════════════════════════ */
+
+/* ─── Weak variant (on dark/glass surfaces) ─── */
+
+/*
+ * .scrollbar is the track area. Position the thumb inside via JS:
+ *   thumb.style.width = `${percent}%`
+ *   thumb.style.marginLeft = `${offset}%`
+ */
+.scrollbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 8px;                                       /* 4px thumb + 2px padding each side */
+  padding: 2px var(--space-15);                      /* 2px 6px */
+  box-sizing: border-box;
+}
+
+.scrollbar-thumb {
+  height: 4px;
+  min-width: 20px;
+  background: var(--color-highlight-primary);
+  backdrop-filter: blur(var(--blur-medium));         /* 16px */
+  -webkit-backdrop-filter: blur(var(--blur-medium));
+  border-radius: var(--radius-9999);
+  flex-shrink: 0;
+  cursor: grab;
+  transition: background var(--duration-fast) var(--easing-default);
+}
+
+.scrollbar-thumb:hover {
+  background: var(--color-highlight-secondary);
+}
+
+.scrollbar-thumb:active {
+  cursor: grabbing;
+}
+
+/* ─── Strong variant (on overlay / modeless-overlay surfaces) ─── */
+
+.scrollbar-strong {
+  opacity: 0.8;
+  padding: 2px var(--space-60);                      /* 2px 24px */
+  background: var(--color-modeless-black-24);        /* rgba(0,0,0,0.24) as track */
+  border-radius: var(--radius-9999);
+}
+
+.scrollbar-strong-thumb {
+  height: 4px;
+  background: var(--color-content-tertiary);         /* #B0B1B2 */
+  border-radius: 40px;
+  cursor: grab;
+}
+
+.scrollbar-strong-thumb:active {
+  cursor: grabbing;
+}
+
+/* ─── Vertical scroll bar ─── */
+
+.scrollbar-vertical {
+  flex-direction: column;
+  width: 8px;
+  height: 100%;
+  padding: var(--space-15) 2px;                      /* 6px 2px */
+  align-items: center;
+}
+
+.scrollbar-vertical .scrollbar-thumb {
+  width: 4px;
+  height: auto;
+  min-height: 20px;
+  min-width: unset;
+}
+
+/* Strong + vertical: override padding to 24px top/bottom, 2px sides */
+.scrollbar-vertical.scrollbar-strong {
+  padding: var(--space-60) 2px;                      /* 24px 2px */
+}
+
+/* ════════════════════════════════════════════════════
+   COLOR PICKER
+   ════════════════════════════════════════════════════ */
+
+/*
+ * JavaScript responsibilities:
+ *   1. Set --color-picker-hue (e.g. "#00E0FF") when hue slider moves
+ *   2. Move .color-picker-canvas-thumb via style.left / style.top
+ *   3. Move .color-picker-slider-thumb via style.left (hue/alpha sliders)
+ *   4. Update .color-picker-alpha --color-picker-color for the alpha gradient
+ *   5. Sync value inputs with picked color
+ */
+
+/* ─── Panel container ─── */
+
+.color-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);                              /* 8px */
+  align-items: flex-start;
+  padding: var(--space-20);                          /* 8px */
+  width: 280px;
+  background: var(--color-background-secondary);
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--radius-30);                   /* 12px */
+  box-shadow: 0 8px 16px 0 var(--color-shadow-medium);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ─── Saturation/Brightness canvas ─── */
+
+.color-picker-canvas {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  border-radius: var(--radius-10);                   /* 4px */
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000),
+    linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0));
+  background-color: var(--color-picker-hue, #00E0FF); /* hue base — shows through gradients */
+  cursor: crosshair;
+  flex-shrink: 0;
+}
+
+/* Canvas cursor (color dot) */
+.color-picker-canvas-thumb {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 4px solid var(--color-modeless-white);
+  border-radius: var(--radius-9999);
+  box-shadow: 0 1px 2px 0 var(--color-shadow-small);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  box-sizing: content-box;
+}
+
+/* ─── Slider shared styles ─── */
+
+.color-picker-hue,
+.color-picker-alpha {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  border-radius: var(--radius-9999);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* Slider thumb (hue + alpha) */
+.color-picker-slider-thumb {
+  position: absolute;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border: 4px solid var(--color-modeless-white);
+  border-radius: var(--radius-9999);
+  box-shadow: 0 1px 2px 0 var(--color-shadow-small);
+  transform: translateX(-50%);
+  pointer-events: none;
+  box-sizing: border-box;
+  cursor: grab;
+}
+
+/* ─── Hue slider (rainbow spectrum) ─── */
+
+.color-picker-hue {
+  background: linear-gradient(
+    to right,
+    hsl(0, 100%, 50%),
+    hsl(30, 100%, 50%),
+    hsl(60, 100%, 50%),
+    hsl(120, 100%, 50%),
+    hsl(180, 100%, 50%),
+    hsl(240, 100%, 50%),
+    hsl(300, 100%, 50%),
+    hsl(360, 100%, 50%)
+  );
+}
+
+/* ─── Alpha slider (transparency checkerboard + fade) ─── */
+
+.color-picker-alpha {
+  /* Checkerboard base + color-to-transparent overlay */
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(from var(--color-picker-color, #79DDE8) r g b / 0),
+      var(--color-picker-color, #79DDE8)
+    ),
+    repeating-conic-gradient(
+      #808080 0% 25%,
+      #ffffff 0% 50%
+    );
+  background-size: auto, 8px 8px;
+  background-position: 0 0, 0 0;
+}
+
+/* ─── Values row ─── */
+
+.color-picker-values {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-20);                              /* 8px */
+  width: 100%;
+}
+
+/* Eyedropper / action icon button (28×28px) */
+.color-picker-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-70);                             /* 28px */
+  height: var(--size-70);                            /* 28px */
+  padding: var(--space-10);                          /* 4px */
+  background: var(--color-highlight-primary);
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--radius-15);                   /* 6px */
+  backdrop-filter: blur(var(--blur-small));          /* 8px */
+  -webkit-backdrop-filter: blur(var(--blur-small));
+  cursor: pointer;
+  box-sizing: border-box;
+  color: inherit;
+  transition: background var(--duration-fast) var(--easing-default);
+}
+
+.color-picker-icon-btn:hover {
+  background: var(--color-highlight-secondary);
+  border-color: var(--color-highlight-secondary);
+}
+
+.color-picker-icon-btn img,
+.color-picker-icon-btn svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+/* Mode selector (e.g. HSB / RGB / Hex) — override .dropdown-trigger width */
+.color-picker-mode {
+  flex-shrink: 0;
+  height: var(--size-70);                            /* 28px */
+}
+
+/* Numeric inputs — grows to fill remaining space */
+.color-picker-inputs {
+  flex: 1;
+}
+
+/* ════════════════════════════════════════════════════
+   SWATCHES
+   ════════════════════════════════════════════════════ */
+
+/* ─── Panel container ─── */
+
+.swatches {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);                              /* 4px */
+  align-items: flex-start;
+  padding: var(--space-20);                          /* 8px */
+  width: 280px;
+  background: var(--color-background-secondary);
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--radius-30);                   /* 12px */
+  box-shadow: 0 8px 16px 0 var(--color-shadow-medium);
+  box-sizing: border-box;
+}
+
+/* ─── Header row ─── */
+
+.swatches-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);                              /* 8px */
+  width: 100%;
+}
+
+.swatches-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);                              /* 8px */
+  flex-shrink: 0;
+}
+
+/* ─── Section label ─── */
+
+.swatches-label {
+  flex: 1;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);           /* 12px */
+  line-height: var(--line-height-body-medium);       /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-tertiary);              /* #B0B1B2 */
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* ─── Swatch grid ─── */
+
+.swatches-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+/* ─── Individual swatch ─── */
+
+/* Outer wrapper — provides hover target + selection ring */
+.swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-10);                          /* 4px */
+  border: none;
+  border-radius: var(--radius-20);                   /* 8px */
+  box-sizing: border-box;
+  cursor: pointer;
+  /* Use box-shadow so the ring doesn't add to layout width (keeps swatch 32px) */
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow var(--duration-fast) var(--easing-default);
+}
+
+.swatch:hover {
+  box-shadow: 0 0 0 2px var(--color-highlight-secondary);
+}
+
+/* Selected state */
+.swatch.selected {
+  box-shadow: 0 0 0 2px var(--color-content-primary);
+}
+
+/* Inner color square */
+.swatch-inner {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-10);                   /* 4px */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* highlight-primary overlay (thin inner border to separate from bg) */
+.swatch-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--radius-10);
+  pointer-events: none;
+}
+
+/* ─── Opacity row ─── */
+
+.swatches-opacity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);                              /* 8px */
+  width: 100%;
+  padding: var(--space-15) 0;                        /* 6px top+bottom */
+  box-sizing: border-box;
+}
+
+.swatches-opacity .swatches-label {
+  width: 128px;
+  flex: none;
+}
+
+.swatches-opacity .slider {
+  flex: 1;
+}

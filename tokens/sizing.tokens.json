@@ -1,0 +1,35 @@
+{
+  "$name": "Airtime — Sizing & Spacing",
+  "$description": "Airtime design system sizing and spacing tokens. Theme-independent. Linear 4px base with 2px sub-steps.",
+  "size": {
+    "size-0": { "$value": "0px", "$type": "dimension" },
+    "size-05": { "$value": "2px", "$type": "dimension" },
+    "size-10": { "$value": "4px", "$type": "dimension" },
+    "size-15": { "$value": "6px", "$type": "dimension" },
+    "size-20": { "$value": "8px", "$type": "dimension" },
+    "size-30": { "$value": "12px", "$type": "dimension" },
+    "size-40": { "$value": "16px", "$type": "dimension" },
+    "size-50": { "$value": "20px", "$type": "dimension" },
+    "size-60": { "$value": "24px", "$type": "dimension" },
+    "size-70": { "$value": "28px", "$type": "dimension" },
+    "size-80": { "$value": "32px", "$type": "dimension" },
+    "size-100": { "$value": "40px", "$type": "dimension" },
+    "size-120": { "$value": "48px", "$type": "dimension" },
+    "size-140": { "$value": "56px", "$type": "dimension" },
+    "size-160": { "$value": "64px", "$type": "dimension" },
+    "size-180": { "$value": "72px", "$type": "dimension" },
+    "size-200": { "$value": "80px", "$type": "dimension" }
+  },
+  "space": {
+    "space-0": { "$value": "0px", "$type": "dimension" },
+    "space-05": { "$value": "2px", "$type": "dimension" },
+    "space-10": { "$value": "4px", "$type": "dimension" },
+    "space-15": { "$value": "6px", "$type": "dimension" },
+    "space-20": { "$value": "8px", "$type": "dimension" },
+    "space-30": { "$value": "12px", "$type": "dimension" },
+    "space-40": { "$value": "16px", "$type": "dimension" },
+    "space-60": { "$value": "24px", "$type": "dimension" },
+    "space-80": { "$value": "32px", "$type": "dimension" },
+    "space-100": { "$value": "40px", "$type": "dimension" }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$name": "Airtime — Z-Index",
+  "$description": "Airtime design system z-index layer tokens.",
+  "z": {
+    "z-base": { "$value": 0, "$type": "number" },
+    "z-dropdown": { "$value": 100, "$type": "number" },
+    "z-sticky": { "$value": 200, "$type": "number" },
+    "z-modal-backdrop": { "$value": 300, "$type": "number" },
+    "z-modal": { "$value": 400, "$type": "number" },
+    "z-tooltip": { "$value": 500, "$type": "number" }
+  }
+}

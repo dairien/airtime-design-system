@@ -1,0 +1,45 @@
+{
+  "$name": "Airtime — Typography",
+  "$description": "Airtime design system typography tokens. Theme-independent. All styles use SF Pro (system font stack).",
+  "font": {
+    "family": {
+      "primary": {
+        "$value": "-apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+        "$type": "fontFamily"
+      }
+    },
+    "weight": {
+      "regular": { "$value": 400, "$type": "number" },
+      "medium": { "$value": 500, "$type": "number" },
+      "semibold": { "$value": 600, "$type": "number" },
+      "bold": { "$value": 700, "$type": "number" }
+    },
+    "size": {
+      "heading-large": { "$value": "16px", "$type": "dimension" },
+      "heading-medium": { "$value": "14px", "$type": "dimension" },
+      "heading-small": { "$value": "12px", "$type": "dimension" },
+      "body-large": { "$value": "14px", "$type": "dimension" },
+      "body-medium": { "$value": "12px", "$type": "dimension" },
+      "body-small": { "$value": "11px", "$type": "dimension" },
+      "button-default": { "$value": "12px", "$type": "dimension" }
+    }
+  },
+  "line-height": {
+    "heading-large": { "$value": "24px", "$type": "dimension" },
+    "heading-medium": { "$value": "20px", "$type": "dimension" },
+    "heading-small": { "$value": "16px", "$type": "dimension" },
+    "body-large": { "$value": "20px", "$type": "dimension" },
+    "body-medium": { "$value": "16px", "$type": "dimension" },
+    "body-small": { "$value": "16px", "$type": "dimension" },
+    "button-default": { "$value": "16px", "$type": "dimension" }
+  },
+  "font-weight-composite": {
+    "heading-large": { "$value": "{font.weight.bold}", "$type": "number" },
+    "heading-medium": { "$value": "{font.weight.semibold}", "$type": "number" },
+    "heading-small": { "$value": "{font.weight.semibold}", "$type": "number" },
+    "body-large": { "$value": "{font.weight.regular}", "$type": "number" },
+    "body-medium": { "$value": "{font.weight.regular}", "$type": "number" },
+    "body-small": { "$value": "{font.weight.regular}", "$type": "number" },
+    "button-default": { "$value": "{font.weight.medium}", "$type": "number" }
+  }
+}

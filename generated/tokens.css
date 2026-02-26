@@ -1,0 +1,221 @@
+/* tokens.css — Generated from v2/tokens/*.json */
+/* Do not edit manually. Run: node scripts/generate.js */
+/* Generated: 2026-02-26 */
+
+:root {
+  /* colors */
+  --color-modeless-white: #FFFFFF;
+  --color-modeless-white-24: #FFFFFF3D;
+  --color-modeless-black: #000000;
+  --color-modeless-black-24: #0000003D;
+  --color-modeless-overlay: #00000080;
+  --color-modeless-teal: #79DDE8;
+  --color-modeless-destructive: #FF6D4C;
+
+  /* sizing */
+  --size-0: 0px;
+  --size-05: 2px;
+  --size-10: 4px;
+  --size-15: 6px;
+  --size-20: 8px;
+  --size-30: 12px;
+  --size-40: 16px;
+  --size-50: 20px;
+  --size-60: 24px;
+  --size-70: 28px;
+  --size-80: 32px;
+  --size-100: 40px;
+  --size-120: 48px;
+  --size-140: 56px;
+  --size-160: 64px;
+  --size-180: 72px;
+  --size-200: 80px;
+  --space-0: 0px;
+  --space-05: 2px;
+  --space-10: 4px;
+  --space-15: 6px;
+  --space-20: 8px;
+  --space-30: 12px;
+  --space-40: 16px;
+  --space-60: 24px;
+  --space-80: 32px;
+  --space-100: 40px;
+
+  /* typography */
+  --font-family-primary: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-size-heading-large: 16px;
+  --line-height-heading-large: 24px;
+  --font-weight-heading-large: 700;
+  --font-size-heading-medium: 14px;
+  --line-height-heading-medium: 20px;
+  --font-weight-heading-medium: 600;
+  --font-size-heading-small: 12px;
+  --line-height-heading-small: 16px;
+  --font-weight-heading-small: 600;
+  --font-size-body-large: 14px;
+  --line-height-body-large: 20px;
+  --font-weight-body-large: 400;
+  --font-size-body-medium: 12px;
+  --line-height-body-medium: 16px;
+  --font-weight-body-medium: 400;
+  --font-size-body-small: 11px;
+  --line-height-body-small: 16px;
+  --font-weight-body-small: 400;
+  --font-size-button-default: 12px;
+  --line-height-button-default: 16px;
+  --font-weight-button-default: 500;
+
+  /* radii */
+  --radius-0: 0px;
+  --radius-05: 2px;
+  --radius-10: 4px;
+  --radius-15: 6px;
+  --radius-20: 8px;
+  --radius-25: 10px;
+  --radius-30: 12px;
+  --radius-35: 14px;
+  --radius-40: 16px;
+  --radius-45: 18px;
+  --radius-50: 20px;
+  --radius-60: 24px;
+  --radius-70: 28px;
+  --radius-80: 32px;
+  --radius-90: 36px;
+  --radius-100: 40px;
+  --radius-9999: 9999px;
+
+  /* shadows */
+  --blur-small: 8px;
+  --blur-medium: 16px;
+  --blur-large: 32px;
+
+  /* borders */
+  --border-width-none: 0px;
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-style-solid: solid;
+
+  /* opacity */
+  --opacity-0: 0;
+  --opacity-4: 0.04;
+  --opacity-8: 0.08;
+  --opacity-16: 0.16;
+  --opacity-24: 0.24;
+  --opacity-48: 0.48;
+  --opacity-50: 0.5;
+  --opacity-72: 0.72;
+  --opacity-100: 1;
+
+  /* z-index */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal-backdrop: 300;
+  --z-modal: 400;
+  --z-tooltip: 500;
+
+  /* transitions */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --easing-default: ease-out;
+  --easing-in: ease-in;
+  --easing-in-out: ease-in-out;
+}
+
+.dark {
+  /* colors */
+  --color-background-primary: #0A0D0E;
+  --color-background-secondary: #12181A;
+  --color-background-tertiary: #1B2326;
+  --color-content-primary: #FFFFFF;
+  --color-content-secondary: #D2D5D6;
+  --color-content-tertiary: #B0B1B2;
+  --color-highlight-primary: #FFFFFF14;
+  --color-highlight-secondary: #FFFFFF29;
+  --color-accent-teal: #79DDE8;
+  --color-accent-destructive: #FF6D4C;
+  --color-shadow-small: #0000003D;
+  --color-shadow-medium: #0000007A;
+  --color-shadow-large: #000000B8;
+
+  /* shadows */
+  --shadow-small: 0px 1px 3px 0px #0000003D;
+  --shadow-medium: 0px 4px 12px 0px #0000007A;
+  --shadow-large: 0px 8px 24px 0px #000000B8;
+}
+
+.light {
+  /* colors */
+  --color-background-primary: #F5F5F5;
+  --color-background-secondary: #FFFFFF;
+  --color-background-tertiary: #EBEBEB;
+  --color-content-primary: #000E14;
+  --color-content-secondary: #383D3D;
+  --color-content-tertiary: #646666;
+  --color-highlight-primary: #00000014;
+  --color-highlight-secondary: #0000000A;
+  --color-accent-teal: #1A7580;
+  --color-accent-destructive: #D6402F;
+  --color-shadow-small: #00000014;
+  --color-shadow-medium: #00000029;
+  --color-shadow-large: #0000003D;
+
+  /* shadows */
+  --shadow-small: 0px 1px 3px 0px #00000014;
+  --shadow-medium: 0px 4px 12px 0px #00000029;
+  --shadow-large: 0px 8px 24px 0px #0000003D;
+}
+
+/* OS preference fallback (when no .dark/.light class is set) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.dark):not(.light) {
+    /* colors */
+    --color-background-primary: #0A0D0E;
+    --color-background-secondary: #12181A;
+    --color-background-tertiary: #1B2326;
+    --color-content-primary: #FFFFFF;
+    --color-content-secondary: #D2D5D6;
+    --color-content-tertiary: #B0B1B2;
+    --color-highlight-primary: #FFFFFF14;
+    --color-highlight-secondary: #FFFFFF29;
+    --color-accent-teal: #79DDE8;
+    --color-accent-destructive: #FF6D4C;
+    --color-shadow-small: #0000003D;
+    --color-shadow-medium: #0000007A;
+    --color-shadow-large: #000000B8;
+
+    /* shadows */
+    --shadow-small: 0px 1px 3px 0px #0000003D;
+    --shadow-medium: 0px 4px 12px 0px #0000007A;
+    --shadow-large: 0px 8px 24px 0px #000000B8;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark):not(.light) {
+    /* colors */
+    --color-background-primary: #F5F5F5;
+    --color-background-secondary: #FFFFFF;
+    --color-background-tertiary: #EBEBEB;
+    --color-content-primary: #000E14;
+    --color-content-secondary: #383D3D;
+    --color-content-tertiary: #646666;
+    --color-highlight-primary: #00000014;
+    --color-highlight-secondary: #0000000A;
+    --color-accent-teal: #1A7580;
+    --color-accent-destructive: #D6402F;
+    --color-shadow-small: #00000014;
+    --color-shadow-medium: #00000029;
+    --color-shadow-large: #0000003D;
+
+    /* shadows */
+    --shadow-small: 0px 1px 3px 0px #00000014;
+    --shadow-medium: 0px 4px 12px 0px #00000029;
+    --shadow-large: 0px 8px 24px 0px #0000003D;
+  }
+}

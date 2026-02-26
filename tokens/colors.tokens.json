@@ -1,0 +1,202 @@
+{
+  "$name": "Airtime — Colors",
+  "$description": "Airtime design system color tokens. 20 semantic tokens across 6 categories: background, content, highlight, accent, shadow, modeless.",
+  "color": {
+    "background": {
+      "primary": {
+        "dark": {
+          "$value": "#0A0D0E",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#F5F5F5",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      },
+      "secondary": {
+        "dark": {
+          "$value": "#12181A",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#FFFFFF",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      },
+      "tertiary": {
+        "dark": {
+          "$value": "#1B2326",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#EBEBEB",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      }
+    },
+    "content": {
+      "primary": {
+        "dark": {
+          "$value": "#FFFFFF",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#000E14",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      },
+      "secondary": {
+        "dark": {
+          "$value": "#D2D5D6",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#383D3D",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      },
+      "tertiary": {
+        "dark": {
+          "$value": "#B0B1B2",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#646666",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      }
+    },
+    "highlight": {
+      "primary": {
+        "dark": {
+          "$value": "#FFFFFF14",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#00000014",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      },
+      "secondary": {
+        "dark": {
+          "$value": "#FFFFFF29",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#0000000A",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      }
+    },
+    "accent": {
+      "teal": {
+        "dark": {
+          "$value": "#79DDE8",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#1A7580",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      },
+      "destructive": {
+        "dark": {
+          "$value": "#FF6D4C",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#D6402F",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      }
+    },
+    "shadow": {
+      "small": {
+        "dark": {
+          "$value": "#0000003D",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#00000014",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      },
+      "medium": {
+        "dark": {
+          "$value": "#0000007A",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#00000029",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      },
+      "large": {
+        "dark": {
+          "$value": "#000000B8",
+          "$type": "color",
+          "$extensions": { "mode": "dark" }
+        },
+        "light": {
+          "$value": "#0000003D",
+          "$type": "color",
+          "$extensions": { "mode": "light" }
+        }
+      }
+    },
+    "modeless": {
+      "white": {
+        "$value": "#FFFFFF",
+        "$type": "color"
+      },
+      "white-24": {
+        "$value": "#FFFFFF3D",
+        "$type": "color"
+      },
+      "black": {
+        "$value": "#000000",
+        "$type": "color"
+      },
+      "black-24": {
+        "$value": "#0000003D",
+        "$type": "color"
+      },
+      "overlay": {
+        "$value": "#00000080",
+        "$type": "color"
+      },
+      "teal": {
+        "$value": "#79DDE8",
+        "$type": "color"
+      },
+      "destructive": {
+        "$value": "#FF6D4C",
+        "$type": "color"
+      }
+    }
+  }
+}

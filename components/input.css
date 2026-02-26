@@ -1,0 +1,381 @@
+/**
+ * Airtime Design System v3 - Input
+ * Figma: https://www.figma.com/design/4ycNiPIJ2oXZVaCwaECbUa/Airtime-apps-design-system?node-id=18-9302
+ *
+ * Requires: generated/tokens.css
+ *
+ * ── Direct <input> usage ──────────────────────────────────────────
+ *   .input          Default size (28px), fill style, body/medium font
+ *   .input-lg       Large size (32px), heading/large font (bold 16px)
+ *   .input-no-fill  Transparent background; border appears on hover/focus
+ *   .input-error    Error state — destructive red border
+ *
+ * ── Wrapper pattern (input + icons) ──────────────────────────────
+ *   .input-wrapper       Visual container (background, border, radius)
+ *   .input-bare          Naked <input> to place inside .input-wrapper
+ *   .input-icon-left     Left icon slot (e.g. Search)
+ *   .input-icon-right    Right icon slot (e.g. clear button)
+ *
+ * ── Split input ───────────────────────────────────────────────────
+ *   .input-split         Multi-segment container (e.g. margins, RGBA)
+ *   .input-split-segment Individual <input> segment
+ *   .input-split-divider Visual 1px separator between segments
+ *
+ * ── HTML examples ─────────────────────────────────────────────────
+ *
+ *   <!-- Default (bare) -->
+ *   <input class="input" type="text" placeholder="Placeholder" />
+ *
+ *   <!-- Large -->
+ *   <input class="input input-lg" type="text" placeholder="Placeholder" />
+ *
+ *   <!-- Error -->
+ *   <input class="input input-error" type="text" value="Invalid value" />
+ *
+ *   <!-- No fill -->
+ *   <input class="input input-no-fill" type="text" placeholder="Inline" />
+ *
+ *   <!-- With left + right icons -->
+ *   <div class="input-wrapper">
+ *     <img class="input-icon-left" src="../icons/Search_Stroke_16.svg" alt="" />
+ *     <input class="input-bare" type="text" placeholder="Search..." />
+ *     <button class="input-icon-right" aria-label="Clear">
+ *       <img src="../icons/Xmark_Stroke_16.svg" alt="" />
+ *     </button>
+ *   </div>
+ *
+ *   <!-- Split (e.g. XYWH / RGBA) -->
+ *   <div class="input-split">
+ *     <input class="input-split-segment" type="text" value="100" aria-label="X" />
+ *     <span class="input-split-divider"></span>
+ *     <input class="input-split-segment" type="text" value="100" aria-label="Y" />
+ *     <span class="input-split-divider"></span>
+ *     <input class="input-split-segment" type="text" value="100" aria-label="W" />
+ *     <span class="input-split-divider"></span>
+ *     <div class="input-split-label">100%</div>
+ *   </div>
+ */
+
+/* ─── Shared properties (reused across variants) ─── */
+
+:root {
+  --input-border-radius: var(--radius-15);   /* 6px */
+  --input-height-default: var(--size-70);    /* 28px */
+  --input-height-large: var(--size-80);      /* 32px */
+}
+
+/* ════════════════════════════════════════════════════
+   DIRECT <input> STYLING
+   ════════════════════════════════════════════════════ */
+
+/* ─── Base — Default size (28px, body/medium) ─── */
+
+.input {
+  display: block;
+  width: 100%;
+  height: var(--input-height-default);
+  padding: var(--space-15) var(--space-20);       /* 6px 8px */
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--input-border-radius);
+  background: var(--color-background-primary);
+  overflow: hidden;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);         /* 12px */
+  line-height: var(--line-height-body-medium);     /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-primary);
+  caret-color: var(--color-modeless-teal);
+
+  outline: none;
+  cursor: text;
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--easing-default);
+}
+
+.input::placeholder {
+  color: var(--color-content-primary);
+  opacity: var(--opacity-50);
+}
+
+.input::selection {
+  background: var(--color-accent-teal);
+  color: var(--color-modeless-black);
+}
+
+/* Hover */
+.input:hover:not(:disabled):not(:focus):not(.input-error) {
+  border-color: var(--color-highlight-secondary);
+}
+
+/* Focus */
+.input:focus:not(.input-error) {
+  border-color: var(--color-modeless-teal);
+}
+
+/* Disabled */
+.input:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ─── Large size (32px, heading/large, bold 16px) ─── */
+
+.input-lg {
+  height: var(--input-height-large);
+  padding: var(--space-10) var(--space-20);        /* 4px 8px */
+  font-size: var(--font-size-heading-large);       /* 16px */
+  line-height: var(--line-height-heading-large);   /* 24px */
+  font-weight: var(--font-weight-bold);
+}
+
+/* ─── Error state ─── */
+
+.input-error {
+  border-color: var(--color-accent-destructive);
+}
+
+.input-error:hover:not(:disabled),
+.input-error:focus {
+  border-color: var(--color-accent-destructive);
+}
+
+/* ─── No fill variant ─── */
+/* Use on coloured / glass backgrounds where no visual container is wanted.
+   Border is invisible until hover/focus to prevent layout shift. */
+
+.input-no-fill {
+  background: transparent;
+  border-color: transparent;
+  padding: var(--space-10);                        /* 4px all sides */
+}
+
+.input-no-fill:hover:not(:disabled):not(.input-error) {
+  border-color: var(--color-highlight-primary);
+}
+
+.input-no-fill:focus:not(.input-error) {
+  border-color: var(--color-modeless-teal);
+}
+
+.input-no-fill.input-error {
+  border-color: var(--color-accent-destructive);
+}
+
+/* ════════════════════════════════════════════════════
+   WRAPPER PATTERN (input + left/right icons)
+   ════════════════════════════════════════════════════ */
+
+/* ─── Container ─── */
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);                            /* 4px */
+  height: var(--input-height-default);
+  padding: var(--space-15) var(--space-20);        /* 6px 8px */
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--input-border-radius);
+  background: var(--color-background-primary);
+  overflow: hidden;
+  box-sizing: border-box;
+  cursor: text;
+  transition: border-color var(--duration-fast) var(--easing-default);
+}
+
+/* Large wrapper */
+.input-wrapper-lg {
+  height: var(--input-height-large);
+  padding: var(--space-10) var(--space-20);        /* 4px 8px */
+}
+
+/* Hover */
+.input-wrapper:hover:not(:has(.input-bare:disabled)):not(:focus-within):not(.input-error) {
+  border-color: var(--color-highlight-secondary);
+}
+
+/* Focus-within (any child input focused) */
+.input-wrapper:focus-within:not(.input-error) {
+  border-color: var(--color-modeless-teal);
+}
+
+/* Error */
+.input-wrapper.input-error,
+.input-wrapper.input-error:focus-within {
+  border-color: var(--color-accent-destructive);
+}
+
+/* Disabled */
+.input-wrapper:has(.input-bare:disabled) {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ─── Naked <input> inside wrapper ─── */
+
+.input-bare {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);         /* 12px */
+  line-height: var(--line-height-body-medium);     /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-primary);
+  caret-color: var(--color-modeless-teal);
+}
+
+.input-wrapper-lg .input-bare {
+  font-size: var(--font-size-heading-large);       /* 16px */
+  line-height: var(--line-height-heading-large);   /* 24px */
+  font-weight: var(--font-weight-bold);
+}
+
+.input-bare::placeholder {
+  color: var(--color-content-primary);
+  opacity: var(--opacity-50);
+}
+
+.input-bare::selection {
+  background: var(--color-accent-teal);
+  color: var(--color-modeless-black);
+}
+
+.input-bare:disabled {
+  cursor: not-allowed;
+}
+
+/* ─── Icon slots ─── */
+
+.input-icon-left,
+.input-icon-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-40);                           /* 16px */
+  height: var(--size-40);                          /* 16px */
+  color: var(--color-content-primary);
+}
+
+.input-icon-left img,
+.input-icon-left svg,
+.input-icon-right img,
+.input-icon-right svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Clear button (right icon as interactive button) */
+.input-icon-right[role="button"],
+button.input-icon-right {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  opacity: var(--opacity-50);
+  transition: opacity var(--duration-fast) var(--easing-default);
+}
+
+button.input-icon-right:hover {
+  opacity: var(--opacity-100);
+}
+
+/* ════════════════════════════════════════════════════
+   SPLIT INPUT
+   ════════════════════════════════════════════════════ */
+
+/* Container */
+.input-split {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);                            /* 8px */
+  height: var(--input-height-default);             /* 28px */
+  padding: 0 var(--space-20);                      /* 0 8px */
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--input-border-radius);
+  background: var(--color-background-primary);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--easing-default);
+}
+
+/* Hover */
+.input-split:hover:not(:has(.input-split-segment:disabled)):not(:focus-within):not(.input-error) {
+  border-color: var(--color-highlight-secondary);
+}
+
+/* Focus-within */
+.input-split:focus-within:not(.input-error) {
+  border-color: var(--color-modeless-teal);
+}
+
+/* Error */
+.input-split.input-error,
+.input-split.input-error:focus-within {
+  border-color: var(--color-accent-destructive);
+}
+
+/* Disabled */
+.input-split:has(.input-split-segment:disabled) {
+  opacity: 0.3;
+}
+
+/* Individual segment <input> */
+.input-split-segment {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  text-align: center;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);         /* 12px */
+  line-height: var(--line-height-body-medium);     /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-primary);
+  caret-color: var(--color-modeless-teal);
+}
+
+.input-split-segment::placeholder {
+  color: var(--color-content-primary);
+  opacity: var(--opacity-50);
+}
+
+.input-split-segment::selection {
+  background: var(--color-accent-teal);
+  color: var(--color-modeless-black);
+}
+
+.input-split-segment:disabled {
+  cursor: not-allowed;
+}
+
+/* 1px divider between segments */
+.input-split-divider {
+  flex-shrink: 0;
+  width: var(--border-width-thin);                 /* 1px */
+  height: var(--size-40);                          /* 16px */
+  background: var(--color-highlight-primary);
+}
+
+/* Read-only label segment (e.g. "100%") */
+.input-split-label {
+  flex-shrink: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);
+  line-height: var(--line-height-body-medium);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-primary);
+  white-space: nowrap;
+  user-select: none;
+}

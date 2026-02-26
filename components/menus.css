@@ -1,0 +1,253 @@
+/**
+ * Airtime Design System v3 - Menus
+ * Figma: https://www.figma.com/design/4ycNiPIJ2oXZVaCwaECbUa/Airtime-apps-design-system?node-id=8-2445
+ *
+ * Requires: generated/tokens.css, components/rows.css
+ *
+ * All menus are composed from Row components. The menu container provides the
+ * floating surface (background, border, radius, shadow), and rows inside it
+ * become menu items.
+ *
+ * ── Menu container ────────────────────────────────────
+ *   .menu              Floating panel surface (background-tertiary, border, shadow)
+ *   .menu-divider      1px separator between groups of items
+ *   .menu-scrollable   Adds max-height + overflow-y: auto for long lists
+ *
+ * ── Menu variants ─────────────────────────────────────
+ *   .menu              Default — narrow list of text/icon rows
+ *   .menu-thumbnail    Wider menu with thumbnail rows (260px)
+ *   .menu-account      Full account panel — account row header + menu items
+ *
+ * ── Scrollbar ─────────────────────────────────────────
+ *   .menu-scrollable applies custom scrollbar styling (8px, glass thumb)
+ *
+ * ── HTML examples ─────────────────────────────────────
+ *
+ *   <!-- Default menu (Icon=Left) -->
+ *   <ul class="menu" role="menu">
+ *     <li class="row" role="menuitem">
+ *       <img class="row-icon-left" src="../icons/Checkmark_Stroke_16.svg" alt="" />
+ *       <span>Option 1</span>
+ *     </li>
+ *     <li class="row" role="menuitem">
+ *       <img class="row-icon-left" src="../icons/Checkmark_Stroke_16.svg" alt="" />
+ *       <span>Option 2</span>
+ *     </li>
+ *     <li class="menu-divider" role="separator"></li>
+ *     <li class="row row-destructive" role="menuitem">
+ *       <img class="row-icon-left" src="../icons/Trash_Fill_16.svg" alt="" />
+ *       <span>Delete</span>
+ *     </li>
+ *   </ul>
+ *
+ *   <!-- Default menu (Icon=Right / chevron) -->
+ *   <ul class="menu" role="menu">
+ *     <li class="row" role="menuitem">
+ *       <span>Theme</span>
+ *       <img class="row-icon-right" src="../icons/ChevronForwardSmall_Stroke_16.svg" alt="" />
+ *     </li>
+ *   </ul>
+ *
+ *   <!-- Thumbnail menu -->
+ *   <ul class="menu menu-thumbnail" role="listbox">
+ *     <li class="row-thumbnail" role="option" aria-selected="true">
+ *       <div class="row-thumbnail-image">
+ *         <img src="preview.jpg" alt="Scene A" />
+ *       </div>
+ *       <span>Scene A</span>
+ *       <img class="row-icon-right" src="../icons/Checkmark_Stroke_16.svg" alt="" />
+ *     </li>
+ *     <li class="row-thumbnail" role="option">
+ *       <div class="row-thumbnail-image">
+ *         <img src="preview2.jpg" alt="Scene B" />
+ *       </div>
+ *       <span>Scene B</span>
+ *     </li>
+ *   </ul>
+ *
+ *   <!-- Account menu -->
+ *   <div class="menu menu-account" role="dialog" aria-label="Account menu">
+ *     <div class="row-account">
+ *       <img class="row-account-avatar" src="avatar.png" alt="Tyler Reynolds" />
+ *       <div class="row-account-info">
+ *         <span class="row-account-name">Tyler Reynolds</span>
+ *         <span class="row-account-email">tyler@all-turtles.com</span>
+ *       </div>
+ *     </div>
+ *     <div class="menu-divider"></div>
+ *     <button class="row">
+ *       <span>Manage Business</span>
+ *       <img class="row-icon-right" src="../icons/ChevronForwardSmall_Stroke_16.svg" alt="" />
+ *     </button>
+ *     <button class="row"><span>Account settings</span></button>
+ *     <button class="row">
+ *       <span>Theme</span>
+ *       <img class="row-icon-right" src="../icons/ChevronForwardSmall_Stroke_16.svg" alt="" />
+ *     </button>
+ *     <button class="row">
+ *       <span>Language</span>
+ *       <img class="row-icon-right" src="../icons/ChevronForwardSmall_Stroke_16.svg" alt="" />
+ *     </button>
+ *     <div class="menu-divider"></div>
+ *     <button class="row"><span>Terms</span></button>
+ *     <button class="row"><span>Privacy</span></button>
+ *     <button class="row"><span>Sign out</span></button>
+ *   </div>
+ */
+
+/* ════════════════════════════════════════════════════
+   MENU CONTAINER
+   ════════════════════════════════════════════════════ */
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: var(--space-20);                          /* 8px */
+  background: var(--color-background-tertiary);
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--radius-35);                   /* 14px */
+  box-shadow: 0 8px 16px 0 var(--color-shadow-medium);
+  box-sizing: border-box;
+  list-style: none;
+  margin: 0;
+
+  /* Default width — override with .menu-thumbnail or custom width */
+  min-width: 176px;
+}
+
+/* Thumbnail variant (wider) */
+.menu-thumbnail {
+  min-width: 260px;
+}
+
+/* Account menu variant (wider) */
+.menu-account {
+  min-width: 260px;
+}
+
+/* Full-width items inside menu */
+.menu > .row,
+.menu > .row-thumbnail,
+.menu > .row-account,
+.menu > li > .row,
+.menu > li > .row-thumbnail {
+  width: 100%;
+}
+
+/* ─── Scrollable menu ─── */
+
+.menu-scrollable {
+  max-height: 320px;
+  overflow-y: auto;
+  /* hide native scrollbar — custom via ::-webkit-scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-highlight-primary) transparent;
+}
+
+.menu-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.menu-scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.menu-scrollable::-webkit-scrollbar-thumb {
+  background: var(--color-highlight-primary);
+  border-radius: var(--radius-9999);
+  backdrop-filter: blur(var(--blur-medium));
+}
+
+.menu-scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--color-highlight-secondary);
+}
+
+/* ─── Divider ─── */
+
+.menu-divider {
+  display: block;
+  width: 100%;
+  height: var(--border-width-thin);                  /* 1px */
+  background: var(--color-highlight-primary);
+  flex-shrink: 0;
+  margin: var(--space-10) 0;                         /* 4px top + bottom */
+}
+
+/* As <li> inside <ul> */
+li.menu-divider {
+  list-style: none;
+}
+
+/* ════════════════════════════════════════════════════
+   ROW OVERRIDES IN MENU CONTEXT
+   ════════════════════════════════════════════════════ */
+
+/*
+ * Inside a menu, rows are full-width and sit on background-tertiary.
+ * Hover remains highlight-primary which is subtly visible on tertiary bg.
+ * Row widths are flex-stretched by the parent column layout.
+ */
+
+.menu .row,
+.menu .row-thumbnail,
+.menu .row-account {
+  width: 100%;
+}
+
+/*
+ * Account row inside a menu:
+ * On a background-tertiary surface the default hover (background-tertiary)
+ * would be invisible — override to highlight-primary for consistent feedback.
+ */
+.menu .row-account:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-highlight-primary);
+}
+
+/* ════════════════════════════════════════════════════
+   MENU POSITIONING HELPERS
+   ════════════════════════════════════════════════════ */
+
+/*
+ * Use these utility classes to position a .menu relative to its trigger.
+ * The trigger should have `position: relative`.
+ *
+ *   <div style="position:relative">
+ *     <button class="dropdown-trigger">···</button>
+ *     <ul class="menu menu-below-left" hidden>···</ul>
+ *   </div>
+ */
+
+.menu-below-left {
+  position: absolute;
+  top: calc(100% + var(--space-10));                 /* 4px gap */
+  left: 0;
+  z-index: var(--z-dropdown);
+}
+
+.menu-below-right {
+  position: absolute;
+  top: calc(100% + var(--space-10));
+  right: 0;
+  z-index: var(--z-dropdown);
+}
+
+.menu-above-left {
+  position: absolute;
+  bottom: calc(100% + var(--space-10));
+  left: 0;
+  z-index: var(--z-dropdown);
+}
+
+.menu-above-right {
+  position: absolute;
+  bottom: calc(100% + var(--space-10));
+  right: 0;
+  z-index: var(--z-dropdown);
+}
+
+/* Hidden state — toggle with JS by removing [hidden] or toggling a class */
+.menu[hidden] {
+  display: none;
+}

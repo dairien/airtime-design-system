@@ -1,0 +1,83 @@
+{
+  "$name": "Airtime — Shadows & Blur",
+  "$description": "Airtime design system shadow and blur tokens. Shadow colors are themed; geometry is shared.",
+  "shadow": {
+    "small": {
+      "dark": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px",
+          "color": "#0000003D"
+        },
+        "$type": "shadow",
+        "$extensions": { "mode": "dark" }
+      },
+      "light": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px",
+          "color": "#00000014"
+        },
+        "$type": "shadow",
+        "$extensions": { "mode": "light" }
+      }
+    },
+    "medium": {
+      "dark": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px",
+          "color": "#0000007A"
+        },
+        "$type": "shadow",
+        "$extensions": { "mode": "dark" }
+      },
+      "light": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px",
+          "color": "#00000029"
+        },
+        "$type": "shadow",
+        "$extensions": { "mode": "light" }
+      }
+    },
+    "large": {
+      "dark": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "24px",
+          "spread": "0px",
+          "color": "#000000B8"
+        },
+        "$type": "shadow",
+        "$extensions": { "mode": "dark" }
+      },
+      "light": {
+        "$value": {
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "24px",
+          "spread": "0px",
+          "color": "#0000003D"
+        },
+        "$type": "shadow",
+        "$extensions": { "mode": "light" }
+      }
+    }
+  },
+  "blur": {
+    "blur-small": { "$value": "8px", "$type": "dimension" },
+    "blur-medium": { "$value": "16px", "$type": "dimension" },
+    "blur-large": { "$value": "32px", "$type": "dimension" }
+  }
+}

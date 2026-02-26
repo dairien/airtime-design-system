@@ -1,0 +1,155 @@
+/**
+ * Airtime Design System v3 - Button
+ * Figma: https://www.figma.com/design/4ycNiPIJ2oXZVaCwaECbUa/Airtime-apps-design-system?node-id=1-2299
+ *
+ * Requires: generated/tokens.css
+ *
+ * Variants:  .btn-primary      Teal fill, black text (default CTA)
+ *            .btn-secondary    Glass fill, white text (secondary action)
+ *            .btn-destructive  Glass fill, destructive red text (danger action)
+ *            .btn-modeless     Transparent + dark border (use on teal/light backgrounds)
+ *
+ * Modifiers: .btn-outline      Removes fill, keeps border (works with each variant)
+ *            .btn-icon-only    Square icon-only button (28×28px)
+ */
+
+/* ─── Base ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  padding: var(--space-15) var(--space-20);
+  border-radius: var(--radius-15);
+  border: var(--border-width-thin) solid transparent;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-button-default);
+  font-size: var(--font-size-button-default);
+  line-height: var(--line-height-button-default);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background var(--duration-fast) var(--easing-default),
+    border-color var(--duration-fast) var(--easing-default),
+    opacity var(--duration-fast) var(--easing-default);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: var(--opacity-48);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── Icon inside button ─── */
+.btn svg,
+.btn img {
+  display: block;
+  width: var(--size-40);
+  height: var(--size-40);
+  flex-shrink: 0;
+}
+
+/* ─── Icon-only (square, 28×28px) ─── */
+.btn-icon-only {
+  padding: var(--space-15);
+  width: var(--size-70);
+  height: var(--size-70);
+}
+
+/* ─── Primary ─────────────────────────────── */
+/* modeless-teal fill, modeless-black text */
+.btn-primary {
+  background: var(--color-modeless-teal);
+  color: var(--color-modeless-black);
+  border-color: transparent;
+}
+
+.btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, var(--opacity-24)),
+      rgba(255, 255, 255, var(--opacity-24))
+    ),
+    var(--color-modeless-teal);
+}
+
+/* Primary — outline/ghost */
+.btn-primary.btn-outline {
+  background: transparent;
+  color: var(--color-modeless-teal);
+  border-color: var(--color-modeless-teal);
+}
+
+.btn-primary.btn-outline:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: rgba(121, 221, 232, var(--opacity-8));
+}
+
+/* ─── Secondary ────────────────────────────── */
+/* Glass fill, white text */
+.btn-secondary {
+  background: var(--color-highlight-primary);
+  color: var(--color-content-primary);
+  border-color: var(--color-highlight-primary);
+  backdrop-filter: blur(var(--blur-small));
+  -webkit-backdrop-filter: blur(var(--blur-small));
+}
+
+.btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-highlight-secondary);
+  border-color: var(--color-highlight-secondary);
+}
+
+/* Secondary — outline/ghost */
+.btn-secondary.btn-outline {
+  background: transparent;
+  color: var(--color-content-primary);
+  border-color: var(--color-highlight-primary);
+}
+
+.btn-secondary.btn-outline:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-highlight-primary);
+  border-color: var(--color-highlight-secondary);
+}
+
+/* ─── Destructive ──────────────────────────── */
+/* Glass fill, destructive red text */
+.btn-destructive {
+  background: var(--color-highlight-primary);
+  color: var(--color-accent-destructive);
+  border-color: var(--color-highlight-primary);
+  backdrop-filter: blur(var(--blur-small));
+  -webkit-backdrop-filter: blur(var(--blur-small));
+}
+
+.btn-destructive:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-highlight-secondary);
+  border-color: var(--color-highlight-secondary);
+}
+
+/* Destructive — outline/ghost */
+.btn-destructive.btn-outline {
+  background: transparent;
+  color: var(--color-accent-destructive);
+  border-color: var(--color-accent-destructive);
+}
+
+.btn-destructive.btn-outline:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: rgba(255, 109, 76, var(--opacity-8));
+}
+
+/* ─── Modeless ─────────────────────────────── */
+/* Transparent + dark border — for use on teal or light backgrounds */
+.btn-modeless {
+  background: transparent;
+  color: var(--color-modeless-black);
+  border-color: var(--color-modeless-black);
+}
+
+.btn-modeless:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-modeless-black-24);
+}

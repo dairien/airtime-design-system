@@ -1,0 +1,444 @@
+/**
+ * Airtime Design System v3 - Education
+ * Figma: https://www.figma.com/design/4ycNiPIJ2oXZVaCwaECbUa/Airtime-apps-design-system?node-id=25-10412
+ *
+ * Requires: generated/tokens.css
+ *
+ * ── Coach Mark ────────────────────────────────────────
+ *   .coach-mark           Teal floating panel (320px)
+ *   .coach-mark-text      Semibold 12px body text
+ *   .coach-mark-footer    Prev / step counter / Next row
+ *   .coach-mark-btn       Prev or Next button (modeless style)
+ *   .coach-mark-step      "1 / 3" counter (50% opacity)
+ *   .coach-mark-next      Next button wrapper (right-aligned)
+ *
+ *   Arrow position — set via data-arrow attribute:
+ *     data-arrow="center-left"    Arrow on left side, vertically centered
+ *     data-arrow="center-right"   Arrow on right side, vertically centered
+ *     data-arrow="top-left"       Arrow on top, left-aligned (16px from left)
+ *     data-arrow="top-center"     Arrow on top, centered
+ *     data-arrow="top-right"      Arrow on top, right-aligned (16px from right)
+ *     data-arrow="bottom-left"    Arrow on bottom, left-aligned
+ *     data-arrow="bottom-center"  Arrow on bottom, centered
+ *     data-arrow="bottom-right"   Arrow on bottom, right-aligned
+ *
+ * ── Tooltip ───────────────────────────────────────────
+ *   .tooltip              Small helper text bubble (background-secondary)
+ *
+ *   Arrow position — set via data-arrow attribute (same names as above):
+ *     data-arrow="left"           Arrow on left, vertically centered
+ *     data-arrow="right"          Arrow on right, vertically centered
+ *     data-arrow="top-left"       Arrow on top, left-aligned
+ *     data-arrow="top-center"     Arrow on top, centered
+ *     data-arrow="top-right"      Arrow on top, right-aligned
+ *     data-arrow="bottom-left"    Arrow on bottom, left-aligned
+ *     data-arrow="bottom-center"  Arrow on bottom, centered
+ *     data-arrow="bottom-right"   Arrow on bottom, right-aligned
+ *
+ * ── HTML examples ─────────────────────────────────────
+ *
+ *   <!-- Coach mark — arrow on left center -->
+ *   <div class="coach-mark" data-arrow="center-left">
+ *     <p class="coach-mark-text">
+ *       Create a new presentation or open an existing one
+ *     </p>
+ *     <div class="coach-mark-footer">
+ *       <button class="coach-mark-btn">Prev</button>
+ *       <span class="coach-mark-step">1 / 3</span>
+ *       <div class="coach-mark-next">
+ *         <button class="coach-mark-btn">Next</button>
+ *       </div>
+ *     </div>
+ *   </div>
+ *
+ *   <!-- Coach mark — arrow on top, centered, no Prev -->
+ *   <div class="coach-mark" data-arrow="top-center">
+ *     <p class="coach-mark-text">Select a template to get started</p>
+ *     <div class="coach-mark-footer">
+ *       <span class="coach-mark-step">2 / 3</span>
+ *       <div class="coach-mark-next">
+ *         <button class="coach-mark-btn">Next</button>
+ *       </div>
+ *     </div>
+ *   </div>
+ *
+ *   <!-- Tooltip — no arrow -->
+ *   <div class="tooltip">Helper text</div>
+ *
+ *   <!-- Tooltip — arrow left -->
+ *   <div class="tooltip" data-arrow="left">Helper text</div>
+ *
+ *   <!-- Tooltip — arrow top-left -->
+ *   <div class="tooltip" data-arrow="top-left">Helper text</div>
+ */
+
+/* ════════════════════════════════════════════════════
+   COACH MARK
+   ════════════════════════════════════════════════════ */
+
+/* ─── Container ─── */
+
+.coach-mark {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-20);                              /* 8px */
+  padding: var(--space-20);                          /* 8px all */
+  width: 320px;
+  background: var(--color-modeless-teal);
+  border-radius: var(--radius-20);                   /* 8px */
+  box-shadow: 0 8px 16px 0 var(--color-shadow-medium);
+  box-sizing: border-box;
+}
+
+/* ─── Text ─── */
+
+.coach-mark-text {
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-heading-small);         /* 12px */
+  line-height: var(--line-height-heading-small);     /* 16px */
+  font-weight: var(--font-weight-semibold);          /* 600 ≈ Figma 590 */
+  color: var(--color-modeless-black);
+}
+
+/* ─── Footer row ─── */
+
+.coach-mark-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);                              /* 8px */
+  width: 100%;
+}
+
+/* ─── Prev / Next buttons ─── */
+
+.coach-mark-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-15) var(--space-20);          /* 6px 8px */
+  border: var(--border-width-thin) solid var(--color-modeless-black);
+  border-radius: var(--radius-15);                   /* 6px */
+  background: transparent;
+  color: var(--color-modeless-black);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-button-default);        /* 12px */
+  line-height: var(--line-height-button-default);    /* 16px */
+  font-weight: var(--font-weight-medium);            /* 500 ≈ Figma 510 */
+  transition: opacity var(--duration-fast) var(--easing-default);
+}
+
+.coach-mark-btn:hover {
+  opacity: 0.8;
+}
+
+/* ─── Step counter ("1 / 3") ─── */
+
+.coach-mark-step {
+  flex-shrink: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);           /* 12px */
+  line-height: var(--line-height-body-medium);       /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-modeless-black);
+  opacity: 0.5;
+  text-align: center;
+}
+
+/* ─── Next wrapper (pushes Next button to the right) ─── */
+
+.coach-mark-next {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ════════════════════════════════════════════════════
+   COACH MARK — ARROWS
+   Triangle: 12px protrusion, 16px base (8px half)
+   Color: modeless-teal
+   ════════════════════════════════════════════════════ */
+
+.coach-mark[data-arrow]::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Center-left — arrow points LEFT */
+.coach-mark[data-arrow="center-left"]::before {
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 12px solid var(--color-modeless-teal);
+}
+
+/* Center-right — arrow points RIGHT */
+.coach-mark[data-arrow="center-right"]::before {
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid var(--color-modeless-teal);
+}
+
+/* Top-left — arrow points UP, aligned left */
+.coach-mark[data-arrow="top-left"]::before {
+  top: -12px;
+  left: 16px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--color-modeless-teal);
+}
+
+/* Top-center — arrow points UP, horizontally centered */
+.coach-mark[data-arrow="top-center"]::before {
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--color-modeless-teal);
+}
+
+/* Top-right — arrow points UP, aligned right */
+.coach-mark[data-arrow="top-right"]::before {
+  top: -12px;
+  right: 16px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--color-modeless-teal);
+}
+
+/* Bottom-left — arrow points DOWN, aligned left */
+.coach-mark[data-arrow="bottom-left"]::before {
+  bottom: -12px;
+  left: 16px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid var(--color-modeless-teal);
+}
+
+/* Bottom-center — arrow points DOWN, horizontally centered */
+.coach-mark[data-arrow="bottom-center"]::before {
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid var(--color-modeless-teal);
+}
+
+/* Bottom-right — arrow points DOWN, aligned right */
+.coach-mark[data-arrow="bottom-right"]::before {
+  bottom: -12px;
+  right: 16px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid var(--color-modeless-teal);
+}
+
+/* ════════════════════════════════════════════════════
+   TOOLTIP
+   ════════════════════════════════════════════════════ */
+
+/* ─── Container ─── */
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);                              /* 4px */
+  padding: var(--space-15) var(--space-30);          /* 6px 12px */
+  background: var(--color-background-secondary);
+  border: var(--border-width-thin) solid var(--color-highlight-primary);
+  border-radius: var(--radius-10);                   /* 4px */
+  box-shadow: 0 8px 16px 0 var(--color-shadow-medium);
+  box-sizing: border-box;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);           /* 12px */
+  line-height: var(--line-height-body-medium);       /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-primary);
+  white-space: nowrap;
+}
+
+/* ════════════════════════════════════════════════════
+   TOOLTIP — ARROWS
+   Triangle: 5px protrusion, 9px base (4.5px half)
+   Two-layer trick:
+     ::before = border color (slightly larger, behind)
+     ::after  = background color (sits in front, hides border seam)
+   ════════════════════════════════════════════════════ */
+
+/* Shared setup for both pseudo-elements */
+.tooltip[data-arrow]::before,
+.tooltip[data-arrow]::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* ── Left — arrow points LEFT ── */
+
+.tooltip[data-arrow="left"]::before {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 5.5px solid transparent;
+  border-bottom: 5.5px solid transparent;
+  border-right: 6px solid var(--color-highlight-primary);
+}
+
+.tooltip[data-arrow="left"]::after {
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  border-right: 5px solid var(--color-background-secondary);
+}
+
+/* ── Right — arrow points RIGHT ── */
+
+.tooltip[data-arrow="right"]::before {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 5.5px solid transparent;
+  border-bottom: 5.5px solid transparent;
+  border-left: 6px solid var(--color-highlight-primary);
+}
+
+.tooltip[data-arrow="right"]::after {
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  border-left: 5px solid var(--color-background-secondary);
+}
+
+/* ── Top-left — arrow points UP, left-aligned ── */
+
+.tooltip[data-arrow="top-left"]::before {
+  top: -6px;
+  left: 8px;
+  border-left: 5.5px solid transparent;
+  border-right: 5.5px solid transparent;
+  border-bottom: 6px solid var(--color-highlight-primary);
+}
+
+.tooltip[data-arrow="top-left"]::after {
+  top: -5px;
+  left: 9px;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-bottom: 5px solid var(--color-background-secondary);
+}
+
+/* ── Top-center — arrow points UP, centered ── */
+
+.tooltip[data-arrow="top-center"]::before {
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5.5px solid transparent;
+  border-right: 5.5px solid transparent;
+  border-bottom: 6px solid var(--color-highlight-primary);
+}
+
+.tooltip[data-arrow="top-center"]::after {
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-bottom: 5px solid var(--color-background-secondary);
+}
+
+/* ── Top-right — arrow points UP, right-aligned ── */
+
+.tooltip[data-arrow="top-right"]::before {
+  top: -6px;
+  right: 8px;
+  border-left: 5.5px solid transparent;
+  border-right: 5.5px solid transparent;
+  border-bottom: 6px solid var(--color-highlight-primary);
+}
+
+.tooltip[data-arrow="top-right"]::after {
+  top: -5px;
+  right: 9px;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-bottom: 5px solid var(--color-background-secondary);
+}
+
+/* ── Bottom-left — arrow points DOWN, left-aligned ── */
+
+.tooltip[data-arrow="bottom-left"]::before {
+  bottom: -6px;
+  left: 8px;
+  border-left: 5.5px solid transparent;
+  border-right: 5.5px solid transparent;
+  border-top: 6px solid var(--color-highlight-primary);
+}
+
+.tooltip[data-arrow="bottom-left"]::after {
+  bottom: -5px;
+  left: 9px;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-top: 5px solid var(--color-background-secondary);
+}
+
+/* ── Bottom-center — arrow points DOWN, centered ── */
+
+.tooltip[data-arrow="bottom-center"]::before {
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5.5px solid transparent;
+  border-right: 5.5px solid transparent;
+  border-top: 6px solid var(--color-highlight-primary);
+}
+
+.tooltip[data-arrow="bottom-center"]::after {
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-top: 5px solid var(--color-background-secondary);
+}
+
+/* ── Bottom-right — arrow points DOWN, right-aligned ── */
+
+.tooltip[data-arrow="bottom-right"]::before {
+  bottom: -6px;
+  right: 8px;
+  border-left: 5.5px solid transparent;
+  border-right: 5.5px solid transparent;
+  border-top: 6px solid var(--color-highlight-primary);
+}
+
+.tooltip[data-arrow="bottom-right"]::after {
+  bottom: -5px;
+  right: 9px;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-top: 5px solid var(--color-background-secondary);
+}

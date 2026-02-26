@@ -1,0 +1,14 @@
+{
+  "$name": "Airtime — Borders",
+  "$description": "Airtime design system border tokens. Theme-independent widths and styles.",
+  "border": {
+    "width": {
+      "none": { "$value": "0px", "$type": "dimension" },
+      "thin": { "$value": "1px", "$type": "dimension" },
+      "medium": { "$value": "2px", "$type": "dimension" }
+    },
+    "style": {
+      "solid": { "$value": "solid", "$type": "string" }
+    }
+  }
+}

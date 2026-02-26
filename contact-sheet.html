@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Airtime Design System</title>
+
+  <!-- Tokens (must be first) -->
+  <link rel="stylesheet" href="generated/tokens.css" />
+
+  <!-- Icons (currentColor SVGs) -->
+  <script src="generated/icons.js"></script>
+
+  <!-- Components -->
+  <link rel="stylesheet" href="components/button.css" />
+  <link rel="stylesheet" href="components/input.css" />
+  <link rel="stylesheet" href="components/controls.css" />
+  <link rel="stylesheet" href="components/rows.css" />
+  <link rel="stylesheet" href="components/menus.css" />
+  <link rel="stylesheet" href="components/education.css" />
+  <link rel="stylesheet" href="components/others.css" />
+
+  <style>
+    /* ── Reset / base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-family-primary);
+      font-size: var(--font-size-body-medium);
+      color: var(--color-content-primary);
+      background: var(--color-background-secondary);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100vh;
+      background: var(--color-background-secondary);
+      border-right: 1px solid var(--color-highlight-primary);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      padding: 0 16px;
+      border-bottom: 1px solid var(--color-highlight-primary);
+      display: flex;
+      align-items: center;
+      min-height: 49px;
+    }
+
+    .sidebar-title {
+      font-size: var(--font-size-heading-medium);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-content-primary);
+      margin: 0 0 2px;
+      line-height: 1.2;
+    }
+
+    .sidebar-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--color-highlight-primary);
+    }
+
+    .sidebar-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      padding: var(--space-15) 0;
+    }
+
+    .sidebar-stat + .sidebar-stat {
+      border-left: 1px solid var(--color-highlight-primary);
+    }
+
+    .sidebar-stat-num {
+      font-size: var(--font-size-heading-medium);
+      font-weight: var(--font-weight-bold);
+      line-height: 1;
+      color: var(--color-accent-teal);
+    }
+
+    .sidebar-stat-label {
+      font-size: 9px;
+      line-height: 1;
+      color: var(--color-content-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: var(--font-weight-medium);
+    }
+
+    .sidebar-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-05);
+      align-items: center;
+    }
+
+    .stat-chip {
+      font-size: 10px;
+      line-height: 1;
+      color: var(--color-content-tertiary);
+      background: var(--color-highlight-primary);
+      padding: 3px 6px;
+      border-radius: var(--radius-9999);
+      white-space: nowrap;
+    }
+
+    .stat-num {
+      color: var(--color-accent-teal);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 8px;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 6px 8px;
+      border-radius: var(--radius-15);
+      color: var(--color-content-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-body-medium);
+      font-weight: var(--font-weight-medium);
+      transition: background var(--duration-fast) var(--easing-default),
+                  color var(--duration-fast) var(--easing-default);
+    }
+
+    .nav-link:hover {
+      background: var(--color-highlight-primary);
+      color: var(--color-content-primary);
+    }
+
+    .nav-link.active {
+      background: var(--color-content-primary);
+      color: var(--color-background-secondary);
+    }
+
+    /* Token view iframe overlay */
+    #token-view {
+      display: none;
+      position: fixed;
+      left: 200px;
+      right: 0;
+      top: 49px;
+      bottom: 0;
+      z-index: 50;
+    }
+
+    #token-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 8px 8px 2px;
+      padding: 0;
+    }
+
+    .nav-divider {
+      border: none;
+      border-top: 1px solid var(--color-highlight-primary);
+      margin: 8px 8px;
+    }
+
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid var(--color-highlight-primary);
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid var(--color-highlight-primary);
+      border-radius: var(--radius-15);
+      background: transparent;
+      color: var(--color-content-secondary);
+      font-family: var(--font-family-primary);
+      font-size: var(--font-size-body-medium);
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--easing-default);
+    }
+
+    .theme-toggle:hover {
+      background: var(--color-highlight-primary);
+      color: var(--color-content-primary);
+    }
+
+    .theme-toggle-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ── Main content ── */
+    .main {
+      margin-left: 200px;
+      padding: 82px 40px 32px;
+      max-width: 1200px;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 200px;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--color-background-secondary);
+      border-bottom: 1px solid var(--color-highlight-primary);
+      padding: 0 40px;
+      min-height: 49px;
+      z-index: 60;
+    }
+    .header h1 {
+      font-size: var(--font-size-heading-large);
+      font-weight: var(--font-weight-bold);
+      margin: 0;
+      line-height: 1;
+    }
+    .header .meta {
+      font-size: var(--font-size-body-small);
+      color: var(--color-content-secondary);
+      margin: 0;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 64px;
+      scroll-margin-top: 24px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-content-primary);
+      margin: 0 0 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-highlight-primary);
+    }
+
+    /* ── Group (sub-section) ── */
+    .group {
+      margin-bottom: 40px;
+    }
+
+    .group-title {
+      font-size: var(--font-size-heading-medium);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-secondary);
+      margin: 0 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 11px;
+    }
+
+    /* ── Variants row ── */
+    .variants {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .variants-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* ── Single variant card ── */
+    .variant {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .variant-label {
+      font-size: 10px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-content-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .variant-preview {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Canvas (neutral background for items that need context) ── */
+    .canvas {
+      padding: 16px;
+      border-radius: var(--radius-20);
+      border: 1px solid var(--color-highlight-primary);
+      background: var(--color-background-secondary);
+    }
+
+    .canvas-teal {
+      background: var(--color-modeless-teal);
+    }
+
+    /* ── Icon helper ──
+       Uses AppIcons from icons.js — SVGs with fill="currentColor".
+       Icons automatically inherit the CSS `color` property — no filter tricks needed. */
+    .icon-img {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+    }
+
+    .icon-img svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Scroll area demo (200×80px box) ── */
+    .scroll-demo {
+      width: 200px;
+      height: 80px;
+      overflow: auto;
+      border: 1px solid var(--color-highlight-primary);
+      border-radius: var(--radius-10);
+      padding: 8px;
+    }
+
+    .scroll-content {
+      height: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: var(--font-size-body-small);
+      color: var(--color-content-secondary);
+    }
+
+    /* ── Divider demo wrapper ── */
+    .divider-h-demo {
+      width: 200px;
+    }
+
+    .divider-v-demo {
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ── Badge demo ── */
+    .badge-host {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-15);
+      background: var(--color-highlight-primary);
+    }
+
+    .badge-host .badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+    }
+
+    /* ── Education arrow demos ── */
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 48px 32px;
+      align-items: center;
+      justify-items: center;
+    }
+
+    .education-grid .coach-mark,
+    .education-grid .tooltip {
+      position: relative; /* override absolute in production */
+    }
+
+    /* Padding so arrows don't clip */
+    .arrow-pad { padding: 16px; }
+
+    /* ── Color picker / swatch standalone sizing ── */
+    .color-picker,
+    .swatches {
+      /* width is set in others.css (280px) */
+    }
+
+    /* ── Loader animation override (ensure spin works) ── */
+    @keyframes loader-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 306 52" fill="none" style="max-width:100px;height:auto;display:block;color:var(--color-content-primary)"><path fill-rule="evenodd" clip-rule="evenodd" d="M72.0874 50.9253L90.3717 0.0566406H103.32L121.675 50.9253H108.442L105.454 41.7476H87.6681L84.7512 50.9253H72.0874ZM94.4981 20.4041L90.5851 32.7122H102.537L98.6956 20.4041C97.8419 17.7717 96.7036 13.2185 96.7036 13.2185H96.5613C96.5613 13.2185 95.3518 17.7717 94.4981 20.4041Z" fill="currentColor"/><path d="M168.942 41.3209C168.942 49.1468 173.78 51.3523 180.539 51.3523C183.67 51.3523 185.875 51.0678 186.871 50.7832V42.3169C186.703 42.3169 186.424 42.328 186.086 42.3414L186.086 42.3414L186.085 42.3414L186.084 42.3415L186.083 42.3415H186.083C185.566 42.3621 184.912 42.3881 184.31 42.3881C181.82 42.3881 180.255 41.6766 180.255 38.8308V21.756H186.871V14.4992H180.255V2.97376H168.942V14.4992H168.943V21.756H168.942V41.3209Z" fill="currentColor"/><path d="M208.2 14.4992V50.9254H219.797V30.5068C219.797 26.167 221.931 23.1077 225.559 23.1077C229.046 23.1077 230.682 25.3844 230.682 29.2973V50.9254H242.278V30.5068C242.278 26.167 244.342 23.1077 248.041 23.1077C251.527 23.1077 253.164 25.3844 253.164 29.2973V50.9254H264.76V27.2341C264.76 19.0525 260.634 13.432 252.381 13.432C247.686 13.432 243.773 15.4241 240.927 19.8351H240.784C238.935 15.9221 235.306 13.432 230.54 13.432C225.275 13.432 221.789 15.9221 219.512 19.6928H219.299V14.4992H208.2Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M268.399 32.6411C268.399 43.6686 275.798 51.9926 287.821 51.9926C292.446 51.9926 296.145 50.7831 299.205 48.6488C302.406 46.4433 304.54 43.3129 305.323 40.0402H294.011C293.015 42.3169 291.023 43.6686 287.964 43.6686C283.197 43.6686 280.493 40.6094 279.782 35.7004H305.963C306.034 28.3013 303.9 21.9694 299.56 17.9853C296.43 15.1395 292.303 13.432 287.11 13.432C276.011 13.432 268.399 21.756 268.399 32.6411ZM294.224 28.7993H279.853C280.636 24.4595 282.912 21.6848 287.323 21.6848C291.094 21.6848 293.798 24.4595 294.224 28.7993Z" fill="currentColor"/><path d="M191.04 50.9253V14.4991H202.636V50.9253H191.04Z" fill="currentColor"/><path d="M141.701 50.9251V14.4989H152.799V20.1905H153.013C155.574 15.8507 158.562 13.9298 162.973 13.9298C164.04 13.9298 164.752 14.0009 165.25 14.2143V24.1746H164.965C157.851 23.1786 153.297 26.6647 153.297 34.5618V50.9251H141.701Z" fill="currentColor"/><path d="M124.54 14.4991V50.9253H136.137V14.4991H124.54Z" fill="currentColor"/><path d="M124.559 2.92217V2.9198L136.092 2.9198V2.92217C136.092 6.10674 133.51 8.68834 130.325 8.68834C127.141 8.68834 124.559 6.10674 124.559 2.92217Z" fill="currentColor"/><path d="M191.179 2.9198V2.92217C191.179 6.10674 193.761 8.68834 196.946 8.68834C200.13 8.68834 202.712 6.10674 202.712 2.92217V2.9198L191.179 2.9198Z" fill="currentColor"/><path d="M25.4438 0.0136719C11.3916 0.0136719 0 11.4052 0 25.4575C0 39.5097 11.3916 50.9013 25.4438 50.9013V27.319C26.3815 37.2935 34.7783 45.0988 44.9981 45.0988V26.9768C45.7511 33.5035 51.2961 38.571 58.0246 38.571V12.3439C51.2961 12.3439 45.7511 17.4114 44.9981 23.9382V5.81613C34.7783 5.81613 26.3815 13.6214 25.4438 23.5959V0.0136719Z" fill="currentColor"/></svg>
+    </div>
+
+    <div class="sidebar-meta">
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-num">77</span>
+        <span class="sidebar-stat-label">tokens</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-num">24</span>
+        <span class="sidebar-stat-label">components</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-num">221</span>
+        <span class="sidebar-stat-label">icons</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Component sections">
+      <p class="nav-section-label">Tokens</p>
+      <a class="nav-link" href="contact-sheet-tokens.html#colors">Colors</a>
+      <a class="nav-link" href="contact-sheet-tokens.html#typography">Typography</a>
+      <a class="nav-link" href="contact-sheet-tokens.html#spacing">Spacing &amp; Sizing</a>
+      <a class="nav-link" href="contact-sheet-tokens.html#radii">Radii</a>
+      <a class="nav-link" href="contact-sheet-tokens.html#shadows">Shadows</a>
+      <a class="nav-link" href="contact-sheet-tokens.html#misc">Borders &amp; More</a>
+      <a class="nav-link" href="contact-sheet-tokens.html#icons">Icons</a>
+      <hr class="nav-divider">
+      <p class="nav-section-label">Components</p>
+      <a class="nav-link" href="#buttons">Buttons</a>
+      <a class="nav-link" href="#inputs">Inputs</a>
+      <a class="nav-link" href="#controls">Controls</a>
+      <a class="nav-link" href="#rows">Rows</a>
+      <a class="nav-link" href="#menus">Menus</a>
+      <a class="nav-link" href="#education">Education</a>
+      <a class="nav-link" href="#others">Others</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg class="theme-toggle-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Simple sun/moon icon drawn inline -->
+          <circle cx="8" cy="8" r="3" fill="currentColor"/>
+          <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span id="theme-label">Light mode</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Token view (iframe overlay) ── -->
+  <div id="token-view">
+    <iframe id="token-frame" title="Token Reference"></iframe>
+  </div>
+
+  <!-- ── Header (fixed, above token overlay) ── -->
+  <header class="header">
+    <div style="display:flex;align-items:center;gap:12px">
+      <h1>Airtime Design System</h1>
+      <div class="sidebar-stats">
+        <span class="stat-chip"><span class="stat-num">77</span> tokens</span>
+        <span class="stat-chip"><span class="stat-num">24</span> components</span>
+        <span class="stat-chip"><span class="stat-num">221</span> icons</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <a href="../../index.html" style="font-size:var(--font-size-body-small);color:var(--color-content-tertiary);text-decoration:none">&larr; Toolkit</a>
+    </div>
+  </header>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- ════════════════════════════════ BUTTONS ════════════════════════════════ -->
+    <section class="section" id="buttons">
+      <h2 class="section-title">Buttons</h2>
+
+      <!-- Primary -->
+      <div class="group">
+        <p class="group-title">Variants</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Primary</span>
+            <div class="variant-preview">
+              <button class="btn btn-primary">Button</button>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Secondary</span>
+            <div class="variant-preview">
+              <button class="btn btn-secondary">Button</button>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Destructive</span>
+            <div class="variant-preview">
+              <button class="btn btn-destructive">Delete</button>
+            </div>
+          </div>
+          <div class="variant canvas canvas-teal">
+            <span class="variant-label">Modeless</span>
+            <div class="variant-preview">
+              <button class="btn btn-modeless">Button</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outline -->
+      <div class="group">
+        <p class="group-title">Outline modifier</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Primary Outline</span>
+            <div class="variant-preview">
+              <button class="btn btn-primary btn-outline">Button</button>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Secondary Outline</span>
+            <div class="variant-preview">
+              <button class="btn btn-secondary btn-outline">Button</button>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Destructive Outline</span>
+            <div class="variant-preview">
+              <button class="btn btn-destructive btn-outline">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Icon only -->
+      <div class="group">
+        <p class="group-title">Icon only</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Primary icon</span>
+            <div class="variant-preview">
+              <button class="btn btn-primary btn-icon-only" aria-label="Add">
+                <div class="icon-img" data-icon="Plus_Stroke_16"></div>
+              </button>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Secondary icon</span>
+            <div class="variant-preview">
+              <button class="btn btn-secondary btn-icon-only" aria-label="More">
+                <div class="icon-img" data-icon="More_Fill_16"></div>
+              </button>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">With label icon</span>
+            <div class="variant-preview">
+              <button class="btn btn-primary">
+                <div class="icon-img" data-icon="Plus_Stroke_16"></div>
+                Add
+              </button>
+              <button class="btn btn-secondary">
+                Download
+                <div class="icon-img" data-icon="Download_Stroke_16"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- States -->
+      <div class="group">
+        <p class="group-title">States</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Disabled</span>
+            <div class="variant-preview">
+              <button class="btn btn-primary" disabled>Button</button>
+              <button class="btn btn-secondary" disabled>Button</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ INPUTS ════════════════════════════════ -->
+    <section class="section" id="inputs">
+      <h2 class="section-title">Inputs</h2>
+
+      <div class="group">
+        <p class="group-title">Direct input</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Default</span>
+            <input class="input" type="text" placeholder="Placeholder" />
+          </div>
+          <div class="variant">
+            <span class="variant-label">Default (filled)</span>
+            <input class="input" type="text" value="Some value" />
+          </div>
+          <div class="variant">
+            <span class="variant-label">Large</span>
+            <input class="input input-lg" type="text" placeholder="Placeholder" />
+          </div>
+          <div class="variant">
+            <span class="variant-label">No fill</span>
+            <input class="input input-no-fill" type="text" placeholder="Inline edit" />
+          </div>
+          <div class="variant">
+            <span class="variant-label">Error</span>
+            <input class="input input-error" type="text" value="Invalid value" />
+          </div>
+          <div class="variant">
+            <span class="variant-label">Disabled</span>
+            <input class="input" type="text" placeholder="Disabled" disabled />
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Wrapper (icon + clear)</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Search</span>
+            <div class="input-wrapper">
+              <div class="input-icon-left icon-img" data-icon="Search_Fill_16"></div>
+              <input class="input-bare" type="text" placeholder="Search…" />
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Left + Right icon</span>
+            <div class="input-wrapper">
+              <div class="input-icon-left icon-img" data-icon="Search_Fill_16"></div>
+              <input class="input-bare" type="text" value="Query" />
+              <button class="input-icon-right" aria-label="Clear">
+                <div class="icon-img" data-icon="Plus_Stroke_16" style="transform:rotate(45deg)"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Split input</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">XYWH</span>
+            <div class="input-split">
+              <input class="input-split-segment" type="text" value="100" aria-label="X" />
+              <span class="input-split-divider"></span>
+              <input class="input-split-segment" type="text" value="200" aria-label="Y" />
+              <span class="input-split-divider"></span>
+              <input class="input-split-segment" type="text" value="320" aria-label="W" />
+              <span class="input-split-divider"></span>
+              <input class="input-split-segment" type="text" value="240" aria-label="H" />
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Opacity</span>
+            <div class="input-split" style="width:80px">
+              <input class="input-split-segment" type="text" value="75" aria-label="Opacity" />
+              <div class="input-split-label">%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ CONTROLS ════════════════════════════════ -->
+    <section class="section" id="controls">
+      <h2 class="section-title">Controls</h2>
+
+      <!-- Segmented -->
+      <div class="group">
+        <p class="group-title">Segmented Control</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">3 segments</span>
+            <div class="segmented" role="group">
+              <button class="segmented-item active">Label</button>
+              <button class="segmented-item">Label</button>
+              <button class="segmented-item">Label</button>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">2 segments</span>
+            <div class="segmented" role="group">
+              <button class="segmented-item active">On</button>
+              <button class="segmented-item">Off</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="group">
+        <p class="group-title">Checkbox</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Unchecked</span>
+            <label class="checkbox">
+              <input type="checkbox" />
+              <span class="checkbox-box"></span>
+              <span class="checkbox-label">Label</span>
+            </label>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Checked</span>
+            <label class="checkbox">
+              <input type="checkbox" checked />
+              <span class="checkbox-box"></span>
+              <span class="checkbox-label">Label</span>
+            </label>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Disabled</span>
+            <label class="checkbox">
+              <input type="checkbox" disabled />
+              <span class="checkbox-box"></span>
+              <span class="checkbox-label">Disabled</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radio -->
+      <div class="group">
+        <p class="group-title">Radio</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Unselected</span>
+            <label class="radio">
+              <input type="radio" name="radio-demo" />
+              <span class="radio-box"></span>
+              <span class="radio-label">Option A</span>
+            </label>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Selected</span>
+            <label class="radio">
+              <input type="radio" name="radio-demo" checked />
+              <span class="radio-box"></span>
+              <span class="radio-label">Option B</span>
+            </label>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Disabled</span>
+            <label class="radio">
+              <input type="radio" name="radio-demo2" disabled />
+              <span class="radio-box"></span>
+              <span class="radio-label">Disabled</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider -->
+      <div class="group">
+        <p class="group-title">Slider</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Default (25%)</span>
+            <input class="slider" id="slider-demo1" type="range" min="0" max="100" value="25"
+                   style="--slider-value:25%;width:200px"
+                   oninput="this.style.setProperty('--slider-value',this.value+'%')" />
+          </div>
+          <div class="variant">
+            <span class="variant-label">Default (75%)</span>
+            <input class="slider" id="slider-demo2" type="range" min="0" max="100" value="75"
+                   style="--slider-value:75%;width:200px"
+                   oninput="this.style.setProperty('--slider-value',this.value+'%')" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="group">
+        <p class="group-title">Progress</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">33%</span>
+            <progress class="progress" value="33" max="100" style="width:200px"></progress>
+          </div>
+          <div class="variant">
+            <span class="variant-label">80%</span>
+            <progress class="progress" value="80" max="100" style="width:200px"></progress>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loader -->
+      <div class="group">
+        <p class="group-title">Loader</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Default (16px)</span>
+            <span class="loader" aria-label="Loading"></span>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Large (24px)</span>
+            <span class="loader loader-lg" aria-label="Loading"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropdown -->
+      <div class="group">
+        <p class="group-title">Dropdown</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Closed</span>
+            <div class="dropdown">
+              <button class="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false"
+                      onclick="toggleDropdown(this)">
+                <span>Option A</span>
+                <div class="dropdown-chevron icon-img" data-icon="ChevronDownSmall_Stroke_16"></div>
+              </button>
+              <ul class="dropdown-menu" hidden>
+                <li class="dropdown-item" onclick="selectDropdownItem(this, 'Option A')">Option A</li>
+                <li class="dropdown-item" onclick="selectDropdownItem(this, 'Option B')">Option B</li>
+                <li class="dropdown-item" onclick="selectDropdownItem(this, 'Option C')">Option C</li>
+              </ul>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Open</span>
+            <div class="dropdown">
+              <button class="dropdown-trigger" aria-haspopup="listbox" aria-expanded="true">
+                <span>Option B</span>
+                <div class="dropdown-chevron icon-img" data-icon="ChevronUpSmall_Stroke_16"></div>
+              </button>
+              <ul class="dropdown-menu" style="display:flex;flex-direction:column;position:static;margin-top:4px">
+                <li class="dropdown-item">Option A</li>
+                <li class="dropdown-item" style="background:var(--color-highlight-primary)">Option B</li>
+                <li class="dropdown-item">Option C</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ ROWS ════════════════════════════════ -->
+    <section class="section" id="rows">
+      <h2 class="section-title">Rows</h2>
+
+      <div class="group">
+        <p class="group-title">Default Row</p>
+        <div style="width:260px; display:flex; flex-direction:column; gap:4px;">
+          <div class="variant-label">Normal</div>
+          <div class="row" role="option">
+            <div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div>
+            <span>Option label</span>
+          </div>
+          <div class="variant-label" style="margin-top:8px">With right chevron</div>
+          <button class="row">
+            <span>Settings</span>
+            <div class="row-icon-right icon-img" data-icon="ChevronForwardSmall_Stroke_16"></div>
+          </button>
+          <div class="variant-label" style="margin-top:8px">Destructive</div>
+          <button class="row row-destructive">
+            <div class="row-icon-left icon-img" data-icon="Trash_Fill_16"></div>
+            <span>Delete</span>
+          </button>
+          <div class="variant-label" style="margin-top:8px">Disabled</div>
+          <button class="row" disabled>
+            <div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div>
+            <span>Unavailable</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Thumbnail Row</p>
+        <div style="width:260px; display:flex; flex-direction:column; gap:4px;">
+          <div class="row-thumbnail" role="option">
+            <div class="row-thumbnail-image">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='71' height='40'%3E%3Crect width='71' height='40' fill='%23556'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='10'%3EScene A%3C/text%3E%3C/svg%3E" alt="Scene A" />
+            </div>
+            <span>Scene A</span>
+            <div class="row-icon-right icon-img" data-icon="Checkmark_Stroke_16"></div>
+          </div>
+          <div class="row-thumbnail" role="option">
+            <div class="row-thumbnail-image">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='71' height='40'%3E%3Crect width='71' height='40' fill='%23446655'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='10'%3EScene B%3C/text%3E%3C/svg%3E" alt="Scene B" />
+            </div>
+            <span>Scene B</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Account Row</p>
+        <div style="width:260px; display:flex; flex-direction:column; gap:4px;">
+          <div class="row-account">
+            <img class="row-account-avatar"
+                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23556677'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-size='14' font-family='sans-serif'%3ETR%3C/text%3E%3C/svg%3E"
+                 alt="Tyler Reynolds" />
+            <div class="row-account-info">
+              <span class="row-account-name">Tyler Reynolds</span>
+              <span class="row-account-email">tyler@all-turtles.com</span>
+            </div>
+            <div class="row-icon-right icon-img" data-icon="ChevronForward_Stroke_16"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ MENUS ════════════════════════════════ -->
+    <section class="section" id="menus">
+      <h2 class="section-title">Menus</h2>
+
+      <div class="variants" style="align-items:flex-start">
+
+        <!-- Default menu -->
+        <div class="variant">
+          <span class="variant-label">Default menu</span>
+          <ul class="menu" role="menu">
+            <li class="row" role="menuitem">
+              <div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div>
+              <span>Option 1</span>
+            </li>
+            <li class="row" role="menuitem">
+              <div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div>
+              <span>Option 2</span>
+            </li>
+            <li class="menu-divider" role="separator"></li>
+            <li class="row row-destructive" role="menuitem">
+              <div class="row-icon-left icon-img" data-icon="Trash_Fill_16"></div>
+              <span>Delete</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Thumbnail menu -->
+        <div class="variant">
+          <span class="variant-label">Thumbnail menu</span>
+          <ul class="menu menu-thumbnail" role="listbox">
+            <li class="row-thumbnail" role="option" aria-selected="true">
+              <div class="row-thumbnail-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='71' height='40'%3E%3Crect width='71' height='40' fill='%23557'/%3E%3C/svg%3E" alt="Scene A" />
+              </div>
+              <span>Scene A</span>
+              <div class="row-icon-right icon-img" data-icon="Checkmark_Stroke_16"></div>
+            </li>
+            <li class="row-thumbnail" role="option">
+              <div class="row-thumbnail-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='71' height='40'%3E%3Crect width='71' height='40' fill='%23466'/%3E%3C/svg%3E" alt="Scene B" />
+              </div>
+              <span>Scene B</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Account menu -->
+        <div class="variant">
+          <span class="variant-label">Account menu</span>
+          <div class="menu menu-account" role="dialog" aria-label="Account menu">
+            <div class="row-account">
+              <img class="row-account-avatar"
+                   src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23556677'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-size='14' font-family='sans-serif'%3ETR%3C/text%3E%3C/svg%3E"
+                   alt="Tyler Reynolds" />
+              <div class="row-account-info">
+                <span class="row-account-name">Tyler Reynolds</span>
+                <span class="row-account-email">tyler@all-turtles.com</span>
+              </div>
+            </div>
+            <div class="menu-divider"></div>
+            <button class="row">
+              <span>Manage Business</span>
+              <div class="row-icon-right icon-img" data-icon="ChevronForwardSmall_Stroke_16"></div>
+            </button>
+            <button class="row"><span>Account settings</span></button>
+            <button class="row">
+              <span>Theme</span>
+              <div class="row-icon-right icon-img" data-icon="ChevronForwardSmall_Stroke_16"></div>
+            </button>
+            <div class="menu-divider"></div>
+            <button class="row"><span>Terms</span></button>
+            <button class="row"><span>Privacy</span></button>
+            <button class="row row-destructive"><span>Sign out</span></button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ EDUCATION ════════════════════════════════ -->
+    <section class="section" id="education">
+      <h2 class="section-title">Education</h2>
+
+      <!-- Coach mark -->
+      <div class="group">
+        <p class="group-title">Coach Mark — Arrow positions</p>
+        <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+          <div class="variant">
+            <span class="variant-label">center-left</span>
+            <div style="padding:0 0 0 20px">
+              <div class="coach-mark" data-arrow="center-left">
+                <p class="coach-mark-text">Create a new presentation or open an existing one</p>
+                <div class="coach-mark-footer">
+                  <button class="coach-mark-btn">Prev</button>
+                  <span class="coach-mark-step">1 / 3</span>
+                  <div class="coach-mark-next">
+                    <button class="coach-mark-btn">Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="variant">
+            <span class="variant-label">center-right</span>
+            <div style="padding:0 20px 0 0">
+              <div class="coach-mark" data-arrow="center-right">
+                <p class="coach-mark-text">Select a template to get started</p>
+                <div class="coach-mark-footer">
+                  <span class="coach-mark-step">2 / 3</span>
+                  <div class="coach-mark-next">
+                    <button class="coach-mark-btn">Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="variant">
+            <span class="variant-label">top-left / top-center / top-right</span>
+            <div style="padding-top:20px;display:flex;gap:48px">
+              <div class="coach-mark" data-arrow="top-left">
+                <p class="coach-mark-text">Top-left arrow example</p>
+                <div class="coach-mark-footer">
+                  <span class="coach-mark-step">1 / 1</span>
+                  <div class="coach-mark-next"><button class="coach-mark-btn">Done</button></div>
+                </div>
+              </div>
+              <div class="coach-mark" data-arrow="top-center">
+                <p class="coach-mark-text">Top-center arrow example</p>
+                <div class="coach-mark-footer">
+                  <span class="coach-mark-step">1 / 1</span>
+                  <div class="coach-mark-next"><button class="coach-mark-btn">Done</button></div>
+                </div>
+              </div>
+              <div class="coach-mark" data-arrow="top-right">
+                <p class="coach-mark-text">Top-right arrow example</p>
+                <div class="coach-mark-footer">
+                  <span class="coach-mark-step">1 / 1</span>
+                  <div class="coach-mark-next"><button class="coach-mark-btn">Done</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="variant">
+            <span class="variant-label">bottom-left / bottom-center / bottom-right</span>
+            <div style="padding-bottom:20px;display:flex;gap:48px">
+              <div class="coach-mark" data-arrow="bottom-left">
+                <p class="coach-mark-text">Bottom-left arrow example</p>
+                <div class="coach-mark-footer">
+                  <span class="coach-mark-step">1 / 1</span>
+                  <div class="coach-mark-next"><button class="coach-mark-btn">Done</button></div>
+                </div>
+              </div>
+              <div class="coach-mark" data-arrow="bottom-center">
+                <p class="coach-mark-text">Bottom-center arrow example</p>
+                <div class="coach-mark-footer">
+                  <span class="coach-mark-step">1 / 1</span>
+                  <div class="coach-mark-next"><button class="coach-mark-btn">Done</button></div>
+                </div>
+              </div>
+              <div class="coach-mark" data-arrow="bottom-right">
+                <p class="coach-mark-text">Bottom-right arrow example</p>
+                <div class="coach-mark-footer">
+                  <span class="coach-mark-step">1 / 1</span>
+                  <div class="coach-mark-next"><button class="coach-mark-btn">Done</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="variant">
+            <span class="variant-label">No arrow</span>
+            <div class="coach-mark">
+              <p class="coach-mark-text">Coach mark with no arrow</p>
+              <div class="coach-mark-footer">
+                <span class="coach-mark-step">3 / 3</span>
+                <div class="coach-mark-next"><button class="coach-mark-btn">Done</button></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Tooltip -->
+      <div class="group">
+        <p class="group-title">Tooltip — Arrow positions</p>
+        <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+
+          <div class="variant">
+            <span class="variant-label">No arrow</span>
+            <div class="tooltip">Helper text</div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">left</span>
+            <div style="padding-left:8px">
+              <div class="tooltip" data-arrow="left">Helper text</div>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">right</span>
+            <div style="padding-right:8px">
+              <div class="tooltip" data-arrow="right">Helper text</div>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">top-left</span>
+            <div style="padding-top:8px">
+              <div class="tooltip" data-arrow="top-left">Helper text</div>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">top-center</span>
+            <div style="padding-top:8px">
+              <div class="tooltip" data-arrow="top-center">Helper text</div>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">top-right</span>
+            <div style="padding-top:8px">
+              <div class="tooltip" data-arrow="top-right">Helper text</div>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">bottom-left</span>
+            <div style="padding-bottom:8px">
+              <div class="tooltip" data-arrow="bottom-left">Helper text</div>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">bottom-center</span>
+            <div style="padding-bottom:8px">
+              <div class="tooltip" data-arrow="bottom-center">Helper text</div>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">bottom-right</span>
+            <div style="padding-bottom:8px">
+              <div class="tooltip" data-arrow="bottom-right">Helper text</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ OTHERS ════════════════════════════════ -->
+    <section class="section" id="others">
+      <h2 class="section-title">Others</h2>
+
+      <!-- Badge -->
+      <div class="group">
+        <p class="group-title">Badge</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Numeric</span>
+            <div class="badge-host">
+              <div class="icon-img" data-icon="Bell_Fill_16"></div>
+              <span class="badge">3</span>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Double digit</span>
+            <div class="badge-host">
+              <div class="icon-img" data-icon="Bell_Fill_16"></div>
+              <span class="badge">12</span>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Dot</span>
+            <div class="badge-host">
+              <div class="icon-img" data-icon="Bell_Fill_16"></div>
+              <span class="badge" style="min-width:8px;padding:0;width:8px;height:8px;top:-2px;right:-2px"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="group">
+        <p class="group-title">Divider</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Horizontal</span>
+            <div class="divider-h-demo">
+              <p style="margin:0 0 4px;font-size:11px;color:var(--color-content-secondary)">Above</p>
+              <div class="divider"></div>
+              <p style="margin:4px 0 0;font-size:11px;color:var(--color-content-secondary)">Below</p>
+            </div>
+          </div>
+          <div class="variant">
+            <span class="variant-label">Vertical</span>
+            <div class="divider-v-demo">
+              <span style="font-size:11px;color:var(--color-content-secondary)">Left</span>
+              <div class="divider-vertical"></div>
+              <span style="font-size:11px;color:var(--color-content-secondary)">Right</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollbar -->
+      <div class="group">
+        <p class="group-title">Scrollbar</p>
+        <div class="variants" style="align-items:flex-end; gap:32px">
+
+          <!-- Weak Horizontal -->
+          <div class="variant">
+            <span class="variant-label">Weak (H)</span>
+            <div style="width:180px">
+              <div class="scrollbar">
+                <div class="scrollbar-thumb" style="width:40%;margin-left:20%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strong Horizontal -->
+          <div class="variant">
+            <span class="variant-label">Strong (H)</span>
+            <div style="width:180px">
+              <div class="scrollbar scrollbar-strong">
+                <div class="scrollbar-thumb scrollbar-strong-thumb" style="width:40%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weak Vertical -->
+          <div class="variant">
+            <span class="variant-label">Weak (V)</span>
+            <div style="height:160px;display:flex">
+              <div class="scrollbar scrollbar-vertical" style="height:160px">
+                <div class="scrollbar-thumb" style="height:48px;margin-top:40px"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strong Vertical -->
+          <div class="variant">
+            <span class="variant-label">Strong (V)</span>
+            <div style="height:160px;display:flex">
+              <div class="scrollbar scrollbar-vertical scrollbar-strong" style="height:160px">
+                <div class="scrollbar-thumb scrollbar-strong-thumb" style="height:48px;margin-top:40px"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Color Picker -->
+      <div class="group">
+        <p class="group-title">Color Picker</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Default</span>
+            <div class="color-picker" style="--color-picker-hue: #00E0FF; --color-picker-color: #00E0FF;">
+
+              <!-- Saturation/Brightness canvas -->
+              <div class="color-picker-canvas">
+                <div class="color-picker-canvas-thumb" style="left: 90%; top: 5%"></div>
+              </div>
+
+              <!-- Sliders group (4px gap between alpha and hue, matching Figma) -->
+              <div style="display:flex;flex-direction:column;gap:4px;width:100%">
+                <!-- Alpha slider (checkerboard → opaque) -->
+                <div class="color-picker-alpha">
+                  <div class="color-picker-slider-thumb" style="left: calc(100% - 8px)"></div>
+                </div>
+                <!-- Hue slider (rainbow spectrum) -->
+                <div class="color-picker-hue">
+                  <div class="color-picker-slider-thumb" style="left: 50%"></div>
+                </div>
+              </div>
+
+              <!-- Values row: eyedropper | HSB dropdown | H/S/B/% split -->
+              <div class="color-picker-values">
+                <button class="color-picker-icon-btn" aria-label="Eyedropper">
+                  <div class="icon-img" data-icon="Eyedropper_Fill_20" style="width:20px;height:20px"></div>
+                </button>
+                <button class="dropdown-trigger color-picker-mode" aria-label="Color mode">
+                  <span>HSB</span>
+                  <div class="dropdown-chevron icon-img" data-icon="ChevronDownSmall_Stroke_16"></div>
+                </button>
+                <div class="input-split color-picker-inputs">
+                  <input class="input-split-segment" type="text" value="184" aria-label="H" />
+                  <span class="input-split-divider"></span>
+                  <input class="input-split-segment" type="text" value="75" aria-label="S" />
+                  <span class="input-split-divider"></span>
+                  <input class="input-split-segment" type="text" value="86" aria-label="B" />
+                  <span class="input-split-divider"></span>
+                  <div class="input-split-label">100%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Swatches -->
+      <div class="group">
+        <p class="group-title">Swatches</p>
+        <div class="variants">
+          <div class="variant">
+            <span class="variant-label">Default</span>
+            <div class="swatches">
+
+              <!-- Header: Custom Colors label + eyedropper + add buttons -->
+              <div class="swatches-header">
+                <span class="swatches-label">Custom Colors</span>
+                <div class="swatches-actions">
+                  <button class="color-picker-icon-btn" aria-label="Eyedropper">
+                    <div class="icon-img" data-icon="Eyedropper_Fill_20" style="width:20px;height:20px"></div>
+                  </button>
+                  <button class="color-picker-icon-btn" aria-label="Add color">
+                    <div class="icon-img" data-icon="Plus_Stroke_16" style="width:20px;height:20px"></div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Custom Colors grid (from Figma) -->
+              <div class="swatches-grid">
+                <div class="swatch"><div class="swatch-inner" style="background:#05DEFD"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#00B09F"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#41371B"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#5500FF"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#C0C0C0"></div></div>
+              </div>
+
+              <hr class="divider" />
+
+              <!-- Default section label -->
+              <p class="swatches-label">Default</p>
+
+              <!-- Default Colors grid (from Figma) -->
+              <div class="swatches-grid">
+                <div class="swatch"><div class="swatch-inner" style="background:#ffffff"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#888C92"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#383B3F"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#26282C"></div></div>
+                <div class="swatch selected"><div class="swatch-inner" style="background:#000000"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#DD0404"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#F8953B"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#FFCF25"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#65C33B"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#09BCE3"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#0834D2"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#7518BE"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#F41DD2"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#FFADAD"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#FFEFAD"></div></div>
+                <div class="swatch"><div class="swatch-inner" style="background:#ADFFAD"></div></div>
+              </div>
+
+              <hr class="divider" />
+
+              <!-- Opacity row -->
+              <div class="swatches-opacity">
+                <span class="swatches-label">Opacity</span>
+                <input class="slider" type="range" min="0" max="100" value="100" style="--slider-value: 100%" />
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    /* ── Custom icons not in AppIcons (gallery-only) ── */
+    AppIcons.Eyedropper_Fill_20 = () => {
+      const svgNS = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(svgNS, "svg");
+      svg.setAttributeNS(null, "width", "20");
+      svg.setAttributeNS(null, "height", "20");
+      svg.setAttributeNS(null, "viewBox", "0 0 20 20");
+      const path = document.createElementNS(svgNS, "path");
+      path.setAttributeNS(null, "fill-rule", "evenodd");
+      path.setAttributeNS(null, "clip-rule", "evenodd");
+      path.setAttributeNS(null, "fill", "currentColor");
+      path.setAttributeNS(null, "d",
+        "M12.0998 3.66668C12.4737 2.136 13.8542 1 15.5 1C15.5146 0.999999 15.5292 1.00009 " +
+        "15.5438 1.00027C15.9323 1.00503 16.3056 1.07311 16.6538 1.19465C17.1364 1.3626 " +
+        "17.5896 1.6393 17.9754 2.02503C18.892 2.94167 19.193 4.23984 18.8818 5.40523C18.7282 " +
+        "5.98079 18.4253 6.52479 17.9754 6.97477C17.6708 7.27935 17.3231 7.51652 16.9518 " +
+        "7.68564C16.7625 7.77206 16.5641 7.8421 16.3585 7.89394L16 7.99V9.99998C16 10.1989 " +
+        "15.921 10.3897 15.7803 10.5303L15.5303 10.7803C15.2374 11.0732 14.7626 11.0732 " +
+        "14.4697 10.7803L13.625 9.93564L7.21967 16.341C6.79771 16.7629 6.22541 17 5.62868 " +
+        "17H5.12132C4.92241 17 4.73164 17.079 4.59099 17.2196L3.03033 18.7803C2.73744 19.0732 " +
+        "2.26256 19.0732 1.96967 18.7803L1.21967 18.0303C0.926777 17.7374 0.926777 17.2625 " +
+        "1.21967 16.9696L2.78033 15.409C2.92098 15.2683 3 15.0776 3 14.8787V14.3713C3 13.7746 " +
+        "3.23705 13.2023 3.65901 12.7803L10.0643 6.37498L9.21967 5.53031C8.92678 5.23741 " +
+        "8.92678 4.76254 9.21967 4.46965L9.46967 4.21965C9.61032 4.07899 9.80109 3.99998 " +
+        "10 3.99998H12.0105L12.0998 3.66668ZM4.71967 13.841L11.125 7.43564L12.5643 " +
+        "8.87498L6.15901 15.2803C6.01836 15.421 5.82759 15.5 5.62868 15.5H5.12132C4.86336 " +
+        "15.5 4.60997 15.5443 4.37132 15.6287C4.4557 15.39 4.5 15.1366 4.5 14.8787V14.3713C4.5 " +
+        "14.1724 4.57902 13.9816 4.71967 13.841Z"
+      );
+      svg.appendChild(path);
+      return svg;
+    };
+
+    /* ── Icon rendering (AppIcons from icons.js) ── */
+    function renderIcon(el, iconName) {
+      el.innerHTML = '';
+      if (AppIcons[iconName]) {
+        const svg = AppIcons[iconName]();
+        svg.style.width = '100%';
+        svg.style.height = '100%';
+        el.appendChild(svg);
+      }
+    }
+
+    document.querySelectorAll('[data-icon]').forEach(el => {
+      renderIcon(el, el.dataset.icon);
+    });
+
+    /* ── Theme toggle ── */
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      html.classList.toggle('light', !isDark);
+      document.getElementById('theme-label').textContent = isDark ? 'Light mode' : 'Dark mode';
+      /* Sync theme to token iframe if loaded */
+      if (tokenFrameLoaded && tokenFrame.contentDocument) {
+        const iframeHtml = tokenFrame.contentDocument.documentElement;
+        iframeHtml.classList.toggle('dark', isDark);
+        iframeHtml.classList.toggle('light', !isDark);
+      }
+    }
+
+    /* ── Active nav via IntersectionObserver ── */
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    let inTokenView = false;
+
+    const observer = new IntersectionObserver(entries => {
+      if (inTokenView) return;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+
+    /* ── Token section navigation ── */
+    const tokenView = document.getElementById('token-view');
+    const tokenFrame = document.getElementById('token-frame');
+    const tokenFrameSrc = 'contact-sheet-tokens.html?v=' + Date.now();
+    let tokenFrameLoaded = false;
+    let pendingSection = null;
+
+    tokenFrame.addEventListener('load', () => {
+      tokenFrameLoaded = true;
+      const doc = tokenFrame.contentDocument;
+      /* Sync current theme to iframe on load */
+      const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      doc.documentElement.classList.remove('dark', 'light');
+      doc.documentElement.classList.add(currentTheme);
+      const sidebar = doc.querySelector('.sidebar');
+      const content = doc.querySelector('.content');
+      if (sidebar) sidebar.style.display = 'none';
+      if (content) content.style.marginLeft = '0';
+      if (pendingSection) {
+        const section = pendingSection;
+        pendingSection = null;
+        requestAnimationFrame(() => {
+          const el = doc.getElementById(section);
+          if (el) el.scrollIntoView({ behavior: 'instant' });
+        });
+      }
+
+      /* Sync sidebar active state with iframe scroll position */
+      const iframeSections = doc.querySelectorAll('section[id]');
+      const IframeObserver = tokenFrame.contentWindow.IntersectionObserver;
+      const iframeObserver = new IframeObserver(entries => {
+        if (!inTokenView) return;
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const href = `contact-sheet-tokens.html#${entry.target.id}`;
+            navLinks.forEach(link => {
+              link.classList.toggle('active', link.getAttribute('href') === href);
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+
+      iframeSections.forEach(section => iframeObserver.observe(section));
+    });
+
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href') || '';
+      if (href.startsWith('contact-sheet-tokens.html#')) {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const section = href.split('#')[1];
+          inTokenView = true;
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          if (!tokenFrameLoaded) {
+            pendingSection = section;
+            tokenFrame.src = tokenFrameSrc;
+          } else {
+            const doc = tokenFrame.contentDocument;
+            const el = doc.getElementById(section);
+            if (el) el.scrollIntoView({ behavior: 'instant' });
+          }
+          tokenView.style.display = 'block';
+        });
+      } else if (href.startsWith('#')) {
+        link.addEventListener('click', () => {
+          inTokenView = false;
+          tokenView.style.display = 'none';
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        });
+      }
+    });
+
+    /* ── Dropdown toggle ── */
+    function toggleDropdown(btn) {
+      const menu = btn.nextElementSibling;
+      const isOpen = !menu.hidden;
+      menu.hidden = isOpen;
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      const chevron = btn.querySelector('.dropdown-chevron');
+      if (chevron) renderIcon(chevron, isOpen ? 'ChevronDownSmall_Stroke_16' : 'ChevronUpSmall_Stroke_16');
+    }
+
+    function selectDropdownItem(item, label) {
+      const menu = item.closest('.dropdown-menu');
+      const trigger = menu.previousElementSibling;
+      trigger.querySelector('span').textContent = label;
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      const chevron = trigger.querySelector('.dropdown-chevron');
+      if (chevron) renderIcon(chevron, 'ChevronDownSmall_Stroke_16');
+    }
+
+    /* Close dropdowns when clicking outside */
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(m => {
+          if (!m.hidden) {
+            m.hidden = true;
+            const trigger = m.previousElementSibling;
+            trigger.setAttribute('aria-expanded', 'false');
+            const chevron = trigger.querySelector('.dropdown-chevron');
+            if (chevron) renderIcon(chevron, 'ChevronDownSmall_Stroke_16');
+          }
+        });
+      }
+    });
+
+    /* ── Handle initial view based on URL hash ── */
+    (function () {
+      const hash = window.location.hash.slice(1);
+      const componentIds = ['buttons','inputs','controls','rows','menus','education','others'];
+      const tokenIds = ['colors','typography','spacing','radii','shadows','misc','icons'];
+
+      if (hash && componentIds.includes(hash)) {
+        /* Deep-link to a component section — show components, not tokens */
+        inTokenView = false;
+        tokenView.style.display = 'none';
+        const link = document.querySelector(`a.nav-link[href="#${hash}"]`);
+        if (link) link.classList.add('active');
+        requestAnimationFrame(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'instant' });
+        });
+      } else if (hash && tokenIds.includes(hash)) {
+        /* Deep-link to a token section — show token iframe at that section */
+        inTokenView = true;
+        const link = document.querySelector(`a.nav-link[href="contact-sheet-tokens.html#${hash}"]`);
+        if (link) link.classList.add('active');
+        pendingSection = hash;
+        tokenFrame.src = tokenFrameSrc;
+        tokenView.style.display = 'block';
+      } else {
+        /* Default — show Colors token view */
+        const colorsLink = document.querySelector('a[href="contact-sheet-tokens.html#colors"]');
+        if (colorsLink) {
+          inTokenView = true;
+          colorsLink.classList.add('active');
+          pendingSection = 'colors';
+          tokenFrame.src = tokenFrameSrc;
+          tokenView.style.display = 'block';
+        }
+      }
+    })();
+
+    /* ── Segmented control click ── */
+    document.querySelectorAll('.segmented').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('.segmented-item');
+        if (!btn) return;
+        group.querySelectorAll('.segmented-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

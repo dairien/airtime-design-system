@@ -1,0 +1,294 @@
+/**
+ * Airtime Design System v3 - Rows
+ * Figma: https://www.figma.com/design/4ycNiPIJ2oXZVaCwaECbUa/Airtime-apps-design-system?node-id=18-9101
+ *
+ * Requires: generated/tokens.css
+ *
+ * ── Default Row ───────────────────────────────────────
+ *   .row                Base list row (28px height)
+ *   .row-icon-left      Left icon slot (16px)
+ *   .row-icon-right     Right icon slot (16px, e.g. chevron)
+ *   .row.row-destructive   Destructive text color
+ *   .row:disabled / [aria-disabled="true"]   Disabled state
+ *
+ * ── Thumbnail Row ─────────────────────────────────────
+ *   .row-thumbnail      48px row with media thumbnail (71×40px)
+ *   .row-thumbnail-image  The thumbnail image container
+ *
+ * ── Account Row ───────────────────────────────────────
+ *   .row-account        48px row with avatar + name/email
+ *   .row-account-avatar   40px avatar image
+ *   .row-account-info   Name + email column
+ *   .row-account-name   Bold 16px name
+ *   .row-account-email  Regular 11px email (content-secondary)
+ *
+ * ── HTML examples ─────────────────────────────────────
+ *
+ *   <!-- Default row (checkmark left, no right icon) -->
+ *   <div class="row" role="option">
+ *     <img class="row-icon-left" src="../icons/Checkmark_Stroke_16.svg" alt="" />
+ *     <span>Option</span>
+ *   </div>
+ *
+ *   <!-- Default row with chevron right -->
+ *   <button class="row">
+ *     <span>Settings</span>
+ *     <img class="row-icon-right" src="../icons/ChevronForwardSmall_Stroke_16.svg" alt="" />
+ *   </button>
+ *
+ *   <!-- Destructive row -->
+ *   <button class="row row-destructive">
+ *     <img class="row-icon-left" src="../icons/Trash_Fill_16.svg" alt="" />
+ *     <span>Delete</span>
+ *   </button>
+ *
+ *   <!-- Thumbnail row -->
+ *   <div class="row-thumbnail" role="option">
+ *     <div class="row-thumbnail-image">
+ *       <img src="preview.jpg" alt="Preview" />
+ *     </div>
+ *     <span>Option</span>
+ *     <img class="row-icon-right" src="../icons/Checkmark_Stroke_16.svg" alt="" />
+ *   </div>
+ *
+ *   <!-- Account row -->
+ *   <div class="row-account">
+ *     <img class="row-account-avatar" src="avatar.png" alt="Tyler Reynolds" />
+ *     <div class="row-account-info">
+ *       <span class="row-account-name">Tyler Reynolds</span>
+ *       <span class="row-account-email">tyler@all-turtles.com</span>
+ *     </div>
+ *     <img class="row-icon-right" src="../icons/ChevronForward_Stroke_16.svg" alt="" />
+ *   </div>
+ */
+
+/* ════════════════════════════════════════════════════
+   DEFAULT ROW
+   ════════════════════════════════════════════════════ */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);                              /* 4px */
+  width: 100%;
+  padding: var(--space-15);                          /* 6px all */
+  border: none;
+  border-radius: var(--radius-15);                   /* 6px */
+  background: transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);           /* 12px */
+  line-height: var(--line-height-body-medium);       /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-primary);
+
+  transition: background var(--duration-fast) var(--easing-default);
+}
+
+/* Hover */
+.row:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-highlight-primary);
+}
+
+/* Destructive variant */
+.row-destructive {
+  color: var(--color-accent-destructive);
+}
+
+/* Disabled */
+.row:disabled,
+.row[aria-disabled="true"] {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── Icon slots ─── */
+
+.row-icon-left,
+.row-icon-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-40);                             /* 16px */
+  height: var(--size-40);                            /* 16px */
+}
+
+.row-icon-left img,
+.row-icon-left svg,
+.row-icon-right img,
+.row-icon-right svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Row label (flex-grows to fill available space) */
+.row > span:not(.row-icon-left):not(.row-icon-right),
+.row-label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ════════════════════════════════════════════════════
+   THUMBNAIL ROW
+   ════════════════════════════════════════════════════ */
+
+.row-thumbnail {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);                              /* 4px */
+  width: 100%;
+  height: 48px;
+  padding: var(--space-10) var(--space-15) var(--space-10) var(--space-10); /* 4px 6px 4px 4px */
+  border: none;
+  border-radius: var(--radius-15);                   /* 6px */
+  background: transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-medium);           /* 12px */
+  line-height: var(--line-height-body-medium);       /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-primary);
+
+  transition: background var(--duration-fast) var(--easing-default);
+}
+
+.row-thumbnail:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-highlight-primary);
+}
+
+.row-thumbnail:disabled,
+.row-thumbnail[aria-disabled="true"] {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Thumbnail label */
+.row-thumbnail > span:not(.row-icon-right),
+.row-thumbnail .row-label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Thumbnail image container (71×40px) */
+.row-thumbnail-image {
+  position: relative;
+  flex-shrink: 0;
+  width: 71px;
+  height: 40px;
+  border-radius: var(--radius-10);                   /* 4px */
+  overflow: hidden;
+  background: var(--color-highlight-primary);
+}
+
+.row-thumbnail-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark overlay on thumbnail image */
+.row-thumbnail-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════
+   ACCOUNT ROW
+   ════════════════════════════════════════════════════ */
+
+.row-account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);                              /* 8px */
+  width: 100%;
+  height: 48px;
+  padding: var(--space-10);                          /* 4px all */
+  border: none;
+  border-radius: var(--radius-15);                   /* 6px */
+  background: transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  position: relative;
+
+  transition: background var(--duration-fast) var(--easing-default);
+}
+
+.row-account:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-background-tertiary);
+}
+
+.row-account:disabled,
+.row-account[aria-disabled="true"] {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* 40×40 avatar */
+.row-account-avatar {
+  display: block;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-9999);
+  object-fit: cover;
+}
+
+/* Name + email column */
+.row-account-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.row-account-name {
+  display: block;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-heading-large);         /* 16px */
+  line-height: var(--line-height-heading-large);     /* 24px */
+  font-weight: var(--font-weight-bold);              /* 700 */
+  color: var(--color-content-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-account-email {
+  display: block;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body-small);            /* 11px */
+  line-height: var(--line-height-body-small);        /* 16px */
+  font-weight: var(--font-weight-regular);
+  color: var(--color-content-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Optional right chevron on account row */
+.row-account .row-icon-right {
+  position: absolute;
+  right: var(--space-10);                            /* 4px from edge */
+}

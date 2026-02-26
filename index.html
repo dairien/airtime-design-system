@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airtime Design System</title>
+
+  <!-- Tokens -->
+  <link rel="stylesheet" href="generated/tokens.css">
+
+  <!-- Icons -->
+  <script src="generated/icons.js"></script>
+
+  <!-- Components -->
+  <link rel="stylesheet" href="components/button.css">
+  <link rel="stylesheet" href="components/input.css">
+  <link rel="stylesheet" href="components/controls.css">
+  <link rel="stylesheet" href="components/rows.css">
+  <link rel="stylesheet" href="components/menus.css">
+  <link rel="stylesheet" href="components/education.css">
+  <link rel="stylesheet" href="components/others.css">
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family-primary);
+      font-size: var(--font-size-body-medium);
+      line-height: 1.5;
+      color: var(--color-content-primary);
+      background: var(--color-background-primary);
+      display: flex;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100vh;
+      background: var(--color-background-secondary);
+      border-right: 1px solid var(--color-highlight-primary);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid var(--color-highlight-primary);
+    }
+
+    .sidebar-logo svg {
+      display: block;
+      max-width: 100px;
+      height: auto;
+      color: var(--color-content-primary);
+    }
+
+    .sidebar-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--color-highlight-primary);
+    }
+
+    .sidebar-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      padding: var(--space-15) 0;
+    }
+
+    .sidebar-stat + .sidebar-stat {
+      border-left: 1px solid var(--color-highlight-primary);
+    }
+
+    .sidebar-stat-num {
+      font-size: var(--font-size-heading-medium);
+      font-weight: var(--font-weight-bold);
+      line-height: 1;
+      color: var(--color-accent-teal);
+    }
+
+    .sidebar-stat-label {
+      font-size: 9px;
+      line-height: 1;
+      color: var(--color-content-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: var(--font-weight-medium);
+    }
+
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 8px 8px 2px;
+    }
+
+    .nav-divider {
+      border: none;
+      border-top: 1px solid var(--color-highlight-primary);
+      margin: 8px;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 8px;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 6px 8px;
+      border-radius: var(--radius-15);
+      color: var(--color-content-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-body-medium);
+      font-weight: var(--font-weight-medium);
+      transition: background var(--duration-fast) var(--easing-default),
+                  color var(--duration-fast) var(--easing-default);
+    }
+
+    .nav-link:hover {
+      background: var(--color-highlight-primary);
+      color: var(--color-content-primary);
+    }
+
+    .nav-link.active {
+      background: var(--color-content-primary);
+      color: var(--color-background-secondary);
+    }
+
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid var(--color-highlight-primary);
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid var(--color-highlight-primary);
+      border-radius: var(--radius-15);
+      background: transparent;
+      color: var(--color-content-secondary);
+      font-family: var(--font-family-primary);
+      font-size: var(--font-size-body-medium);
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--easing-default);
+    }
+
+    .theme-toggle:hover {
+      background: var(--color-highlight-primary);
+      color: var(--color-content-primary);
+    }
+
+    .theme-toggle-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      position: fixed;
+      top: 0;
+      left: 200px;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--color-background-secondary);
+      border-bottom: 1px solid var(--color-highlight-primary);
+      padding: 0 40px;
+      min-height: 49px;
+      z-index: 60;
+    }
+
+    .page-header h1 {
+      font-size: var(--font-size-heading-large);
+      font-weight: var(--font-weight-bold);
+      line-height: 1;
+    }
+
+    .header-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-05);
+      align-items: center;
+    }
+
+    .stat-chip {
+      font-size: 10px;
+      line-height: 1;
+      color: var(--color-content-tertiary);
+      background: var(--color-highlight-primary);
+      padding: 3px 6px;
+      border-radius: var(--radius-9999);
+      white-space: nowrap;
+    }
+
+    .stat-num { color: var(--color-accent-teal); font-weight: var(--font-weight-semibold); }
+
+    /* ── Main content ── */
+    .main {
+      margin-left: 200px;
+      padding: 82px 40px 60px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 64px;
+      scroll-margin-top: 70px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-content-primary);
+      margin: 0 0 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-highlight-primary);
+    }
+
+    /* ── Quick start ── */
+    .quick-start {
+      background: var(--color-background-secondary);
+      border: 1px solid var(--color-highlight-primary);
+      border-radius: var(--radius-20);
+      padding: 24px;
+      margin-bottom: 48px;
+    }
+
+    .quick-start h2 {
+      font-size: var(--font-size-heading-large);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: 16px;
+      color: var(--color-accent-teal);
+    }
+
+    .quick-start h3 {
+      font-size: var(--font-size-heading-medium);
+      font-weight: var(--font-weight-semibold);
+      margin: 16px 0 8px;
+      color: var(--color-content-secondary);
+    }
+
+    .quick-start p {
+      font-size: var(--font-size-body-medium);
+      color: var(--color-content-secondary);
+      margin-bottom: 8px;
+    }
+
+    .quick-start pre {
+      background: var(--color-background-tertiary);
+      border-radius: var(--radius-10);
+      padding: 12px 16px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+    }
+
+    .quick-start code {
+      font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+      font-size: 11px;
+      color: var(--color-content-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Details/summary (collapsible sections) ── */
+    details {
+      margin-bottom: 24px;
+      border: 1px solid var(--color-highlight-primary);
+      border-radius: var(--radius-15);
+      overflow: hidden;
+    }
+
+    summary {
+      padding: 12px 16px;
+      font-size: var(--font-size-heading-medium);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-primary);
+      cursor: pointer;
+      background: var(--color-background-secondary);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: '\25B6'; font-size: 10px; color: var(--color-content-tertiary); transition: transform var(--duration-fast) var(--easing-default); }
+    details[open] > summary::before { transform: rotate(90deg); }
+    summary:hover { background: var(--color-highlight-primary); }
+
+    .details-content {
+      padding: 16px;
+    }
+
+    /* ── Subsection label ── */
+    .subsection-label {
+      font-size: var(--font-size-body-small);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    /* ── Color swatches ── */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .cs-swatch {
+      background: var(--color-background-secondary);
+      border-radius: var(--radius-15);
+      overflow: hidden;
+    }
+
+    .cs-swatch-color {
+      height: 64px;
+      border-radius: var(--radius-15) var(--radius-15) 0 0;
+    }
+
+    .cs-swatch-label {
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.3;
+      color: var(--color-content-secondary);
+    }
+
+    .cs-swatch-label strong {
+      display: block;
+      color: var(--color-content-primary);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-body-small);
+    }
+
+    /* ── Typography specimens ── */
+    .type-samples {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .type-row {
+      background: var(--color-background-secondary);
+      border-radius: var(--radius-15);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 24px;
+    }
+
+    .type-row .sample { flex: 1; }
+    .type-row .details {
+      font-size: 11px;
+      color: var(--color-content-tertiary);
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    /* ── Spacing bars ── */
+    .bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bar-row .bar-label {
+      font-size: 11px;
+      color: var(--color-content-tertiary);
+      width: 100px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .bar-row .bar {
+      height: 12px;
+      background: var(--color-accent-teal);
+      border-radius: var(--radius-05);
+      opacity: 0.8;
+    }
+
+    .bar-row .bar-value {
+      font-size: 11px;
+      color: var(--color-content-secondary);
+      width: 40px;
+      flex-shrink: 0;
+    }
+
+    /* ── Radii boxes ── */
+    .radii-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 12px;
+    }
+
+    .radius-box {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--color-background-tertiary);
+      border: 1px solid var(--color-highlight-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--color-content-secondary);
+      text-align: center;
+      gap: 4px;
+    }
+
+    .radius-box .radius-name {
+      font-weight: var(--font-weight-medium);
+      color: var(--color-content-primary);
+      font-size: 11px;
+    }
+
+    /* ── Shadow specimens ── */
+    .shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .shadow-box {
+      background: var(--color-background-secondary);
+      border-radius: var(--radius-20);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .shadow-box .shadow-name {
+      font-size: var(--font-size-body-small);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: 4px;
+    }
+
+    .shadow-box .shadow-value {
+      font-size: 11px;
+      color: var(--color-content-tertiary);
+    }
+
+    /* ── Token tables ── */
+    .token-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-body-small);
+    }
+
+    .token-table th,
+    .token-table td {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--color-highlight-primary);
+    }
+
+    .token-table th {
+      color: var(--color-content-tertiary);
+      font-weight: var(--font-weight-semibold);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .token-table td {
+      color: var(--color-content-secondary);
+    }
+
+    .token-table td:first-child {
+      color: var(--color-content-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .token-table code {
+      font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+      font-size: 11px;
+      background: var(--color-background-tertiary);
+      padding: 2px 6px;
+      border-radius: var(--radius-05);
+    }
+
+    .table-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* ── Component gallery ── */
+    .group {
+      margin-bottom: 40px;
+    }
+
+    .group-title {
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-content-secondary);
+      margin: 0 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .variants {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .variant {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .variant-label {
+      font-size: 10px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-content-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .variant-preview {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .canvas {
+      padding: 16px;
+      border-radius: var(--radius-20);
+      border: 1px solid var(--color-highlight-primary);
+      background: var(--color-background-secondary);
+    }
+
+    .canvas-teal { background: var(--color-modeless-teal); }
+
+    /* ── Icon helpers ── */
+    .icon-img {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+    }
+
+    .icon-img svg { display: block; width: 100%; height: 100%; }
+
+    /* ── Icon browser ── */
+    .icon-search {
+      width: 100%;
+      padding: 10px 16px;
+      font-family: var(--font-family-primary);
+      font-size: var(--font-size-body-small);
+      background: var(--color-background-secondary);
+      color: var(--color-content-primary);
+      border: 1px solid var(--color-highlight-primary);
+      border-radius: var(--radius-20);
+      outline: none;
+      margin-bottom: 16px;
+    }
+
+    .icon-search:focus { border-color: var(--color-accent-teal); }
+    .icon-search::placeholder { color: var(--color-content-tertiary); }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 8px;
+    }
+
+    .icon-cell {
+      background: var(--color-background-secondary);
+      border-radius: var(--radius-10);
+      padding: 12px 8px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: background var(--duration-fast) var(--easing-default);
+      cursor: default;
+    }
+
+    .icon-cell:hover { background: var(--color-background-tertiary); }
+
+    .icon-preview {
+      width: 24px;
+      height: 24px;
+      color: var(--color-content-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-preview svg { width: 24px; height: 24px; }
+
+    .icon-name {
+      font-size: 10px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-content-primary);
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    /* ── Scroll demo ── */
+    .scroll-demo {
+      width: 200px;
+      height: 80px;
+      overflow: auto;
+      border: 1px solid var(--color-highlight-primary);
+      border-radius: var(--radius-10);
+      padding: 8px;
+    }
+
+    .scroll-content {
+      height: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: var(--font-size-body-small);
+      color: var(--color-content-secondary);
+    }
+
+    /* ── Divider demos ── */
+    .divider-h-demo { width: 200px; }
+    .divider-v-demo { height: 40px; display: flex; align-items: center; }
+
+    /* ── Badge host ── */
+    .badge-host {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-15);
+      background: var(--color-highlight-primary);
+    }
+
+    .badge-host .badge { position: absolute; top: -4px; right: -4px; }
+
+    /* ── Loader animation ── */
+    @keyframes loader-spin { to { transform: rotate(360deg); } }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--color-highlight-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: var(--font-size-body-small);
+      color: var(--color-content-tertiary);
+    }
+
+    .page-footer a {
+      color: var(--color-accent-teal);
+      text-decoration: none;
+    }
+
+    .page-footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .page-header { left: 0; }
+    }
+
+    @media (max-width: 700px) {
+      .table-grid { grid-template-columns: 1fr; }
+      .swatch-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+      .main { padding: 82px 16px 40px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 306 52" fill="currentColor" aria-label="Airtime"><path fill-rule="evenodd" clip-rule="evenodd" d="M72.0874 50.9253L90.3717 0.0566406H103.32L121.675 50.9253H108.442L105.454 41.7476H87.6681L84.7512 50.9253H72.0874ZM94.4981 20.4041L90.5851 32.7122H102.537L98.6956 20.4041C97.8419 17.7717 96.7036 13.2185 96.7036 13.2185H96.5613C96.5613 13.2185 95.3518 17.7717 94.4981 20.4041Z"/><path d="M168.942 41.3209C168.942 49.1468 173.78 51.3523 180.539 51.3523C183.67 51.3523 185.875 51.0678 186.871 50.7832V42.3169C186.703 42.3169 186.424 42.328 186.086 42.3414H186.083C185.566 42.3621 184.912 42.3881 184.31 42.3881C181.82 42.3881 180.255 41.6766 180.255 38.8308V21.756H186.871V14.4992H180.255V2.97376H168.942V14.4992H168.943V21.756H168.942V41.3209Z"/><path d="M208.2 14.4992V50.9254H219.797V30.5068C219.797 26.167 221.931 23.1077 225.559 23.1077C229.046 23.1077 230.682 25.3844 230.682 29.2973V50.9254H242.278V30.5068C242.278 26.167 244.342 23.1077 248.041 23.1077C251.527 23.1077 253.164 25.3844 253.164 29.2973V50.9254H264.76V27.2341C264.76 19.0525 260.634 13.432 252.381 13.432C247.686 13.432 243.773 15.4241 240.927 19.8351H240.784C238.935 15.9221 235.306 13.432 230.54 13.432C225.275 13.432 221.789 15.9221 219.512 19.6928H219.299V14.4992H208.2Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M268.399 32.6411C268.399 43.6686 275.798 51.9926 287.821 51.9926C292.446 51.9926 296.145 50.7831 299.205 48.6488C302.406 46.4433 304.54 43.3129 305.323 40.0402H294.011C293.015 42.3169 291.023 43.6686 287.964 43.6686C283.197 43.6686 280.493 40.6094 279.782 35.7004H305.963C306.034 28.3013 303.9 21.9694 299.56 17.9853C296.43 15.1395 292.303 13.432 287.11 13.432C276.011 13.432 268.399 21.756 268.399 32.6411ZM294.224 28.7993H279.853C280.636 24.4595 282.912 21.6848 287.323 21.6848C291.094 21.6848 293.798 24.4595 294.224 28.7993Z"/><path d="M191.04 50.9253V14.4991H202.636V50.9253H191.04Z"/><path d="M141.701 50.9251V14.4989H152.799V20.1905H153.013C155.574 15.8507 158.562 13.9298 162.973 13.9298C164.04 13.9298 164.752 14.0009 165.25 14.2143V24.1746H164.965C157.851 23.1786 153.297 26.6647 153.297 34.5618V50.9251H141.701Z"/><path d="M124.54 14.4991V50.9253H136.137V14.4991H124.54Z"/><path d="M124.559 2.92217V2.9198L136.092 2.9198V2.92217C136.092 6.10674 133.51 8.68834 130.325 8.68834C127.141 8.68834 124.559 6.10674 124.559 2.92217Z"/><path d="M191.179 2.9198V2.92217C191.179 6.10674 193.761 8.68834 196.946 8.68834C200.13 8.68834 202.712 6.10674 202.712 2.92217V2.9198L191.179 2.9198Z"/><path d="M25.4438 0.0136719C11.3916 0.0136719 0 11.4052 0 25.4575C0 39.5097 11.3916 50.9013 25.4438 50.9013V27.319C26.3815 37.2935 34.7783 45.0988 44.9981 45.0988V26.9768C45.7511 33.5035 51.2961 38.571 58.0246 38.571V12.3439C51.2961 12.3439 45.7511 17.4114 44.9981 23.9382V5.81613C34.7783 5.81613 26.3815 13.6214 25.4438 23.5959V0.0136719Z"/></svg>
+      </div>
+    </div>
+
+    <div class="sidebar-meta">
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-num">128</span>
+        <span class="sidebar-stat-label">tokens</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-num">94</span>
+        <span class="sidebar-stat-label">variants</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-num">742</span>
+        <span class="sidebar-stat-label">icons</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Sections">
+      <p class="nav-section-label">Getting Started</p>
+      <a class="nav-link active" href="#quick-start">Quick Start</a>
+      <hr class="nav-divider">
+      <p class="nav-section-label">Tokens</p>
+      <a class="nav-link" href="#colors">Colors</a>
+      <a class="nav-link" href="#typography">Typography</a>
+      <a class="nav-link" href="#spacing">Spacing & Sizing</a>
+      <a class="nav-link" href="#radii">Radii</a>
+      <a class="nav-link" href="#shadows">Shadows</a>
+      <a class="nav-link" href="#misc">Borders & More</a>
+      <hr class="nav-divider">
+      <p class="nav-section-label">Components</p>
+      <a class="nav-link" href="#buttons">Buttons</a>
+      <a class="nav-link" href="#inputs">Inputs</a>
+      <a class="nav-link" href="#controls">Controls</a>
+      <a class="nav-link" href="#rows">Rows</a>
+      <a class="nav-link" href="#menus">Menus</a>
+      <a class="nav-link" href="#education">Education</a>
+      <a class="nav-link" href="#others">Others</a>
+      <hr class="nav-divider">
+      <p class="nav-section-label">Assets</p>
+      <a class="nav-link" href="#icons">Icons</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg class="theme-toggle-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="8" r="3" fill="currentColor"/>
+          <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span id="theme-label">Light mode</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Header ── -->
+  <header class="page-header">
+    <div class="header-stats" style="display:flex;align-items:center;gap:12px">
+      <h1>Airtime Design System</h1>
+      <span class="stat-chip"><span class="stat-num">128</span> tokens</span>
+      <span class="stat-chip"><span class="stat-num">94</span> variants</span>
+      <span class="stat-chip"><span class="stat-num">742</span> icons</span>
+    </div>
+  </header>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- ════════ QUICK START ════════ -->
+    <section class="quick-start" id="quick-start">
+      <h2>Quick Start</h2>
+
+      <h3>Reference Mode (no setup)</h3>
+      <p>Paste this URL in your Claude Code prompt:</p>
+      <pre><code>Use the Airtime design system from https://github.com/dairien/airtime-design-system</code></pre>
+
+      <h3>Local Mode</h3>
+      <p>Clone the repo and reference it from your project:</p>
+      <pre><code>git clone https://github.com/dairien/airtime-design-system.git</code></pre>
+      <p>Add this to your project's <code>CLAUDE.md</code>:</p>
+      <pre><code>## Design System
+Apply the Airtime design system from `../airtime-design-system/`.
+Load `CLAUDE.md` from that repo for token values, anti-patterns, and component inventory.</code></pre>
+    </section>
+
+    <!-- ════════ COLORS ════════ -->
+    <section class="section" id="colors">
+      <details open>
+        <summary>Colors</summary>
+        <div class="details-content">
+          <p class="subsection-label">Themed Colors</p>
+          <div class="swatch-grid">
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-background-primary)"></div><div class="cs-swatch-label"><strong>background-primary</strong>--color-background-primary</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-background-secondary)"></div><div class="cs-swatch-label"><strong>background-secondary</strong>--color-background-secondary</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-background-tertiary)"></div><div class="cs-swatch-label"><strong>background-tertiary</strong>--color-background-tertiary</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-content-primary)"></div><div class="cs-swatch-label"><strong>content-primary</strong>--color-content-primary</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-content-secondary)"></div><div class="cs-swatch-label"><strong>content-secondary</strong>--color-content-secondary</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-content-tertiary)"></div><div class="cs-swatch-label"><strong>content-tertiary</strong>--color-content-tertiary</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-highlight-primary)"></div><div class="cs-swatch-label"><strong>highlight-primary</strong>--color-highlight-primary</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-highlight-secondary)"></div><div class="cs-swatch-label"><strong>highlight-secondary</strong>--color-highlight-secondary</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-accent-teal)"></div><div class="cs-swatch-label"><strong>accent-teal</strong>--color-accent-teal</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-accent-destructive)"></div><div class="cs-swatch-label"><strong>accent-destructive</strong>--color-accent-destructive</div></div>
+          </div>
+
+          <p class="subsection-label">Modeless Colors</p>
+          <div class="swatch-grid">
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-modeless-white); border: 1px solid var(--color-highlight-primary)"></div><div class="cs-swatch-label"><strong>white</strong>--color-modeless-white</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-modeless-white-24); border: 1px solid var(--color-highlight-primary)"></div><div class="cs-swatch-label"><strong>white-24</strong>--color-modeless-white-24</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-modeless-black)"></div><div class="cs-swatch-label"><strong>black</strong>--color-modeless-black</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-modeless-black-24)"></div><div class="cs-swatch-label"><strong>black-24</strong>--color-modeless-black-24</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-modeless-overlay)"></div><div class="cs-swatch-label"><strong>overlay</strong>--color-modeless-overlay</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-modeless-teal)"></div><div class="cs-swatch-label"><strong>teal</strong>--color-modeless-teal</div></div>
+            <div class="cs-swatch"><div class="cs-swatch-color" style="background: var(--color-modeless-destructive)"></div><div class="cs-swatch-label"><strong>destructive</strong>--color-modeless-destructive</div></div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ════════ TYPOGRAPHY ════════ -->
+    <section class="section" id="typography">
+      <details open>
+        <summary>Typography</summary>
+        <div class="details-content">
+          <div class="type-samples">
+            <div class="type-row"><div class="sample" style="font-size:var(--font-size-heading-large);font-weight:var(--font-weight-heading-large);line-height:var(--line-height-heading-large)">Heading Large</div><div class="details">16px / 24px / 700</div></div>
+            <div class="type-row"><div class="sample" style="font-size:var(--font-size-heading-medium);font-weight:var(--font-weight-heading-medium);line-height:var(--line-height-heading-medium)">Heading Medium</div><div class="details">14px / 20px / 600</div></div>
+            <div class="type-row"><div class="sample" style="font-size:var(--font-size-heading-small);font-weight:var(--font-weight-heading-small);line-height:var(--line-height-heading-small)">Heading Small</div><div class="details">12px / 16px / 600</div></div>
+            <div class="type-row"><div class="sample" style="font-size:var(--font-size-body-large);font-weight:var(--font-weight-body-large);line-height:var(--line-height-body-large)">Body Large -- The quick brown fox jumps over the lazy dog</div><div class="details">14px / 20px / 400</div></div>
+            <div class="type-row"><div class="sample" style="font-size:var(--font-size-body-medium);font-weight:var(--font-weight-body-medium);line-height:var(--line-height-body-medium)">Body Medium -- The quick brown fox jumps over the lazy dog</div><div class="details">12px / 16px / 400</div></div>
+            <div class="type-row"><div class="sample" style="font-size:var(--font-size-body-small);font-weight:var(--font-weight-body-small);line-height:var(--line-height-body-small)">Body Small -- The quick brown fox jumps over the lazy dog</div><div class="details">11px / 16px / 400</div></div>
+            <div class="type-row"><div class="sample" style="font-size:var(--font-size-button-default);font-weight:var(--font-weight-button-default);line-height:var(--line-height-button-default)">Button Default</div><div class="details">12px / 16px / 500</div></div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ════════ SPACING & SIZING ════════ -->
+    <section class="section" id="spacing">
+      <details>
+        <summary>Spacing & Sizing</summary>
+        <div class="details-content">
+          <p class="subsection-label">Spacing</p>
+          <div class="bar-list" style="margin-bottom:24px">
+            <div class="bar-row"><span class="bar-label">--space-0</span><div class="bar" style="width:0"></div><span class="bar-value">0</span></div>
+            <div class="bar-row"><span class="bar-label">--space-05</span><div class="bar" style="width:2px"></div><span class="bar-value">2px</span></div>
+            <div class="bar-row"><span class="bar-label">--space-10</span><div class="bar" style="width:4px"></div><span class="bar-value">4px</span></div>
+            <div class="bar-row"><span class="bar-label">--space-15</span><div class="bar" style="width:6px"></div><span class="bar-value">6px</span></div>
+            <div class="bar-row"><span class="bar-label">--space-20</span><div class="bar" style="width:8px"></div><span class="bar-value">8px</span></div>
+            <div class="bar-row"><span class="bar-label">--space-30</span><div class="bar" style="width:12px"></div><span class="bar-value">12px</span></div>
+            <div class="bar-row"><span class="bar-label">--space-40</span><div class="bar" style="width:16px"></div><span class="bar-value">16px</span></div>
+            <div class="bar-row"><span class="bar-label">--space-60</span><div class="bar" style="width:24px"></div><span class="bar-value">24px</span></div>
+            <div class="bar-row"><span class="bar-label">--space-80</span><div class="bar" style="width:32px"></div><span class="bar-value">32px</span></div>
+            <div class="bar-row"><span class="bar-label">--space-100</span><div class="bar" style="width:40px"></div><span class="bar-value">40px</span></div>
+          </div>
+
+          <p class="subsection-label">Sizing</p>
+          <div class="bar-list">
+            <div class="bar-row"><span class="bar-label">--size-0</span><div class="bar" style="width:0"></div><span class="bar-value">0</span></div>
+            <div class="bar-row"><span class="bar-label">--size-05</span><div class="bar" style="width:2px"></div><span class="bar-value">2px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-10</span><div class="bar" style="width:4px"></div><span class="bar-value">4px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-15</span><div class="bar" style="width:6px"></div><span class="bar-value">6px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-20</span><div class="bar" style="width:8px"></div><span class="bar-value">8px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-30</span><div class="bar" style="width:12px"></div><span class="bar-value">12px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-40</span><div class="bar" style="width:16px"></div><span class="bar-value">16px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-50</span><div class="bar" style="width:20px"></div><span class="bar-value">20px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-60</span><div class="bar" style="width:24px"></div><span class="bar-value">24px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-70</span><div class="bar" style="width:28px"></div><span class="bar-value">28px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-80</span><div class="bar" style="width:32px"></div><span class="bar-value">32px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-100</span><div class="bar" style="width:40px"></div><span class="bar-value">40px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-120</span><div class="bar" style="width:48px"></div><span class="bar-value">48px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-140</span><div class="bar" style="width:56px"></div><span class="bar-value">56px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-160</span><div class="bar" style="width:64px"></div><span class="bar-value">64px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-180</span><div class="bar" style="width:72px"></div><span class="bar-value">72px</span></div>
+            <div class="bar-row"><span class="bar-label">--size-200</span><div class="bar" style="width:80px"></div><span class="bar-value">80px</span></div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ════════ RADII ════════ -->
+    <section class="section" id="radii">
+      <details>
+        <summary>Radii</summary>
+        <div class="details-content">
+          <div class="radii-grid">
+            <div class="radius-box" style="border-radius:var(--radius-0)"><span class="radius-name">0</span>0</div>
+            <div class="radius-box" style="border-radius:var(--radius-05)"><span class="radius-name">05</span>2px</div>
+            <div class="radius-box" style="border-radius:var(--radius-10)"><span class="radius-name">10</span>4px</div>
+            <div class="radius-box" style="border-radius:var(--radius-15)"><span class="radius-name">15</span>6px</div>
+            <div class="radius-box" style="border-radius:var(--radius-20)"><span class="radius-name">20</span>8px</div>
+            <div class="radius-box" style="border-radius:var(--radius-25)"><span class="radius-name">25</span>10px</div>
+            <div class="radius-box" style="border-radius:var(--radius-30)"><span class="radius-name">30</span>12px</div>
+            <div class="radius-box" style="border-radius:var(--radius-35)"><span class="radius-name">35</span>14px</div>
+            <div class="radius-box" style="border-radius:var(--radius-40)"><span class="radius-name">40</span>16px</div>
+            <div class="radius-box" style="border-radius:var(--radius-45)"><span class="radius-name">45</span>18px</div>
+            <div class="radius-box" style="border-radius:var(--radius-50)"><span class="radius-name">50</span>20px</div>
+            <div class="radius-box" style="border-radius:var(--radius-60)"><span class="radius-name">60</span>24px</div>
+            <div class="radius-box" style="border-radius:var(--radius-70)"><span class="radius-name">70</span>28px</div>
+            <div class="radius-box" style="border-radius:var(--radius-80)"><span class="radius-name">80</span>32px</div>
+            <div class="radius-box" style="border-radius:var(--radius-90)"><span class="radius-name">90</span>36px</div>
+            <div class="radius-box" style="border-radius:var(--radius-100)"><span class="radius-name">100</span>40px</div>
+            <div class="radius-box" style="border-radius:var(--radius-9999)"><span class="radius-name">9999</span>pill</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ════════ SHADOWS ════════ -->
+    <section class="section" id="shadows">
+      <details>
+        <summary>Shadows</summary>
+        <div class="details-content">
+          <div class="shadow-grid">
+            <div class="shadow-box" style="box-shadow:var(--shadow-small)"><div class="shadow-name">shadow-small</div><div class="shadow-value">0 1px 3px</div></div>
+            <div class="shadow-box" style="box-shadow:var(--shadow-medium)"><div class="shadow-name">shadow-medium</div><div class="shadow-value">0 4px 12px</div></div>
+            <div class="shadow-box" style="box-shadow:var(--shadow-large)"><div class="shadow-name">shadow-large</div><div class="shadow-value">0 8px 24px</div></div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ════════ BORDERS, OPACITY, Z-INDEX, TRANSITIONS ════════ -->
+    <section class="section" id="misc">
+      <details>
+        <summary>Borders, Opacity, Z-index, Transitions</summary>
+        <div class="details-content">
+          <div class="table-grid">
+            <div>
+              <p class="subsection-label">Borders</p>
+              <table class="token-table">
+                <thead><tr><th>Token</th><th>Value</th></tr></thead>
+                <tbody>
+                  <tr><td>--border-width-none</td><td><code>0</code></td></tr>
+                  <tr><td>--border-width-thin</td><td><code>1px</code></td></tr>
+                  <tr><td>--border-width-medium</td><td><code>2px</code></td></tr>
+                  <tr><td>--border-style-solid</td><td><code>solid</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <p class="subsection-label">Opacity</p>
+              <table class="token-table">
+                <thead><tr><th>Token</th><th>Value</th></tr></thead>
+                <tbody>
+                  <tr><td>--opacity-0</td><td><code>0</code></td></tr>
+                  <tr><td>--opacity-4</td><td><code>0.04</code></td></tr>
+                  <tr><td>--opacity-8</td><td><code>0.08</code></td></tr>
+                  <tr><td>--opacity-16</td><td><code>0.16</code></td></tr>
+                  <tr><td>--opacity-24</td><td><code>0.24</code></td></tr>
+                  <tr><td>--opacity-48</td><td><code>0.48</code></td></tr>
+                  <tr><td>--opacity-50</td><td><code>0.5</code></td></tr>
+                  <tr><td>--opacity-72</td><td><code>0.72</code></td></tr>
+                  <tr><td>--opacity-100</td><td><code>1</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <p class="subsection-label">Z-index</p>
+              <table class="token-table">
+                <thead><tr><th>Token</th><th>Value</th></tr></thead>
+                <tbody>
+                  <tr><td>--z-base</td><td><code>0</code></td></tr>
+                  <tr><td>--z-dropdown</td><td><code>100</code></td></tr>
+                  <tr><td>--z-sticky</td><td><code>200</code></td></tr>
+                  <tr><td>--z-modal-backdrop</td><td><code>300</code></td></tr>
+                  <tr><td>--z-modal</td><td><code>400</code></td></tr>
+                  <tr><td>--z-tooltip</td><td><code>500</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <p class="subsection-label">Transitions</p>
+              <table class="token-table">
+                <thead><tr><th>Token</th><th>Value</th></tr></thead>
+                <tbody>
+                  <tr><td>--duration-fast</td><td><code>150ms</code></td></tr>
+                  <tr><td>--duration-normal</td><td><code>300ms</code></td></tr>
+                  <tr><td>--duration-slow</td><td><code>500ms</code></td></tr>
+                  <tr><td>--easing-default</td><td><code>ease-out</code></td></tr>
+                  <tr><td>--easing-in</td><td><code>ease-in</code></td></tr>
+                  <tr><td>--easing-in-out</td><td><code>ease-in-out</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ════════ BUTTONS ════════ -->
+    <section class="section" id="buttons">
+      <h2 class="section-title">Buttons</h2>
+      <div class="group">
+        <p class="group-title">Variants</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Primary</span><div class="variant-preview"><button class="btn btn-primary">Button</button></div></div>
+          <div class="variant"><span class="variant-label">Secondary</span><div class="variant-preview"><button class="btn btn-secondary">Button</button></div></div>
+          <div class="variant"><span class="variant-label">Destructive</span><div class="variant-preview"><button class="btn btn-destructive">Delete</button></div></div>
+          <div class="variant canvas canvas-teal"><span class="variant-label">Modeless</span><div class="variant-preview"><button class="btn btn-modeless">Button</button></div></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Outline modifier</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Primary Outline</span><div class="variant-preview"><button class="btn btn-primary btn-outline">Button</button></div></div>
+          <div class="variant"><span class="variant-label">Secondary Outline</span><div class="variant-preview"><button class="btn btn-secondary btn-outline">Button</button></div></div>
+          <div class="variant"><span class="variant-label">Destructive Outline</span><div class="variant-preview"><button class="btn btn-destructive btn-outline">Delete</button></div></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Icon only</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Primary icon</span><div class="variant-preview"><button class="btn btn-primary btn-icon-only" aria-label="Add"><div class="icon-img" data-icon="Plus_Stroke_16"></div></button></div></div>
+          <div class="variant"><span class="variant-label">Secondary icon</span><div class="variant-preview"><button class="btn btn-secondary btn-icon-only" aria-label="More"><div class="icon-img" data-icon="More_Fill_16"></div></button></div></div>
+          <div class="variant"><span class="variant-label">With label</span><div class="variant-preview"><button class="btn btn-primary"><div class="icon-img" data-icon="Plus_Stroke_16"></div> Add</button><button class="btn btn-secondary">Download <div class="icon-img" data-icon="Download_Stroke_16"></div></button></div></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">States</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Disabled</span><div class="variant-preview"><button class="btn btn-primary" disabled>Button</button><button class="btn btn-secondary" disabled>Button</button></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ INPUTS ════════ -->
+    <section class="section" id="inputs">
+      <h2 class="section-title">Inputs</h2>
+      <div class="group">
+        <p class="group-title">Direct input</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Default</span><input class="input" type="text" placeholder="Placeholder"></div>
+          <div class="variant"><span class="variant-label">Default (filled)</span><input class="input" type="text" value="Some value"></div>
+          <div class="variant"><span class="variant-label">Large</span><input class="input input-lg" type="text" placeholder="Placeholder"></div>
+          <div class="variant"><span class="variant-label">No fill</span><input class="input input-no-fill" type="text" placeholder="Inline edit"></div>
+          <div class="variant"><span class="variant-label">Error</span><input class="input input-error" type="text" value="Invalid value"></div>
+          <div class="variant"><span class="variant-label">Disabled</span><input class="input" type="text" placeholder="Disabled" disabled></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Wrapper (icon + clear)</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Search</span><div class="input-wrapper"><div class="input-icon-left icon-img" data-icon="Search_Fill_16"></div><input class="input-bare" type="text" placeholder="Search..."></div></div>
+          <div class="variant"><span class="variant-label">Left + Right icon</span><div class="input-wrapper"><div class="input-icon-left icon-img" data-icon="Search_Fill_16"></div><input class="input-bare" type="text" value="Query"><button class="input-icon-right" aria-label="Clear"><div class="icon-img" data-icon="Plus_Stroke_16" style="transform:rotate(45deg)"></div></button></div></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Split input</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">XYWH</span><div class="input-split"><input class="input-split-segment" type="text" value="100" aria-label="X"><span class="input-split-divider"></span><input class="input-split-segment" type="text" value="200" aria-label="Y"><span class="input-split-divider"></span><input class="input-split-segment" type="text" value="320" aria-label="W"><span class="input-split-divider"></span><input class="input-split-segment" type="text" value="240" aria-label="H"></div></div>
+          <div class="variant"><span class="variant-label">Opacity</span><div class="input-split" style="width:80px"><input class="input-split-segment" type="text" value="75" aria-label="Opacity"><div class="input-split-label">%</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ CONTROLS ════════ -->
+    <section class="section" id="controls">
+      <h2 class="section-title">Controls</h2>
+      <div class="group">
+        <p class="group-title">Segmented Control</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">3 segments</span><div class="segmented" role="group"><button class="segmented-item active">Label</button><button class="segmented-item">Label</button><button class="segmented-item">Label</button></div></div>
+          <div class="variant"><span class="variant-label">2 segments</span><div class="segmented" role="group"><button class="segmented-item active">On</button><button class="segmented-item">Off</button></div></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Checkbox</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Unchecked</span><label class="checkbox"><input type="checkbox"><span class="checkbox-box"></span><span class="checkbox-label">Label</span></label></div>
+          <div class="variant"><span class="variant-label">Checked</span><label class="checkbox"><input type="checkbox" checked><span class="checkbox-box"></span><span class="checkbox-label">Label</span></label></div>
+          <div class="variant"><span class="variant-label">Disabled</span><label class="checkbox"><input type="checkbox" disabled><span class="checkbox-box"></span><span class="checkbox-label">Disabled</span></label></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Radio</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Unselected</span><label class="radio"><input type="radio" name="radio-demo"><span class="radio-box"></span><span class="radio-label">Option A</span></label></div>
+          <div class="variant"><span class="variant-label">Selected</span><label class="radio"><input type="radio" name="radio-demo" checked><span class="radio-box"></span><span class="radio-label">Option B</span></label></div>
+          <div class="variant"><span class="variant-label">Disabled</span><label class="radio"><input type="radio" name="radio-demo2" disabled><span class="radio-box"></span><span class="radio-label">Disabled</span></label></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Slider</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">25%</span><input class="slider" type="range" min="0" max="100" value="25" style="--slider-value:25%;width:200px" oninput="this.style.setProperty('--slider-value',this.value+'%')"></div>
+          <div class="variant"><span class="variant-label">75%</span><input class="slider" type="range" min="0" max="100" value="75" style="--slider-value:75%;width:200px" oninput="this.style.setProperty('--slider-value',this.value+'%')"></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Progress</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">33%</span><progress class="progress" value="33" max="100" style="width:200px"></progress></div>
+          <div class="variant"><span class="variant-label">80%</span><progress class="progress" value="80" max="100" style="width:200px"></progress></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Loader</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Default (16px)</span><span class="loader" aria-label="Loading"></span></div>
+          <div class="variant"><span class="variant-label">Large (24px)</span><span class="loader loader-lg" aria-label="Loading"></span></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Dropdown</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Closed</span><div class="dropdown"><button class="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" onclick="toggleDropdown(this)"><span>Option A</span><div class="dropdown-chevron icon-img" data-icon="ChevronDownSmall_Stroke_16"></div></button><ul class="dropdown-menu" hidden><li class="dropdown-item" onclick="selectDropdownItem(this, 'Option A')">Option A</li><li class="dropdown-item" onclick="selectDropdownItem(this, 'Option B')">Option B</li><li class="dropdown-item" onclick="selectDropdownItem(this, 'Option C')">Option C</li></ul></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ ROWS ════════ -->
+    <section class="section" id="rows">
+      <h2 class="section-title">Rows</h2>
+      <div class="group">
+        <p class="group-title">Default Row</p>
+        <div style="width:260px;display:flex;flex-direction:column;gap:4px">
+          <div class="variant-label">Normal</div>
+          <div class="row" role="option"><div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div><span>Option label</span></div>
+          <div class="variant-label" style="margin-top:8px">With right chevron</div>
+          <button class="row"><span>Settings</span><div class="row-icon-right icon-img" data-icon="ChevronForwardSmall_Stroke_16"></div></button>
+          <div class="variant-label" style="margin-top:8px">Destructive</div>
+          <button class="row row-destructive"><div class="row-icon-left icon-img" data-icon="Trash_Fill_16"></div><span>Delete</span></button>
+          <div class="variant-label" style="margin-top:8px">Disabled</div>
+          <button class="row" disabled><div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div><span>Unavailable</span></button>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Thumbnail Row</p>
+        <div style="width:260px;display:flex;flex-direction:column;gap:4px">
+          <div class="row-thumbnail" role="option"><div class="row-thumbnail-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='71' height='40'%3E%3Crect width='71' height='40' fill='%23556'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='10'%3EScene A%3C/text%3E%3C/svg%3E" alt="Scene A"></div><span>Scene A</span><div class="row-icon-right icon-img" data-icon="Checkmark_Stroke_16"></div></div>
+          <div class="row-thumbnail" role="option"><div class="row-thumbnail-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='71' height='40'%3E%3Crect width='71' height='40' fill='%23446655'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-size='10'%3EScene B%3C/text%3E%3C/svg%3E" alt="Scene B"></div><span>Scene B</span></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Account Row</p>
+        <div style="width:260px;display:flex;flex-direction:column;gap:4px">
+          <div class="row-account"><img class="row-account-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23556677'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-size='14' font-family='sans-serif'%3ETR%3C/text%3E%3C/svg%3E" alt="Tyler Reynolds"><div class="row-account-info"><span class="row-account-name">Tyler Reynolds</span><span class="row-account-email">tyler@all-turtles.com</span></div><div class="row-icon-right icon-img" data-icon="ChevronForward_Stroke_16"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ MENUS ════════ -->
+    <section class="section" id="menus">
+      <h2 class="section-title">Menus</h2>
+      <div class="variants" style="align-items:flex-start">
+        <div class="variant"><span class="variant-label">Default menu</span><ul class="menu" role="menu"><li class="row" role="menuitem"><div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div><span>Option 1</span></li><li class="row" role="menuitem"><div class="row-icon-left icon-img" data-icon="Checkmark_Stroke_16"></div><span>Option 2</span></li><li class="menu-divider" role="separator"></li><li class="row row-destructive" role="menuitem"><div class="row-icon-left icon-img" data-icon="Trash_Fill_16"></div><span>Delete</span></li></ul></div>
+        <div class="variant"><span class="variant-label">Account menu</span><div class="menu menu-account" role="dialog" aria-label="Account menu"><div class="row-account"><img class="row-account-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23556677'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23fff' font-size='14' font-family='sans-serif'%3ETR%3C/text%3E%3C/svg%3E" alt="Tyler Reynolds"><div class="row-account-info"><span class="row-account-name">Tyler Reynolds</span><span class="row-account-email">tyler@all-turtles.com</span></div></div><div class="menu-divider"></div><button class="row"><span>Manage Business</span><div class="row-icon-right icon-img" data-icon="ChevronForwardSmall_Stroke_16"></div></button><button class="row"><span>Account settings</span></button><div class="menu-divider"></div><button class="row row-destructive"><span>Sign out</span></button></div></div>
+      </div>
+    </section>
+
+    <!-- ════════ EDUCATION ════════ -->
+    <section class="section" id="education">
+      <h2 class="section-title">Education</h2>
+      <div class="group">
+        <p class="group-title">Coach Mark</p>
+        <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+          <div class="variant"><span class="variant-label">center-left</span><div style="padding:0 0 0 20px"><div class="coach-mark" data-arrow="center-left"><p class="coach-mark-text">Create a new presentation</p><div class="coach-mark-footer"><button class="coach-mark-btn">Prev</button><span class="coach-mark-step">1 / 3</span><div class="coach-mark-next"><button class="coach-mark-btn">Next</button></div></div></div></div></div>
+          <div class="variant"><span class="variant-label">top-center</span><div style="padding-top:20px"><div class="coach-mark" data-arrow="top-center"><p class="coach-mark-text">Select a template</p><div class="coach-mark-footer"><span class="coach-mark-step">2 / 3</span><div class="coach-mark-next"><button class="coach-mark-btn">Next</button></div></div></div></div></div>
+          <div class="variant"><span class="variant-label">No arrow</span><div class="coach-mark"><p class="coach-mark-text">Coach mark without arrow</p><div class="coach-mark-footer"><span class="coach-mark-step">3 / 3</span><div class="coach-mark-next"><button class="coach-mark-btn">Done</button></div></div></div></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Tooltip</p>
+        <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+          <div class="variant"><span class="variant-label">No arrow</span><div class="tooltip">Helper text</div></div>
+          <div class="variant"><span class="variant-label">top-center</span><div style="padding-top:8px"><div class="tooltip" data-arrow="top-center">Helper text</div></div></div>
+          <div class="variant"><span class="variant-label">bottom-center</span><div style="padding-bottom:8px"><div class="tooltip" data-arrow="bottom-center">Helper text</div></div></div>
+          <div class="variant"><span class="variant-label">left</span><div style="padding-left:8px"><div class="tooltip" data-arrow="left">Helper text</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ OTHERS ════════ -->
+    <section class="section" id="others">
+      <h2 class="section-title">Others</h2>
+      <div class="group">
+        <p class="group-title">Badge</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Numeric</span><div class="badge-host"><div class="icon-img" data-icon="Bell_Fill_16"></div><span class="badge">3</span></div></div>
+          <div class="variant"><span class="variant-label">Double digit</span><div class="badge-host"><div class="icon-img" data-icon="Bell_Fill_16"></div><span class="badge">12</span></div></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Divider</p>
+        <div class="variants">
+          <div class="variant"><span class="variant-label">Horizontal</span><div class="divider-h-demo"><p style="margin:0 0 4px;font-size:11px;color:var(--color-content-secondary)">Above</p><div class="divider"></div><p style="margin:4px 0 0;font-size:11px;color:var(--color-content-secondary)">Below</p></div></div>
+          <div class="variant"><span class="variant-label">Vertical</span><div class="divider-v-demo"><span style="font-size:11px;color:var(--color-content-secondary)">Left</span><div class="divider-vertical"></div><span style="font-size:11px;color:var(--color-content-secondary)">Right</span></div></div>
+        </div>
+      </div>
+      <div class="group">
+        <p class="group-title">Scrollbar</p>
+        <div class="variants" style="align-items:flex-end;gap:32px">
+          <div class="variant"><span class="variant-label">Weak (H)</span><div style="width:180px"><div class="scrollbar"><div class="scrollbar-thumb" style="width:40%;margin-left:20%"></div></div></div></div>
+          <div class="variant"><span class="variant-label">Strong (H)</span><div style="width:180px"><div class="scrollbar scrollbar-strong"><div class="scrollbar-thumb scrollbar-strong-thumb" style="width:40%"></div></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ ICONS ════════ -->
+    <section class="section" id="icons">
+      <h2 class="section-title">Icons</h2>
+      <p class="subsection-label" style="margin-bottom:16px">221 unique icons &middot; 742 variants &middot; Fill + Stroke styles &middot; 16px / 24px sizes</p>
+
+      <input class="icon-search" type="text" placeholder="Search icons by name..." id="icon-search-input" oninput="filterIcons(this.value)">
+
+      <div class="icon-grid" id="icon-grid"></div>
+
+      <p style="margin-top:16px;font-size:var(--font-size-body-small);color:var(--color-content-tertiary)">
+        Showing most-used icons. Full set: 742 variants available in <code>generated/icons.js</code>
+      </p>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="page-footer">
+      <span>Airtime Design System &middot; 128+ tokens &middot; 94 components &middot; 742 icons</span>
+      <a href="https://github.com/dairien/airtime-design-system" target="_blank" rel="noopener">GitHub</a>
+    </footer>
+
+  </main>
+
+  <script>
+    /* ── Icon rendering ── */
+    function renderIcon(el, iconName) {
+      el.innerHTML = '';
+      if (typeof AppIcons !== 'undefined' && AppIcons[iconName]) {
+        var svg = AppIcons[iconName]();
+        svg.style.width = '100%';
+        svg.style.height = '100%';
+        el.appendChild(svg);
+      }
+    }
+
+    document.querySelectorAll('[data-icon]').forEach(function(el) {
+      renderIcon(el, el.dataset.icon);
+    });
+
+    /* ── Theme toggle ── */
+    (function initTheme() {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        var label = document.getElementById('theme-label');
+        if (label) label.textContent = 'Dark mode';
+      }
+    })();
+
+    function toggleTheme() {
+      var html = document.documentElement;
+      var isDark = html.classList.toggle('dark');
+      html.classList.toggle('light', !isDark);
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      document.getElementById('theme-label').textContent = isDark ? 'Light mode' : 'Dark mode';
+    }
+
+    /* ── Active nav via IntersectionObserver ── */
+    var sections = document.querySelectorAll('.section, .quick-start');
+    var navLinks = document.querySelectorAll('.nav-link');
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(link) {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sections.forEach(function(section) { observer.observe(section); });
+
+    /* ── Dropdown toggle ── */
+    function toggleDropdown(btn) {
+      var menu = btn.nextElementSibling;
+      var isOpen = !menu.hidden;
+      menu.hidden = isOpen;
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      var chevron = btn.querySelector('.dropdown-chevron');
+      if (chevron) renderIcon(chevron, isOpen ? 'ChevronDownSmall_Stroke_16' : 'ChevronUpSmall_Stroke_16');
+    }
+
+    function selectDropdownItem(item, label) {
+      var menu = item.closest('.dropdown-menu');
+      var trigger = menu.previousElementSibling;
+      trigger.querySelector('span').textContent = label;
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      var chevron = trigger.querySelector('.dropdown-chevron');
+      if (chevron) renderIcon(chevron, 'ChevronDownSmall_Stroke_16');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(function(m) {
+          if (!m.hidden) {
+            m.hidden = true;
+            var trigger = m.previousElementSibling;
+            trigger.setAttribute('aria-expanded', 'false');
+            var chevron = trigger.querySelector('.dropdown-chevron');
+            if (chevron) renderIcon(chevron, 'ChevronDownSmall_Stroke_16');
+          }
+        });
+      }
+    });
+
+    /* ── Segmented control ── */
+    document.querySelectorAll('.segmented').forEach(function(group) {
+      group.addEventListener('click', function(e) {
+        var btn = e.target.closest('.segmented-item');
+        if (!btn) return;
+        group.querySelectorAll('.segmented-item').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+      });
+    });
+
+    /* ── Icon browser ── */
+    var FEATURED_ICONS = [
+      'Checkmark', 'Plus', 'Search', 'Close', 'Settings', 'Trash',
+      'ChevronForward', 'ChevronBack', 'ChevronDown', 'ChevronUp',
+      'ChevronForwardSmall', 'ChevronBackSmall', 'ChevronDownSmall', 'ChevronUpSmall',
+      'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
+      'Download', 'Upload', 'Share', 'Copy', 'Edit', 'More',
+      'Eye', 'EyeOff', 'Lock', 'Unlock', 'Bell', 'Star',
+      'Heart', 'Play', 'Pause', 'Stop', 'Record',
+      'Mic', 'MicOff', 'Camera', 'CameraOff', 'Screen',
+      'Folder', 'File', 'Image', 'Link', 'AddLink',
+      'Undo', 'Redo', 'Refresh', 'Filter', 'Sort',
+      'Home', 'User', 'Users', 'Calendar', 'Clock'
+    ];
+
+    var allIconEntries = [];
+
+    function buildIconGrid() {
+      if (typeof AppIcons === 'undefined') return;
+
+      var grid = document.getElementById('icon-grid');
+      var allNames = Object.keys(AppIcons);
+      var shown = {};
+
+      /* Show featured icons first (find best variant for each) */
+      FEATURED_ICONS.forEach(function(base) {
+        /* Try Stroke_16, then Fill_16, then any match */
+        var candidates = [
+          base + '_Stroke_16',
+          base + '_Fill_16',
+          base + '_Stroke_24',
+          base + '_Fill_24'
+        ];
+
+        var found = null;
+        for (var i = 0; i < candidates.length; i++) {
+          if (AppIcons[candidates[i]]) { found = candidates[i]; break; }
+        }
+
+        if (!found) {
+          /* Fallback: find any key starting with the base name */
+          for (var j = 0; j < allNames.length; j++) {
+            if (allNames[j].indexOf(base) === 0) { found = allNames[j]; break; }
+          }
+        }
+
+        if (found && !shown[base]) {
+          shown[base] = true;
+          allIconEntries.push({ base: base, variant: found });
+        }
+      });
+
+      renderIconEntries(allIconEntries);
+    }
+
+    function renderIconEntries(entries) {
+      var grid = document.getElementById('icon-grid');
+      grid.innerHTML = '';
+
+      entries.forEach(function(entry) {
+        var cell = document.createElement('div');
+        cell.className = 'icon-cell';
+        cell.dataset.name = entry.base.toLowerCase();
+
+        var preview = document.createElement('div');
+        preview.className = 'icon-preview';
+        if (AppIcons[entry.variant]) {
+          var svg = AppIcons[entry.variant]();
+          svg.style.width = '24px';
+          svg.style.height = '24px';
+          preview.appendChild(svg);
+        }
+
+        var name = document.createElement('div');
+        name.className = 'icon-name';
+        name.textContent = entry.base;
+
+        cell.appendChild(preview);
+        cell.appendChild(name);
+        grid.appendChild(cell);
+      });
+    }
+
+    function filterIcons(query) {
+      var q = query.toLowerCase().trim();
+      if (!q) {
+        renderIconEntries(allIconEntries);
+        return;
+      }
+
+      /* Search all AppIcons keys */
+      if (typeof AppIcons === 'undefined') return;
+      var allNames = Object.keys(AppIcons);
+      var results = [];
+      var seen = {};
+
+      allNames.forEach(function(fullName) {
+        if (fullName.toLowerCase().indexOf(q) === -1) return;
+        /* Extract base name */
+        var base = fullName.replace(/_(?:Fill|Stroke)_\d+$/, '');
+        if (seen[base]) return;
+        seen[base] = true;
+        results.push({ base: base, variant: fullName });
+      });
+
+      renderIconEntries(results.slice(0, 60));
+    }
+
+    /* Initialize icon grid after DOM + icons.js loaded */
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', buildIconGrid);
+    } else {
+      buildIconGrid();
+    }
+  </script>
+</body>
+</html>
