@@ -1,0 +1,29 @@
+{
+  "_meta": {
+    "source": "Figma node 79:12239 (right column)",
+    "file": "4ycNiPIJ2oXZVaCwaECbUa",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system corner radius tokens. Theme-independent.",
+    "naming": "CSS custom properties use --radius-{N} pattern.",
+    "scale": "2px increments up to radius-50, then 4px increments. radius-9999 is pill/circle."
+  },
+  "radius": {
+    "radius-0": 0,
+    "radius-05": 2,
+    "radius-10": 4,
+    "radius-15": 6,
+    "radius-20": 8,
+    "radius-25": 10,
+    "radius-30": 12,
+    "radius-35": 14,
+    "radius-40": 16,
+    "radius-45": 18,
+    "radius-50": 20,
+    "radius-60": 24,
+    "radius-70": 28,
+    "radius-80": 32,
+    "radius-90": 36,
+    "radius-100": 40,
+    "radius-9999": 9999
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "source": "Derived from highlight and shadow alpha values in Figma",
+    "file": "4ycNiPIJ2oXZVaCwaECbUa",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system opacity tokens. Derived from alpha values used in highlight, shadow, and modeless color tokens.",
+    "naming": "CSS custom properties use --opacity-{name} pattern.",
+    "rationale": "Values extracted from existing color token alphas: highlight/primary dark=8%, highlight/secondary dark=16%, modeless/white-24=24%, modeless/overlay=50%. Additional levels for disabled states and full transparency."
+  },
+  "opacity": {
+    "0":   0,
+    "4":   0.04,
+    "8":   0.08,
+    "16":  0.16,
+    "24":  0.24,
+    "48":  0.48,
+    "50":  0.5,
+    "72":  0.72,
+    "100": 1
+  }
+}

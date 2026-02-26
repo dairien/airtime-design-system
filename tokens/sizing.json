@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "source": "Figma node 79:12239",
+    "file": "4ycNiPIJ2oXZVaCwaECbUa",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system sizing and spacing tokens. Theme-independent.",
+    "naming": "CSS custom properties use --size-{N} and --space-{N} patterns. N is the token scale step, not the px value.",
+    "scale": "Linear 4px base with 2px sub-steps at the small end. Size tokens use x10 naming (size-10 = 4px, size-20 = 8px). Jumps at larger values in spacing scale."
+  },
+  "size": {
+    "size-0": 0,
+    "size-05": 2,
+    "size-10": 4,
+    "size-15": 6,
+    "size-20": 8,
+    "size-30": 12,
+    "size-40": 16,
+    "size-50": 20,
+    "size-60": 24,
+    "size-70": 28,
+    "size-80": 32,
+    "size-100": 40,
+    "size-120": 48,
+    "size-140": 56,
+    "size-160": 64,
+    "size-180": 72,
+    "size-200": 80
+  },
+  "space": {
+    "space-0": 0,
+    "space-05": 2,
+    "space-10": 4,
+    "space-15": 6,
+    "space-20": 8,
+    "space-30": 12,
+    "space-40": 16,
+    "space-60": 24,
+    "space-80": 32,
+    "space-100": 40
+  }
+}

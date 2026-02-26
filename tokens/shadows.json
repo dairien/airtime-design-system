@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "source": "Figma node 73:13896",
+    "file": "4ycNiPIJ2oXZVaCwaECbUa",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system shadow and blur effect tokens. Shadow colors are themed (dark/light); geometry is shared.",
+    "naming": "CSS custom properties: --shadow-{level} for composed box-shadow values, --blur-{level} for backdrop-filter values.",
+    "verification": "Shadow colors extracted from Figma variables (verified). Geometry values (offsets, blur-radius) and blur px values need verification against Figma dev mode when file is accessible."
+  },
+  "geometry": {
+    "small":  { "offsetX": 0, "offsetY": 1, "blurRadius": 3,  "spreadRadius": 0 },
+    "medium": { "offsetX": 0, "offsetY": 4, "blurRadius": 12, "spreadRadius": 0 },
+    "large":  { "offsetX": 0, "offsetY": 8, "blurRadius": 24, "spreadRadius": 0 }
+  },
+  "dark": {
+    "shadow-small":  "#0000003D",
+    "shadow-medium": "#0000007A",
+    "shadow-large":  "#000000B8"
+  },
+  "light": {
+    "shadow-small":  "#00000014",
+    "shadow-medium": "#00000029",
+    "shadow-large":  "#0000003D"
+  },
+  "blur": {
+    "blur-small":  8,
+    "blur-medium": 16,
+    "blur-large":  32
+  }
+}

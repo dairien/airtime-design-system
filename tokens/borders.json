@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "source": "Derived from component specs (not explicit Figma tokens)",
+    "file": "4ycNiPIJ2oXZVaCwaECbUa",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system border tokens. Derived from observed component borders. Theme-independent widths; colors reference color tokens.",
+    "naming": "CSS custom properties use --border-width-{name} pattern.",
+    "rationale": "1px borders observed on inputs (focus/error states) and dividers. 2px for emphasis borders. Colors use content/tertiary for subtle borders and accent tokens for interactive states."
+  },
+  "width": {
+    "none":   0,
+    "thin":   1,
+    "medium": 2
+  },
+  "style": {
+    "solid": "solid"
+  }
+}

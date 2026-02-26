@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "source": "Defined defaults (not in Figma)",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system z-index layer tokens. Defines stacking order for overlapping UI elements.",
+    "naming": "CSS custom properties use --z-{name} pattern.",
+    "rationale": "Standard layer ordering for desktop application UI. 100-unit gaps allow inserting intermediate layers without renumbering."
+  },
+  "z": {
+    "base":          0,
+    "dropdown":      100,
+    "sticky":        200,
+    "modal-backdrop": 300,
+    "modal":         400,
+    "tooltip":       500
+  }
+}

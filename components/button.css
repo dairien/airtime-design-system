@@ -45,6 +45,12 @@
   pointer-events: none;
 }
 
+/* Focus — visible ring for keyboard navigation */
+.btn:focus-visible {
+  outline: var(--border-width-medium) solid var(--color-accent-teal);
+  outline-offset: var(--border-width-medium);
+}
+
 /* ─── Icon inside button ─── */
 .btn svg,
 .btn img {

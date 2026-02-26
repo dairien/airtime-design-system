@@ -1,0 +1,56 @@
+{
+  "_meta": {
+    "source": "Figma node 6:2445",
+    "file": "4ycNiPIJ2oXZVaCwaECbUa",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system color tokens. 20 semantic tokens across 6 categories.",
+    "naming": "CSS custom properties use --color-{category}-{role} pattern.",
+    "scope": {
+      "background": { "frame": true, "shape": false, "text": false, "stroke": false },
+      "content": { "frame": false, "shape": true, "text": true, "stroke": true, "notes": "tertiary excludes stroke" },
+      "highlight": { "frame": true, "shape": true, "text": false, "stroke": true },
+      "accent": { "frame": true, "shape": true, "text": true, "stroke": true },
+      "shadow": { "notes": "Used in box-shadow color values only" },
+      "modeless": { "notes": "Varies per token — see scope matrix in figma-inventory.md" }
+    }
+  },
+  "dark": {
+    "background-primary": "#0A0D0E",
+    "background-secondary": "#12181A",
+    "background-tertiary": "#1B2326",
+    "content-primary": "#FFFFFF",
+    "content-secondary": "#D2D5D6",
+    "content-tertiary": "#B0B1B2",
+    "highlight-primary": "#FFFFFF14",
+    "highlight-secondary": "#FFFFFF29",
+    "accent-teal": "#79DDE8",
+    "accent-destructive": "#FF6D4C",
+    "shadow-small": "#0000003D",
+    "shadow-medium": "#0000007A",
+    "shadow-large": "#000000B8"
+  },
+  "light": {
+    "background-primary": "#F5F5F5",
+    "background-secondary": "#FFFFFF",
+    "background-tertiary": "#EBEBEB",
+    "content-primary": "#000E14",
+    "content-secondary": "#383D3D",
+    "content-tertiary": "#646666",
+    "highlight-primary": "#00000014",
+    "highlight-secondary": "#0000000A",
+    "accent-teal": "#1A7580",
+    "accent-destructive": "#D6402F",
+    "shadow-small": "#00000014",
+    "shadow-medium": "#00000029",
+    "shadow-large": "#0000003D"
+  },
+  "shared": {
+    "modeless-white": "#FFFFFF",
+    "modeless-white-24": "#FFFFFF3D",
+    "modeless-black": "#000000",
+    "modeless-black-24": "#0000003D",
+    "modeless-overlay": "#00000080",
+    "modeless-teal": "#79DDE8",
+    "modeless-destructive": "#FF6D4C"
+  }
+}

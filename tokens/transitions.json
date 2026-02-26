@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "source": "Defined defaults (not in Figma)",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system transition tokens. Defines animation durations and easing curves.",
+    "naming": "CSS custom properties use --duration-{name} and --easing-{name} patterns.",
+    "rationale": "Standard interaction timing: fast for hover/focus feedback, normal for panel transitions, slow for page-level animations. Ease-out feels responsive for UI interactions."
+  },
+  "duration": {
+    "fast":   150,
+    "normal": 300,
+    "slow":   500
+  },
+  "easing": {
+    "default": "ease-out",
+    "in":      "ease-in",
+    "in-out":  "ease-in-out"
+  }
+}

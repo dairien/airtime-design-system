@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "source": "Figma node 8:2447",
+    "file": "4ycNiPIJ2oXZVaCwaECbUa",
+    "extracted": "2026-02-12",
+    "description": "Airtime design system typography tokens. Theme-independent. All styles use SF Pro (system font stack).",
+    "naming": "CSS custom properties: --font-size-{style}, --line-height-{style}, --font-weight-{style} for composites. --font-family-primary, --font-weight-{name} for primitives.",
+    "units": "Values in pt (matching Figma). Generate script converts to px for CSS output.",
+    "font-stack": "-apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+  },
+  "primitive": {
+    "family": {
+      "primary": "-apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+    },
+    "weight": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "size": {
+      "11": 11,
+      "12": 12,
+      "14": 14,
+      "16": 16
+    },
+    "lineHeight": {
+      "16": 16,
+      "20": 20,
+      "24": 24
+    }
+  },
+  "composite": {
+    "heading-large": {
+      "fontFamily": "primary",
+      "fontWeight": "bold",
+      "fontSize": 16,
+      "lineHeight": 24
+    },
+    "heading-medium": {
+      "fontFamily": "primary",
+      "fontWeight": "semibold",
+      "fontSize": 14,
+      "lineHeight": 20
+    },
+    "heading-small": {
+      "fontFamily": "primary",
+      "fontWeight": "semibold",
+      "fontSize": 12,
+      "lineHeight": 16
+    },
+    "body-large": {
+      "fontFamily": "primary",
+      "fontWeight": "regular",
+      "fontSize": 14,
+      "lineHeight": 20
+    },
+    "body-medium": {
+      "fontFamily": "primary",
+      "fontWeight": "regular",
+      "fontSize": 12,
+      "lineHeight": 16
+    },
+    "body-small": {
+      "fontFamily": "primary",
+      "fontWeight": "regular",
+      "fontSize": 11,
+      "lineHeight": 16
+    },
+    "button-default": {
+      "fontFamily": "primary",
+      "fontWeight": "medium",
+      "fontSize": 12,
+      "lineHeight": 16
+    }
+  }
+}
